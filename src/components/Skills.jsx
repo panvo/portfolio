@@ -31,36 +31,42 @@ export function Skills() {
           ))}
         </div>
 
-        {/* grouped skills — icon cards */}
-        <RevealGroup className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start" stagger={0.07}>
-          {skillGroups.map((g) => {
+        {/* grouped skills — balanced full-width rows */}
+        <div className="mt-14 border-t" style={{ borderColor: 'var(--border)' }}>
+          {skillGroups.map((g, i) => {
             const Icon = groupIcons[g.title] || Wrench
             return (
-              <RevealItem key={g.title}>
-                <div
-                  className="card p-6 transition-all duration-300 hover:-translate-y-1"
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = 'var(--shadow)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
-                >
-                  <div className="flex items-center gap-3 mb-5">
+              <Reveal key={g.title}>
+                <div className="group grid md:grid-cols-[280px_1fr] gap-4 md:gap-10 py-7 border-b" style={{ borderColor: 'var(--border)' }}>
+                  {/* left: label */}
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-xs w-5" style={{ color: 'var(--text-faint)' }}>0{i + 1}</span>
                     <span
-                      className="grid place-items-center h-10 w-10 rounded-xl shrink-0"
-                      style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}
+                      className="grid place-items-center h-11 w-11 rounded-xl shrink-0 transition-transform duration-300 group-hover:scale-105"
+                      style={{
+                        background: 'linear-gradient(135deg, var(--accent), var(--accent-2))',
+                        color: '#fff',
+                        boxShadow: '0 8px 22px -10px color-mix(in srgb, var(--accent) 65%, transparent)',
+                      }}
                     >
-                      <Icon size={18} style={{ color: 'var(--accent)' }} />
+                      <Icon size={19} />
                     </span>
-                    <h3 className="font-display font-semibold tracking-tight">{g.title}</h3>
+                    <div>
+                      <h3 className="font-display font-semibold text-lg tracking-tight leading-tight">{g.title}</h3>
+                      <span className="text-[12px]" style={{ color: 'var(--text-faint)' }}>{g.items.length} skills</span>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  {/* right: chips */}
+                  <div className="flex flex-wrap gap-2 md:content-center">
                     {g.items.map((it) => (
                       <span key={it} className="chip !text-[13px]">{it}</span>
                     ))}
                   </div>
                 </div>
-              </RevealItem>
+              </Reveal>
             )
           })}
-        </RevealGroup>
+        </div>
       </div>
     </section>
   )
