@@ -60,9 +60,6 @@ export function Contact() {
                 <a href={`mailto:${profile.email}`} className="ulink inline-flex items-center gap-2 text-lg font-display">
                   {profile.email} <ArrowUpRight size={17} style={{ color: 'var(--accent)' }} />
                 </a>
-                <div className="flex items-center gap-2 text-sm pt-3" style={{ color: 'var(--text-faint)' }}>
-                  <MapPin size={14} /> {profile.location}
-                </div>
               </div>
             </Reveal>
 

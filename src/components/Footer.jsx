@@ -26,14 +26,9 @@ export function Footer() {
             {profile.name}<span style={{ color: 'var(--accent)' }}>.</span>
           </a>
 
-          <div className="flex items-center gap-2">
-            <IconLink href={profile.linkedin} label="LinkedIn"><Linkedin size={17} /></IconLink>
-            {profile.github && <IconLink href={profile.github} label="GitHub"><Github size={17} /></IconLink>}
-            <IconLink href={`mailto:${profile.email}`} label="Email"><Mail size={17} /></IconLink>
-            <a href="#top" className="grid place-items-center h-9 w-9 rounded-full transition-colors" style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }} aria-label="Back to top">
-              <ArrowUp size={16} />
-            </a>
-          </div>
+          <a href="#top" className="grid place-items-center h-9 w-9 rounded-full transition-colors" style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }} aria-label="Back to top">
+            <ArrowUp size={16} />
+          </a>
         </div>
 
         <div className="hairline my-8" />
