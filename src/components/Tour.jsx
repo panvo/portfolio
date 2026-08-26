@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Search, Sparkles, ShieldCheck } from 'lucide-react'
 import { tour } from '../content/profile'
@@ -18,22 +19,22 @@ export function Tour() {
 
         <div className="grid lg:grid-cols-2 gap-6">
           <Reveal>
-            <BrowserFrame label="cortex · ask">
+            <BrowserFrame label="cortex · ask" shot="cortex">
               <CortexMock />
             </BrowserFrame>
           </Reveal>
           <Reveal delay={0.06}>
-            <BrowserFrame label="test-studio · scenarios">
+            <BrowserFrame label="test-studio · scenarios" shot="test-studio">
               <StudioMock />
             </BrowserFrame>
           </Reveal>
           <Reveal delay={0.1}>
-            <BrowserFrame label="test-design · decision-table">
+            <BrowserFrame label="test-design · decision-table" shot="decision-table">
               <DecisionTableMock />
             </BrowserFrame>
           </Reveal>
           <Reveal delay={0.14}>
-            <BrowserFrame label="delivery-board · flow">
+            <BrowserFrame label="delivery-board · flow" shot="delivery-board">
               <DeliveryBoardMock />
             </BrowserFrame>
           </Reveal>
@@ -50,7 +51,10 @@ export function Tour() {
   )
 }
 
-function BrowserFrame({ label, children }) {
+function BrowserFrame({ label, shot, children }) {
+  // Shows a real screenshot from /public/shots/<shot>.png when present,
+  // otherwise falls back to the representative mockup. Drop a PNG in and it just appears.
+  const [useShot, setUseShot] = useState(Boolean(shot))
   return (
     <motion.div
       className="browser"
@@ -63,7 +67,11 @@ function BrowserFrame({ label, children }) {
         <span className="browser-dot" style={{ background: '#28c840' }} />
         <span className="ml-3 font-mono text-[12.5px]" style={{ color: 'var(--text-faint)' }}>{label}</span>
       </div>
-      <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
+      {useShot ? (
+        <img src={`/shots/${shot}.png`} alt={label} className="block w-full" onError={() => setUseShot(false)} />
+      ) : (
+        <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
+      )}
     </motion.div>
   )
 }

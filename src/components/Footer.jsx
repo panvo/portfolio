@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Linkedin, Github, Mail, ArrowUp } from 'lucide-react'
 import { profile } from '../content/profile'
 import { bumpVisits } from '../lib/supabase'
+import { Reveal } from './ui/Reveal'
 
 export function Footer() {
   const [visits, setVisits] = useState(null)
@@ -19,6 +20,7 @@ export function Footer() {
   return (
     <footer className="border-t pt-10 pb-10" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
+       <Reveal>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <a href="#top" className="font-display font-semibold tracking-tight text-lg">
             {profile.name}<span style={{ color: 'var(--accent)' }}>.</span>
@@ -45,6 +47,7 @@ export function Footer() {
             </span>
           )}
         </div>
+       </Reveal>
       </div>
     </footer>
   )
