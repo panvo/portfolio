@@ -17,7 +17,7 @@ export function Experience() {
           <div className="space-y-4">
             {experience.map((job) => (
               <Reveal key={job.company}>
-                <article className="card p-7 sm:p-8">
+                <article className="card p-7 sm:p-8 transition-transform duration-300 hover:-translate-y-1">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex items-center gap-3">
                       <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>

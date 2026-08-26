@@ -36,7 +36,7 @@ export function Footer() {
 
         <div className="hairline my-8" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs" style={{ color: 'var(--text-faint)' }}>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-[13px]" style={{ color: 'var(--text-faint)' }}>
           <span>© {new Date().getFullYear()} {profile.name}. Built with React, Tailwind & Supabase.</span>
           {visits !== null && (
             <span className="font-mono inline-flex items-center gap-2">

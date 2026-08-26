@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin } from 'lucide-react'
 import { profile, heroCards } from '../content/profile'
@@ -85,64 +86,78 @@ export function Hero() {
 }
 
 function ProfileCard() {
+  const [imgOk, setImgOk] = useState(true)
   return (
-    <div className="profile-card relative h-full p-5 flex flex-col">
-      {/* decorative dashed arc + flame badge */}
-      <svg className="absolute -top-3 left-6 right-6 pointer-events-none" height="70" style={{ width: 'calc(100% - 48px)' }} viewBox="0 0 300 70" fill="none" preserveAspectRatio="none">
-        <path d="M8 62 C 60 4, 240 4, 292 40" stroke="var(--accent)" strokeWidth="2" strokeDasharray="5 6" strokeLinecap="round" />
+    <div className="profile-card relative h-full p-4 sm:p-5 flex flex-col text-center overflow-hidden">
+      {/* top decorative dashed arc */}
+      <svg className="absolute left-5 right-5 top-2 pointer-events-none" style={{ width: 'calc(100% - 40px)' }} height="54" viewBox="0 0 300 54" fill="none" preserveAspectRatio="none">
+        <path d="M6 48 C 70 6, 230 6, 294 30" stroke="var(--accent)" strokeWidth="2.5" strokeDasharray="4 7" strokeLinecap="round" opacity="0.9" />
       </svg>
-      <motion.div
-        className="absolute left-8 top-1 grid place-items-center h-8 w-8 rounded-full z-10"
-        style={{ background: 'var(--accent)', color: '#fff' }}
-        animate={{ y: [0, -4, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <Flame size={15} />
-      </motion.div>
 
-      {/* portrait — save your photo to /public/portrait.jpg and it auto-loads with an
-          orange duotone (matching the reference). The JR monogram shows until then. */}
-      <div className="duotone-wrap rounded-[20px] overflow-hidden aspect-[4/5] grid place-items-center">
-        <span className="font-display font-bold text-7xl" style={{ color: 'rgba(0,0,0,0.6)' }}>JR</span>
-        <img
-          src="/portrait.jpg"
-          alt={profile.name}
-          className="duotone-img"
-          onError={(e) => {
-            e.currentTarget.style.display = 'none'
-          }}
-        />
+      {/* portrait — save your photo to /public/portrait.jpg; it loads with the orange duotone */}
+      <div className="duotone-wrap rounded-[18px] overflow-hidden aspect-[4/5] grid place-items-center">
+        {imgOk ? (
+          <img src="/portrait.jpg" alt={profile.name} className="duotone-img" onError={() => setImgOk(false)} />
+        ) : (
+          <span className="font-display font-bold text-7xl" style={{ color: 'rgba(0,0,0,0.55)' }}>JR</span>
+        )}
       </div>
 
-      <div className="mt-5 px-1">
-        <h2 className="font-display font-bold text-2xl tracking-tight" style={{ color: 'var(--paper-ink)' }}>
-          {profile.name}
-        </h2>
-        <p className="mt-2 text-[14px] leading-relaxed" style={{ color: 'var(--paper-muted)' }}>
-          A QA engineer hardening enterprise software — and building the AI tools that keep it reliable.
-        </p>
-        <div className="mt-3 flex items-center gap-1.5 text-[13px]" style={{ color: 'var(--paper-muted)' }}>
-          <MapPin size={13} /> {profile.location}
-        </div>
+      <h2 className="mt-6 font-display font-bold text-[1.7rem] tracking-tight" style={{ color: 'var(--paper-ink)' }}>
+        {profile.name}
+      </h2>
 
-        <div className="mt-4 flex items-center gap-2">
-          <Social href={profile.linkedin}><Linkedin size={16} /></Social>
-          <Social href={`mailto:${profile.email}`}><Mail size={16} /></Social>
-          {profile.github && <Social href={profile.github}><Github size={16} /></Social>}
-        </div>
+      {/* centered flame badge on a dashed curl (à la the reference) */}
+      <div className="relative mt-3 mb-1 h-12 grid place-items-center">
+        <svg className="absolute inset-x-0 top-0 mx-auto pointer-events-none" width="140" height="46" viewBox="0 0 140 46" fill="none">
+          <path d="M70 6 C 70 30, 30 30, 14 42" stroke="var(--accent)" strokeWidth="2.5" strokeDasharray="4 7" strokeLinecap="round" opacity="0.85" />
+        </svg>
+        <motion.div
+          className="relative grid place-items-center h-9 w-9 rounded-full shadow-lg"
+          style={{ background: 'var(--accent)', color: '#fff' }}
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <Flame size={16} />
+        </motion.div>
+      </div>
+
+      <p className="mt-2 mx-auto max-w-[15rem] text-[15px] leading-relaxed" style={{ color: 'var(--paper-muted)' }}>
+        A QA engineer hardening enterprise software — and the AI tools that keep it reliable.
+      </p>
+
+      <div className="mt-3 flex items-center justify-center gap-1.5 text-[13.5px]" style={{ color: 'var(--paper-muted)' }}>
+        <MapPin size={14} /> {profile.location}
+      </div>
+
+      <div className="mt-5 mb-1 flex items-center justify-center gap-2.5">
+        <Social href={profile.linkedin} label="LinkedIn"><Linkedin size={17} /></Social>
+        <Social href={`mailto:${profile.email}`} label="Email"><Mail size={17} /></Social>
+        {profile.github && <Social href={profile.github} label="GitHub"><Github size={17} /></Social>}
       </div>
     </div>
   )
 }
 
-function Social({ href, children }) {
+function Social({ href, children, label }) {
   return (
     <a
       href={href}
       target={href.startsWith('http') ? '_blank' : undefined}
       rel="noreferrer"
-      className="grid place-items-center h-9 w-9 rounded-full transition-all duration-200 hover:-translate-y-0.5"
-      style={{ background: 'transparent', border: '1px solid var(--paper-border)', color: 'var(--accent)' }}
+      aria-label={label}
+      className="grid place-items-center h-10 w-10 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+      style={{ background: 'transparent', border: '1.5px solid rgba(232,60,18,0.35)', color: 'var(--accent)' }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = 'var(--accent)'
+        e.currentTarget.style.color = '#fff'
+        e.currentTarget.style.borderColor = 'var(--accent)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = 'transparent'
+        e.currentTarget.style.color = 'var(--accent)'
+        e.currentTarget.style.borderColor = 'rgba(232,60,18,0.35)'
+      }}
     >
       {children}
     </a>

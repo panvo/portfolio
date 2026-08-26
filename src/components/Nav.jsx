@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import { Home, FolderKanban, Briefcase, Wrench, Mail } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -13,8 +13,9 @@ const links = [
 
 export function Nav({ theme, toggle }) {
   const [active, setActive] = useState('#top')
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.3 })
 
-  // Scroll-spy: highlight the section currently in view
   useEffect(() => {
     const ids = links.map((l) => l.href.slice(1))
     const obs = new IntersectionObserver(
@@ -34,6 +35,25 @@ export function Nav({ theme, toggle }) {
 
   return (
     <>
+      {/* scroll progress */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3px] origin-left z-[60]"
+        style={{ scaleX: progress, background: 'var(--accent)' }}
+      />
+
+      {/* blurred top scrim so page content never collides with the floating pill */}
+      <div
+        className="fixed top-0 inset-x-0 h-24 z-40 pointer-events-none"
+        style={{
+          backdropFilter: 'blur(9px)',
+          WebkitBackdropFilter: 'blur(9px)',
+          background: 'linear-gradient(to bottom, color-mix(in srgb, var(--bg) 82%, transparent), transparent)',
+          maskImage: 'linear-gradient(to bottom, black 58%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 58%, transparent)',
+        }}
+      />
+
+      {/* pill nav */}
       <motion.nav
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -43,9 +63,10 @@ export function Nav({ theme, toggle }) {
         <div
           className="flex items-center gap-1 rounded-full p-1.5"
           style={{
-            background: 'color-mix(in srgb, var(--bg) 70%, transparent)',
-            border: '1px solid var(--border)',
-            backdropFilter: 'blur(16px)',
+            background: 'color-mix(in srgb, var(--bg) 90%, transparent)',
+            border: '1px solid var(--border-strong)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
             boxShadow: 'var(--shadow)',
           }}
         >

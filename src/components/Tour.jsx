@@ -51,7 +51,7 @@ function BrowserFrame({ label, children }) {
         <span className="browser-dot" style={{ background: '#ff5f57' }} />
         <span className="browser-dot" style={{ background: '#febc2e' }} />
         <span className="browser-dot" style={{ background: '#28c840' }} />
-        <span className="ml-3 font-mono text-[11px]" style={{ color: 'var(--text-faint)' }}>{label}</span>
+        <span className="ml-3 font-mono text-[12.5px]" style={{ color: 'var(--text-faint)' }}>{label}</span>
       </div>
       <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
     </motion.div>
@@ -71,18 +71,18 @@ function CortexMock() {
         <div className="flex items-center gap-2 mb-3">
           <Sparkles size={14} style={{ color: 'var(--accent)' }} />
           <span className="eyebrow">Answer</span>
-          <span className="ml-auto text-[11px] font-mono px-2 py-0.5 rounded-full" style={{ color: '#22c55e', border: '1px solid rgba(34,197,94,0.4)' }}>
+          <span className="ml-auto text-[12.5px] font-mono px-2 py-0.5 rounded-full" style={{ color: '#22c55e', border: '1px solid rgba(34,197,94,0.4)' }}>
             High · 0.94
           </span>
         </div>
-        <p className="text-[13.5px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+        <p className="text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
           Refund edge cases are covered by three scenarios. A refund that exceeds the original charge must be
           rejected; partial refunds round to two decimals; and refunds to an expired card fall back to store
           credit.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {['SPEC-142', 'TC-1042', 'KB-07'].map((c) => (
-            <span key={c} className="text-[11px] font-mono px-2 py-1 rounded-md" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}>
+            <span key={c} className="text-[12.5px] font-mono px-2 py-1 rounded-md" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}>
               {c}
             </span>
           ))}
@@ -117,17 +117,17 @@ function StudioMock() {
       {rows.map((r) => {
         const s = statusColor[r.status]
         return (
-          <div key={r.id} className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-1 py-3 text-[13px]" style={{ borderBottom: '1px solid var(--border)' }}>
+          <div key={r.id} className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-1 py-3 text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
             <span className="font-mono text-[12px]" style={{ color: 'var(--text-faint)' }}>{r.id}</span>
             <span style={{ color: 'var(--text-muted)' }}>{r.name}</span>
-            <span className="text-[11px]" style={{ color: r.pri === 'High' ? 'var(--accent)' : 'var(--text-faint)' }}>{r.pri}</span>
-            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full whitespace-nowrap" style={{ color: s.c, border: `1px solid ${s.b}` }}>
+            <span className="text-[12.5px]" style={{ color: r.pri === 'High' ? 'var(--accent)' : 'var(--text-faint)' }}>{r.pri}</span>
+            <span className="text-[12.5px] font-mono px-2 py-0.5 rounded-full whitespace-nowrap" style={{ color: s.c, border: `1px solid ${s.b}` }}>
               {r.status}
             </span>
           </div>
         )
       })}
-      <div className="mt-4 flex items-center gap-2 text-[11px] font-mono" style={{ color: 'var(--text-faint)' }}>
+      <div className="mt-4 flex items-center gap-2 text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>
         <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#22c55e' }} /> 2 passed
         <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f43f5e' }} /> 1 failed
         <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f59e0b' }} /> 1 blocked

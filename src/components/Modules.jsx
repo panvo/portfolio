@@ -49,7 +49,7 @@ export function Modules() {
                   </div>
                   <div className="eyebrow mb-2">{m.tag}</div>
                   <h4 className="font-display font-semibold text-lg tracking-tight mb-2">{m.name}</h4>
-                  <p className="text-[13.5px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                  <p className="text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                     {m.desc}
                   </p>
                 </article>
