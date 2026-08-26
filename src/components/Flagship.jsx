@@ -1,35 +1,19 @@
-import { motion } from 'framer-motion'
-import { Sparkles, ArrowUpRight } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 import { flagship } from '../content/profile'
 import { Reveal } from './ui/Reveal'
 import { Metric } from './ui/Metric'
 
 export function Flagship() {
   return (
-    <section id="work" className="py-20 scroll-mt-24">
+    <section id="flagship" className="py-16 scroll-mt-24">
       <div className="shell">
-        <Reveal>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-            <span className="eyebrow">{flagship.kicker}</span>
-          </div>
-        </Reveal>
-
-        <div
-          className="glass spotlight relative overflow-hidden rounded-[28px] p-8 sm:p-12"
-          onMouseMove={spotlight}
-        >
-          {/* corner glow */}
-          <div
-            className="absolute -top-24 -right-24 w-80 h-80 rounded-full pointer-events-none"
-            style={{ background: 'radial-gradient(circle, rgba(124,108,255,0.25), transparent 65%)', filter: 'blur(20px)' }}
-          />
-
-          <div className="relative grid lg:grid-cols-[1.3fr_1fr] gap-10 lg:gap-16 items-start">
-            <div>
+        <div className="card overflow-hidden" style={{ boxShadow: 'var(--shadow)' }}>
+          <div className="grid lg:grid-cols-[1.25fr_1fr]">
+            {/* left */}
+            <div className="p-8 sm:p-12 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>
               <Reveal>
-                <div className="inline-flex items-center gap-2 chip mb-6" style={{ color: 'var(--text)' }}>
-                  <Sparkles size={14} style={{ color: 'var(--cyan)' }} /> AI-native platform
+                <div className="inline-flex items-center gap-2 chip mb-6">
+                  <Sparkles size={14} style={{ color: 'var(--accent)' }} /> {flagship.kicker}
                 </div>
               </Reveal>
               <Reveal delay={0.05}>
@@ -38,10 +22,10 @@ export function Flagship() {
                 </h3>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-3 text-lg" style={{ color: 'var(--cyan)' }}>{flagship.tagline}</p>
+                <p className="mt-3 text-lg" style={{ color: 'var(--accent)' }}>{flagship.tagline}</p>
               </Reveal>
               <Reveal delay={0.15}>
-                <p className="mt-6 max-w-xl text-[15px] sm:text-base leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                <p className="mt-6 max-w-xl text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                   {flagship.summary}
                 </p>
               </Reveal>
@@ -53,18 +37,18 @@ export function Flagship() {
                 </div>
               </Reveal>
               <Reveal delay={0.25}>
-                <div className="mt-8 font-mono text-xs" style={{ color: 'var(--text-faint)' }}>{flagship.period}</div>
+                <div className="mt-8 eyebrow">{flagship.period}</div>
               </Reveal>
             </div>
 
-            {/* metrics panel */}
+            {/* right — metrics */}
             <Reveal delay={0.15}>
               <div
-                className="rounded-2xl p-6 sm:p-8 grid grid-cols-2 gap-x-6 gap-y-8"
-                style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--border)' }}
+                className="p-8 sm:p-12 flex flex-col justify-center gap-8 h-full"
+                style={{ background: 'var(--surface-2)' }}
               >
                 {flagship.metrics.map((m, i) => (
-                  <Metric key={m.label} {...m} accent={i === 3} />
+                  <Metric key={m.label} {...m} accent={i === flagship.metrics.length - 1} />
                 ))}
               </div>
             </Reveal>
@@ -73,10 +57,4 @@ export function Flagship() {
       </div>
     </section>
   )
-}
-
-function spotlight(e) {
-  const r = e.currentTarget.getBoundingClientRect()
-  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
-  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
 }

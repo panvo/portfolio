@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 /* ─────────────────────────────────────────────────────────────
-   Design tokens
+   Fonts
    ───────────────────────────────────────────────────────────── */
 @theme {
   --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
@@ -9,21 +9,47 @@
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   Tokens — light is the default (minimalist / editorial).
+   Dark mode flips them via [data-theme="dark"].
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --bg: #07070b;
-  --bg-soft: #0c0c14;
-  --surface: rgba(255, 255, 255, 0.028);
-  --surface-2: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --text: rgba(255, 255, 255, 0.92);
-  --text-muted: rgba(255, 255, 255, 0.56);
-  --text-faint: rgba(255, 255, 255, 0.38);
+  --bg: #f5f4ef; /* warm paper */
+  --bg-soft: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #efeee8;
+  --border: rgba(22, 22, 26, 0.1);
+  --border-strong: rgba(22, 22, 26, 0.2);
+  --text: #16161a;
+  --text-muted: #55555d;
+  --text-faint: #8c8c94;
+  --accent: #ff5533; /* warm coral — used sparingly */
+  --lime: #cdf24a; /* vibrant accent for a feature card */
+  --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
+  /* the left profile card stays light in both themes (a deliberate contrast piece) */
+  --paper: #faf9f6;
+  --paper-ink: #16161a;
+  --paper-muted: #6b6b72;
+  --paper-border: rgba(22, 22, 26, 0.1);
+}
 
-  --violet: #7c6cff;
-  --cyan: #34d0e6;
-  --magenta: #d96bf5;
-  --accent: var(--violet);
+[data-theme='dark'] {
+  --bg: #0a0a0d;
+  --bg-soft: #101014;
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --text: rgba(255, 255, 255, 0.94);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-faint: rgba(255, 255, 255, 0.42);
+  --accent: #ff6a4d;
+  --lime: #cdf24a;
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+  --paper: #f7f6f2;
+  --paper-ink: #16161a;
+  --paper-muted: #6b6b72;
+  --paper-border: rgba(22, 22, 26, 0.08);
 }
 
 * {
@@ -33,7 +59,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -45,35 +70,31 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-feature-settings: 'cv11', 'ss01';
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--violet) 40%, transparent);
+  background: var(--accent);
   color: #fff;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 11px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border-strong);
   border-radius: 999px;
-  border: 2px solid var(--bg);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  border: 3px solid var(--bg);
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Reusable classes
+   Utilities
    ───────────────────────────────────────────────────────────── */
 .font-display {
   font-family: var(--font-display);
@@ -84,9 +105,9 @@ body {
 
 .shell {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1160px;
   margin-inline: auto;
-  padding-inline: 24px;
+  padding-inline: 28px;
 }
 @media (max-width: 640px) {
   .shell {
@@ -94,59 +115,43 @@ body {
   }
 }
 
-/* Glass card */
-.glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-}
-
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(120deg, #fff 0%, #c9c4ff 40%, var(--cyan) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
+/* Tracked caps label */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--text-faint);
 }
 
-/* Buttons */
+/* Buttons — primary inverts against the theme (ink on paper / paper on ink) */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.4rem;
+  padding: 0.85rem 1.5rem;
   border-radius: 999px;
   font-weight: 500;
   font-size: 0.94rem;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s, border-color 0.25s,
-    box-shadow 0.25s;
   text-decoration: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s, color 0.3s,
+    border-color 0.3s, box-shadow 0.3s;
 }
 .btn:active {
   transform: scale(0.97);
 }
 .btn-primary {
-  background: linear-gradient(120deg, var(--violet), #6455f0);
-  color: #fff;
-  box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--violet) 70%, transparent);
+  background: var(--text);
+  color: var(--bg);
 }
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 44px -10px color-mix(in srgb, var(--violet) 75%, transparent);
+  box-shadow: var(--shadow);
 }
 .btn-ghost {
-  background: var(--surface);
+  background: transparent;
   border-color: var(--border-strong);
   color: var(--text);
 }
@@ -159,54 +164,53 @@ body {
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.4rem 0.85rem;
+  padding: 0.42rem 0.9rem;
   border-radius: 999px;
   font-size: 0.82rem;
   color: var(--text-muted);
   background: var(--surface);
   border: 1px solid var(--border);
-  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  transition: color 0.25s, border-color 0.25s, transform 0.25s, background 0.25s;
 }
 .chip:hover {
   color: var(--text);
   border-color: var(--border-strong);
-  background: var(--surface-2);
   transform: translateY(-2px);
+}
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
 }
 
 /* Hairline that fades at the edges */
 .hairline {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--border-strong) 20%,
-    var(--border-strong) 80%,
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--border-strong) 15%, var(--border-strong) 85%, transparent);
 }
 
-/* Card hover glow, driven by --mx/--my set in JS */
-.spotlight {
+/* Animated link underline */
+.ulink {
   position: relative;
-  overflow: hidden;
+  color: var(--text);
+  text-decoration: none;
 }
-.spotlight::before {
+.ulink::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.35s;
-  background: radial-gradient(
-    340px circle at var(--mx, 50%) var(--my, 50%),
-    color-mix(in srgb, var(--violet) 20%, transparent),
-    transparent 60%
-  );
-  pointer-events: none;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.spotlight:hover::before {
-  opacity: 1;
+.ulink:hover::after {
+  transform: scaleX(1);
 }
 
 /* Marquee */
@@ -221,7 +225,7 @@ body {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 32s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
@@ -232,22 +236,44 @@ body {
   }
 }
 
-/* Aurora blobs */
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(4%, -3%) scale(1.08);
-  }
+/* Ghosted display line (the dimmed second title line, à la the reference) */
+.ghost {
+  color: color-mix(in srgb, var(--text) 15%, transparent);
 }
 
-.grain {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* The light profile card (stays light in both themes) */
+.profile-card {
+  background: var(--paper);
+  color: var(--paper-ink);
+  border: 1px solid var(--paper-border);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+}
+
+/* Vibrant feature cards */
+.feature-card {
+  border-radius: 22px;
+  color: var(--paper-ink);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Index row (projects list) hover accent number */
+.idx-row {
+  transition: color 0.35s;
+}
+.idx-row .idx-arrow {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.idx-row:hover .idx-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.idx-row .idx-name {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s;
+}
+.idx-row:hover .idx-name {
+  transform: translateX(14px);
 }

@@ -17,18 +17,12 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t pt-12 pb-10" style={{ borderColor: 'var(--border)' }}>
+    <footer className="border-t pt-10 pb-10" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <span className="grid place-items-center h-9 w-9 rounded-xl font-display font-bold text-sm" style={{ background: 'linear-gradient(120deg, var(--violet), var(--cyan))', color: '#08080d' }}>
-              JR
-            </span>
-            <div>
-              <div className="font-display font-semibold text-sm">{profile.name}</div>
-              <div className="text-xs" style={{ color: 'var(--text-faint)' }}>{profile.role}</div>
-            </div>
-          </div>
+          <a href="#top" className="font-display font-semibold tracking-tight text-lg">
+            {profile.name}<span style={{ color: 'var(--accent)' }}>.</span>
+          </a>
 
           <div className="flex items-center gap-2">
             <IconLink href={profile.linkedin} label="LinkedIn"><Linkedin size={17} /></IconLink>
@@ -46,7 +40,7 @@ export function Footer() {
           <span>© {new Date().getFullYear()} {profile.name}. Built with React, Tailwind & Supabase.</span>
           {visits !== null && (
             <span className="font-mono inline-flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#3ddc84' }} />
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#22c55e' }} />
               {visits.toLocaleString()} visits
             </span>
           )}

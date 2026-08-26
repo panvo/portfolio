@@ -5,15 +5,13 @@ export function Metric({ value, suffix = '', label, compact = false, accent = fa
   return (
     <div ref={ref}>
       <div
-        className="font-display font-semibold tracking-tight tabular-nums text-3xl sm:text-4xl md:text-[2.75rem] leading-none"
-        style={accent ? { color: 'var(--cyan)' } : undefined}
+        className="font-display font-semibold tracking-tight tabular-nums text-3xl sm:text-4xl md:text-[2.6rem] leading-none"
+        style={accent ? { color: 'var(--accent)' } : undefined}
       >
         {display}
         <span style={{ color: 'var(--accent)' }}>{suffix}</span>
       </div>
-      <div className="mt-2 text-[13px] uppercase tracking-wider" style={{ color: 'var(--text-faint)' }}>
-        {label}
-      </div>
+      <div className="mt-2 eyebrow">{label}</div>
     </div>
   )
 }

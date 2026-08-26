@@ -27,21 +27,25 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/panvo/',
   github: '', // add your GitHub URL to show the button, e.g. 'https://github.com/panvo'
 
-  // Headline stats shown in the hero + about strip
+  // Hero stats — career-level (platform-specific numbers live in the flagship panel, no overlap)
   stats: [
-    { value: 9, suffix: '+', label: 'Years in QA' },
-    { value: 4600, suffix: '+', label: 'Automated tests', compact: true },
-    { value: 51, suffix: '', label: 'Quality gates' },
-    { value: 10, suffix: '+', label: 'Platform modules' },
+    { value: 9, label: 'Years in QA' },
+    { value: 4600, label: 'Tests written', compact: true },
+    { value: 8, label: 'Modules built' },
   ],
 }
+
+// Two vibrant feature cards in the hero (à la the reference)
+export const heroCards = [
+  { label: 'Functional · Regression · Database Testing', icon: 'Layers', color: 'accent' },
+  { label: 'SQL Server · Oracle · React · Supabase', icon: 'Boxes', color: 'lime' },
+]
 
 export const about = {
   title: 'About',
   kicker: 'Who I am',
   paragraphs: [
-    'I’m a Software Tester with over nine years of experience in manual, functional, regression, and database testing for complex enterprise web applications.',
-    'My work lives at the intersection of requirements analysis, test-case design, and SQL-based backend validation across Microsoft SQL Server and Oracle. I partner closely with developers and stakeholders to reproduce issues, validate business rules, and protect software reliability, data integrity, and the user experience.',
+    'My work lives at the intersection of requirements analysis, test-case design, and SQL-based backend validation across Microsoft SQL Server and Oracle. I partner closely with developers and stakeholders to reproduce issues, validate business rules, and protect software reliability and data integrity.',
     'Consistently recognized as a top-performing QA professional, I’m now channeling that experience into TestOps Hub — an internal platform that reimagines test design, requirements analysis, knowledge management, and AI-assisted testing.',
   ],
 }
@@ -55,7 +59,6 @@ export const flagship = {
   summary:
     'A single platform that consolidates test analysis, test design, documentation, knowledge management, and AI-assisted testing — built to kill the recurring pain of enterprise QA: fragmented docs, repetitive manual work, incomplete coverage, and broken traceability.',
   metrics: [
-    { value: 4600, suffix: '+', label: 'Automated tests', compact: true },
     { value: 51, suffix: '', label: 'Quality gates' },
     { value: 105, suffix: '', label: 'Security policies (RLS)' },
     { value: 100, suffix: '%', label: 'Cortex retrieval accuracy' },
@@ -112,17 +115,6 @@ export const modules = [
     icon: 'ScanText',
     tag: 'Analysis',
     desc: 'Extracts testable requirements from documents, surfaces gaps and risks, and traces every requirement to coverage.',
-  },
-]
-
-// Secondary projects for the grid
-export const projects = [
-  {
-    name: 'Faculty Evaluation & Student Grading System',
-    tag: 'Academic Project',
-    period: 'Tarlac State University',
-    desc: 'An information system for faculty evaluation and student grading — QA’d end to end: usability, functional, regression, system and database testing.',
-    skills: ['System Testing', 'Usability Testing', 'Requirements Analysis', 'Database Testing'],
   },
 ]
 
@@ -212,4 +204,33 @@ export const marquee = [
   'Supabase',
   'AI-Assisted Testing',
   'Traceability',
+]
+
+// ── Minimalist layout data ────────────────────────────────────
+
+// Big editorial "what I do" lines (shown large in the Skills section)
+export const skillHighlights = [
+  'Functional & Regression Testing',
+  'Database Validation',
+  'Requirements Analysis',
+  'AI-Assisted QA Tooling',
+]
+
+// Projects presented as a clean index list (à la the reference)
+export const workProjects = [
+  {
+    index: '01',
+    name: 'TestOps Hub',
+    category: 'AI-native QA Platform',
+    year: '2026',
+    href: '#flagship',
+    flagship: true,
+  },
+  {
+    index: '02',
+    name: 'Faculty Evaluation & Grading System',
+    category: 'Academic Information System',
+    year: '2017',
+    href: '#',
+  },
 ]
