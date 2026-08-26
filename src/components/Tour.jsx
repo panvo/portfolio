@@ -85,12 +85,12 @@ function BrowserFrame({ label, shot, onZoom, children }) {
         )}
       </div>
       {useShot ? (
-        <div className="p-4 sm:p-6" style={{ background: 'var(--bg)' }}>
+        <div className="p-4 sm:p-5" style={{ background: 'var(--bg)' }}>
           <img
             src={src}
             alt={label}
             className="block w-full rounded-lg cursor-zoom-in"
-            style={{ border: '1px solid var(--border)' }}
+            style={{ height: 360, objectFit: 'cover', objectPosition: 'top', border: '1px solid var(--border)' }}
             title="Double-click to enlarge"
             onDoubleClick={() => onZoom?.(src)}
             onError={() => setUseShot(false)}
