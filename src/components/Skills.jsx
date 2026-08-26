@@ -1,8 +1,16 @@
 import { useState } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, FlaskConical, PenTool, Database, Sparkles, Workflow, Wrench } from 'lucide-react'
 import { skillHighlights, skillGroups } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal, RevealGroup, RevealItem } from './ui/Reveal'
+
+const groupIcons = {
+  Testing: FlaskConical,
+  'Design & Analysis': PenTool,
+  Databases: Database,
+  'Build & AI': Sparkles,
+  'Process & Tools': Workflow,
+}
 
 export function Skills() {
   return (
@@ -23,20 +31,35 @@ export function Skills() {
           ))}
         </div>
 
-        {/* grouped skills — balanced, full-width grid */}
-        <RevealGroup className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-11" stagger={0.07}>
-          {skillGroups.map((g) => (
-            <RevealItem key={g.title}>
-              <div className="pt-4 border-t" style={{ borderColor: 'var(--border-strong)' }}>
-                <div className="eyebrow mb-4">{g.title}</div>
-                <ul className="space-y-2.5">
-                  {g.items.map((it) => (
-                    <li key={it} className="text-[15px]" style={{ color: 'var(--text-muted)' }}>{it}</li>
-                  ))}
-                </ul>
-              </div>
-            </RevealItem>
-          ))}
+        {/* grouped skills — icon cards */}
+        <RevealGroup className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start" stagger={0.07}>
+          {skillGroups.map((g) => {
+            const Icon = groupIcons[g.title] || Wrench
+            return (
+              <RevealItem key={g.title}>
+                <div
+                  className="card p-6 transition-all duration-300 hover:-translate-y-1"
+                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = 'var(--shadow)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <span
+                      className="grid place-items-center h-10 w-10 rounded-xl shrink-0"
+                      style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}
+                    >
+                      <Icon size={18} style={{ color: 'var(--accent)' }} />
+                    </span>
+                    <h3 className="font-display font-semibold tracking-tight">{g.title}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {g.items.map((it) => (
+                      <span key={it} className="chip !text-[13px]">{it}</span>
+                    ))}
+                  </div>
+                </div>
+              </RevealItem>
+            )
+          })}
         </RevealGroup>
       </div>
     </section>

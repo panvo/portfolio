@@ -12,10 +12,11 @@ import { Reveal } from './ui/Reveal'
  * <shot>.png into public/shots and that panel switches to the real screenshot.
  */
 const PANELS = [
-  { label: 'cortex · ask', shot: 'cortex', Mock: CortexMock },
+  { label: 'test-copilot · chat', shot: 'copilot', Mock: CortexMock },
   { label: 'test-copilot · test-case-generator', shot: 'test-cases', Mock: StudioMock },
   { label: 'test-design · decision-table', shot: 'decision-table', Mock: DecisionTableMock },
   { label: 'test-design · state-modeler', shot: 'state-modeler', Mock: StateMock },
+  { label: 'cortex · ask', shot: 'cortex', Mock: CortexMock },
 ]
 
 export function Tour() {
@@ -83,14 +84,17 @@ function BrowserFrame({ label, shot, onZoom, children }) {
         )}
       </div>
       {useShot ? (
-        <img
-          src={src}
-          alt={label}
-          className="block w-full cursor-zoom-in"
-          title="Double-click to enlarge"
-          onDoubleClick={() => onZoom?.(src)}
-          onError={() => setUseShot(false)}
-        />
+        <div className="p-4 sm:p-6" style={{ background: 'var(--bg)' }}>
+          <img
+            src={src}
+            alt={label}
+            className="block w-full rounded-lg cursor-zoom-in"
+            style={{ border: '1px solid var(--border)' }}
+            title="Double-click to enlarge"
+            onDoubleClick={() => onZoom?.(src)}
+            onError={() => setUseShot(false)}
+          />
+        </div>
       ) : (
         <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
       )}
