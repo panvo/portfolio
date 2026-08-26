@@ -1,60 +1,66 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Search, Sparkles, ShieldCheck } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Search, Sparkles, ShieldCheck, Maximize2, X } from 'lucide-react'
 import { tour } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
 /**
- * A SAFE demo of TestOps Hub: representative UI built with sample data only.
- * No live records, no auth, no backend — nothing real is exposed.
- * To use real captures instead, drop images in /public/shots and swap a panel
- * for <img src="/shots/cortex.png" className="w-full" />.
+ * A SAFE demo of TestOps Hub. The decision-table and state-modeler panels are REAL
+ * dark screenshots (public/shots/*.png); the rest are representative mockups with
+ * sample data only — no live records, auth, or backend exposed. Drop a PNG named
+ * <shot>.png into public/shots and that panel switches to the real screenshot.
  */
+const PANELS = [
+  { label: 'cortex · ask', shot: 'cortex', Mock: CortexMock },
+  { label: 'test-copilot · test-case-generator', shot: 'test-cases', Mock: StudioMock },
+  { label: 'test-design · decision-table', shot: 'decision-table', Mock: DecisionTableMock },
+  { label: 'test-design · state-modeler', shot: 'state-modeler', Mock: StateMock },
+]
+
 export function Tour() {
+  const [zoom, setZoom] = useState(null)
+
+  useEffect(() => {
+    if (!zoom) return
+    const onKey = (e) => e.key === 'Escape' && setZoom(null)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [zoom])
+
   return (
     <section id="tour" className="py-24 sm:py-28 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <Reveal>
-            <BrowserFrame label="cortex · ask" shot="cortex">
-              <CortexMock />
-            </BrowserFrame>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <BrowserFrame label="test-studio · scenarios" shot="test-studio">
-              <StudioMock />
-            </BrowserFrame>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <BrowserFrame label="test-design · decision-table" shot="decision-table">
-              <DecisionTableMock />
-            </BrowserFrame>
-          </Reveal>
-          <Reveal delay={0.14}>
-            <BrowserFrame label="test-design · state-modeler" shot="state-modeler">
-              <StateMock />
-            </BrowserFrame>
-          </Reveal>
+        {/* one panel at a time, full width */}
+        <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+          {PANELS.map((p, i) => (
+            <Reveal key={p.shot} delay={i * 0.04}>
+              <BrowserFrame label={p.label} shot={p.shot} onZoom={setZoom}>
+                <p.Mock />
+              </BrowserFrame>
+            </Reveal>
+          ))}
         </div>
 
         <Reveal delay={0.1}>
-          <p className="mt-6 inline-flex items-center gap-2 text-xs font-mono" style={{ color: 'var(--text-faint)' }}>
+          <p className="mt-8 flex items-center justify-center gap-2 text-xs font-mono text-center" style={{ color: 'var(--text-faint)' }}>
             <ShieldCheck size={14} style={{ color: 'var(--accent)' }} />
-            Representative UI · sample data only · no live records or logins exposed
+            Real captures + representative mockups · sample data only · no live records or logins exposed
           </p>
         </Reveal>
       </div>
+
+      <Lightbox src={zoom} onClose={() => setZoom(null)} />
     </section>
   )
 }
 
-function BrowserFrame({ label, shot, children }) {
-  // Shows a real screenshot from /public/shots/<shot>.png when present,
-  // otherwise falls back to the representative mockup. Drop a PNG in and it just appears.
+function BrowserFrame({ label, shot, onZoom, children }) {
+  // Real screenshot from /public/shots/<shot>.png when present, else the mockup.
   const [useShot, setUseShot] = useState(Boolean(shot))
+  const src = `/shots/${shot}.png`
   return (
     <motion.div
       className="browser"
@@ -66,13 +72,66 @@ function BrowserFrame({ label, shot, children }) {
         <span className="browser-dot" style={{ background: '#febc2e' }} />
         <span className="browser-dot" style={{ background: '#28c840' }} />
         <span className="ml-3 font-mono text-[12.5px]" style={{ color: 'var(--text-faint)' }}>{label}</span>
+        {useShot && (
+          <button
+            onClick={() => onZoom?.(src)}
+            className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-mono rounded-md px-2 py-1 transition-colors"
+            style={{ color: 'var(--text-faint)', border: '1px solid var(--border)' }}
+          >
+            <Maximize2 size={12} /> Enlarge
+          </button>
+        )}
       </div>
       {useShot ? (
-        <img src={`/shots/${shot}.png`} alt={label} className="block w-full" onError={() => setUseShot(false)} />
+        <img
+          src={src}
+          alt={label}
+          className="block w-full cursor-zoom-in"
+          title="Double-click to enlarge"
+          onDoubleClick={() => onZoom?.(src)}
+          onError={() => setUseShot(false)}
+        />
       ) : (
         <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
       )}
     </motion.div>
+  )
+}
+
+function Lightbox({ src, onClose }) {
+  return (
+    <AnimatePresence>
+      {src && (
+        <motion.div
+          className="fixed inset-0 z-[100] grid place-items-center p-4 sm:p-10"
+          style={{ background: 'rgba(6,7,12,0.88)', backdropFilter: 'blur(8px)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute top-5 right-5 grid place-items-center h-10 w-10 rounded-full"
+            style={{ border: '1px solid var(--border-strong)', color: '#fff', background: 'rgba(255,255,255,0.06)' }}
+          >
+            <X size={18} />
+          </button>
+          <motion.img
+            src={src}
+            alt="Enlarged screenshot"
+            className="max-w-full max-h-full rounded-xl"
+            style={{ boxShadow: '0 30px 90px -20px rgba(0,0,0,0.85)' }}
+            initial={{ scale: 0.94, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.96, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
