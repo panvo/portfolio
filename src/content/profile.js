@@ -118,25 +118,46 @@ export const modules = [
   },
 ]
 
-// ── Experience ────────────────────────────────────────────────
-export const experience = [
+// ── Experience — a vertical timeline ──────────────────────────
+export const experienceHeading = {
+  kicker: 'Experience',
+  title: '9+ years in the loop',
+}
+
+// Real history only. Add earlier roles here if you held them (title/org/period/summary).
+export const timeline = [
   {
+    kind: 'work',
     role: 'Software Tester',
-    company: 'Austin Alba Consulting, Inc.',
-    type: 'Full-time',
-    period: 'Jul 2017 — Present',
-    duration: '9 yrs 2 mos',
-    location: 'Makati City, Philippines',
-    bullets: [
-      'Analyze requirements and specifications to identify test scenarios, risks, dependencies, and required coverage.',
-      'Design, maintain, and execute functional, regression, exploratory, smoke, sanity, GUI, and database test cases for complex enterprise web applications.',
-      'Validate backend data and database transactions using Microsoft SQL Server and Oracle.',
-      'Collaborate with developers and stakeholders to reproduce, investigate, document, and verify client-reported defects.',
-      'Consistently recognized as a top-performing QA professional; currently building TestOps Hub, an internal AI-assisted QA platform.',
-    ],
+    org: 'Austin Alba Consulting, Inc.',
+    meta: 'Full-time',
+    period: '2017 — Present',
+    summary:
+      'Lead requirements analysis and design, maintain, and run functional, regression, GUI and database test cases for complex enterprise web apps; validate backend data across Microsoft SQL Server and Oracle, and drive defects to closure with developers in an Agile/Scrum cadence.',
+    now: true,
+  },
+  {
+    kind: 'build',
+    role: 'Creator — TestOps Hub',
+    org: 'Self-directed · AI-native QA platform',
+    meta: 'Side project',
+    period: '2026 — Present',
+    summary:
+      'Designing and building an internal QA platform — Cortex knowledge retrieval, governed Test Studio, AI copilot, and design tools — with React, Supabase and Claude to fix fragmented docs, thin coverage, and broken traceability.',
+    now: true,
+  },
+  {
+    kind: 'edu',
+    role: 'BS in Information Technology',
+    org: 'Tarlac State University',
+    meta: 'Cum Laude',
+    period: '2013 — 2017',
+    summary:
+      'Graduated Cum Laude with an Academic Excellence Award (2015–2017) and Dean’s Lister standing — the foundation that launched a QA career.',
   },
 ]
 
+// kept for reference / other surfaces
 export const education = {
   school: 'Tarlac State University',
   degree: 'BS in Information Technology',

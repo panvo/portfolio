@@ -1,76 +1,65 @@
-import { Briefcase, GraduationCap, Check, MapPin } from 'lucide-react'
-import { experience, education } from '../content/profile'
-import { SectionHeading } from './ui/SectionHeading'
+import { experienceHeading, timeline } from '../content/profile'
 import { Reveal } from './ui/Reveal'
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 sm:py-28 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="experience" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
-        <SectionHeading
-          kicker="Career"
-          title="Experience & education"
-          sub="Nearly a decade validating enterprise software — and the degree that started it."
-        />
-
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8">
-          <div className="space-y-4">
-            {experience.map((job) => (
-              <Reveal key={job.company}>
-                <article className="card p-7 sm:p-8 transition-transform duration-300 hover:-translate-y-1">
-                  <div className="flex items-start justify-between gap-4 flex-wrap">
-                    <div className="flex items-center gap-3">
-                      <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
-                        <Briefcase size={18} style={{ color: 'var(--accent)' }} />
-                      </span>
-                      <div>
-                        <h3 className="font-display font-semibold text-lg tracking-tight">{job.role}</h3>
-                        <div className="text-sm" style={{ color: 'var(--text-muted)' }}>{job.company}</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-mono text-xs" style={{ color: 'var(--text-muted)' }}>{job.period}</div>
-                      <div className="font-mono text-xs" style={{ color: 'var(--text-faint)' }}>{job.duration} · {job.type}</div>
-                    </div>
-                  </div>
-
-                  <div className="mt-2 flex items-center gap-1.5 text-xs" style={{ color: 'var(--text-faint)' }}>
-                    <MapPin size={12} /> {job.location}
-                  </div>
-
-                  <ul className="mt-5 space-y-2.5">
-                    {job.bullets.map((b, i) => (
-                      <li key={i} className="flex gap-3 text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                        <Check size={16} className="mt-0.5 shrink-0" style={{ color: 'var(--accent)' }} />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              </Reveal>
-            ))}
+        {/* heading */}
+        <Reveal>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
+            <span className="eyebrow" style={{ color: 'var(--accent)' }}>{experienceHeading.kicker}</span>
           </div>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.02] mb-14">
+            {experienceHeading.title}
+          </h2>
+        </Reveal>
 
-          <Reveal delay={0.1}>
-            <div className="card p-7 sm:p-8 lg:sticky lg:top-28">
-              <span className="grid place-items-center h-11 w-11 rounded-xl mb-5" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
-                <GraduationCap size={20} style={{ color: 'var(--accent)' }} />
+        {/* timeline */}
+        <div className="relative max-w-3xl">
+          {/* the vertical rail */}
+          <div className="absolute left-[6px] top-3 bottom-3 w-px" style={{ background: 'linear-gradient(var(--border-strong), var(--border) 85%, transparent)' }} />
+
+          {timeline.map((item, i) => (
+            <Reveal key={item.role} delay={0} className="relative pl-9 pb-11 last:pb-0">
+              {/* node */}
+              <span
+                className="absolute left-0 top-1.5 grid place-items-center h-3.5 w-3.5 rounded-full"
+                style={{
+                  background: item.kind === 'edu' ? 'var(--text-faint)' : 'var(--accent)',
+                  boxShadow: item.kind === 'edu' ? 'none' : '0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent)',
+                }}
+              >
+                {item.now && (
+                  <span className="absolute inline-flex h-full w-full rounded-full animate-ping" style={{ background: 'var(--accent)', opacity: 0.5 }} />
+                )}
               </span>
-              <h3 className="font-display font-semibold text-lg tracking-tight">{education.school}</h3>
-              <div className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{education.degree}</div>
-              <div className="font-mono text-xs mt-1" style={{ color: 'var(--text-faint)' }}>{education.period}</div>
 
-              <div className="hairline my-6" />
+              {/* header row */}
+              <div className="flex items-start justify-between gap-4 flex-wrap">
+                <div>
+                  <h3 className="font-display font-semibold text-xl sm:text-[1.4rem] tracking-tight leading-tight">
+                    {item.role}
+                  </h3>
+                  <div className="mt-1 text-[15px]">
+                    <span style={{ color: 'var(--accent)' }}>{item.org}</span>
+                    <span style={{ color: 'var(--text-faint)' }}> · {item.meta}</span>
+                  </div>
+                </div>
+                <span className="font-mono text-[13px] whitespace-nowrap pt-1" style={{ color: 'var(--text-faint)' }}>
+                  {item.period}
+                </span>
+              </div>
 
-              <ul className="space-y-3">
-                {education.honors.map((h) => (
-                  <li key={h} className="flex gap-3 text-[14px]" style={{ color: 'var(--text-muted)' }}>
-                    <span style={{ color: 'var(--accent)' }}>◆</span> {h}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+              {/* summary */}
+              <p className="mt-3 max-w-xl text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                {item.summary}
+              </p>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
