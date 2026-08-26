@@ -147,7 +147,7 @@ function Social({ href, children, label }) {
       rel="noreferrer"
       aria-label={label}
       className="grid place-items-center h-10 w-10 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
-      style={{ background: 'transparent', border: '1.5px solid rgba(232,60,18,0.35)', color: 'var(--accent)' }}
+      style={{ background: 'transparent', border: '1.5px solid rgba(22,26,34,0.16)', color: 'var(--accent)' }}
       onMouseEnter={(e) => {
         e.currentTarget.style.background = 'var(--accent)'
         e.currentTarget.style.color = '#fff'
@@ -156,7 +156,7 @@ function Social({ href, children, label }) {
       onMouseLeave={(e) => {
         e.currentTarget.style.background = 'transparent'
         e.currentTarget.style.color = 'var(--accent)'
-        e.currentTarget.style.borderColor = 'rgba(232,60,18,0.35)'
+        e.currentTarget.style.borderColor = 'rgba(22,26,34,0.16)'
       }}
     >
       {children}
@@ -177,21 +177,27 @@ function Stat({ value, label, compact }) {
   )
 }
 
-function FeatureCard({ label, icon, color }) {
+function FeatureCard({ label, icon }) {
   const Icon = icons[icon] || Layers
-  const bg = color === 'lime' ? 'var(--lime)' : 'var(--accent)'
+  const spot = (e) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
+    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
+  }
   return (
-    <Magnetic strength={0.18}>
-      <a href="#skills" className="feature-card group block p-6 h-40 sm:h-44" style={{ background: bg }}>
-        <div className="flex flex-col justify-between h-full">
-          <Icon size={26} style={{ color: 'var(--paper-ink)' }} />
+    <Magnetic strength={0.12}>
+      <a href="#skills" onMouseMove={spot} className="feature-card group block p-6 h-40 sm:h-44">
+        <div className="relative z-10 flex flex-col justify-between h-full">
+          <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--accent)' }}>
+            <Icon size={22} />
+          </span>
           <div className="flex items-end justify-between gap-3">
-            <span className="font-display font-semibold leading-tight text-[15px] sm:text-base pr-2" style={{ color: 'var(--paper-ink)' }}>
+            <span className="font-display font-semibold leading-snug text-[15px] sm:text-base pr-2" style={{ color: 'var(--text)' }}>
               {label}
             </span>
             <span
               className="grid place-items-center h-9 w-9 rounded-full shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              style={{ border: '1.5px solid rgba(0,0,0,0.45)', color: 'var(--paper-ink)' }}
+              style={{ border: '1.5px solid var(--border-strong)', color: 'var(--accent)' }}
             >
               <ArrowUpRight size={18} />
             </span>

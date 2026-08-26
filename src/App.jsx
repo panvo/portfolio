@@ -1,4 +1,5 @@
 import { useTheme } from './lib/theme'
+import { useSmoothScroll } from './lib/useSmoothScroll'
 import { Background } from './components/Background'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
@@ -13,6 +14,7 @@ import { Footer } from './components/Footer'
 
 export default function App() {
   const { theme, toggle } = useTheme()
+  useSmoothScroll()
   return (
     <div className="relative min-h-screen">
       <Background />

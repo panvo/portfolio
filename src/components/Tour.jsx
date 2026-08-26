@@ -22,9 +22,19 @@ export function Tour() {
               <CortexMock />
             </BrowserFrame>
           </Reveal>
-          <Reveal delay={0.08}>
+          <Reveal delay={0.06}>
             <BrowserFrame label="test-studio · scenarios">
               <StudioMock />
+            </BrowserFrame>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <BrowserFrame label="test-design · decision-table">
+              <DecisionTableMock />
+            </BrowserFrame>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <BrowserFrame label="delivery-board · flow">
+              <DeliveryBoardMock />
             </BrowserFrame>
           </Reveal>
         </div>
@@ -132,6 +142,77 @@ function StudioMock() {
         <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f43f5e' }} /> 1 failed
         <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f59e0b' }} /> 1 blocked
       </div>
+    </div>
+  )
+}
+
+/* ── Decision Table: conditions → rules → actions ───────────── */
+const conditions = [
+  ['Valid card', ['Y', 'Y', 'Y', 'N']],
+  ['Sufficient funds', ['Y', 'Y', 'N', '–']],
+  ['Within daily limit', ['Y', 'N', '–', '–']],
+]
+const actions = [
+  ['Approve', [true, false, false, false]],
+  ['Decline', [false, true, true, true]],
+]
+
+function DecisionTableMock() {
+  return (
+    <div>
+      <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 pb-2 eyebrow" style={{ borderBottom: '1px solid var(--border)' }}>
+        <span>Condition</span>
+        {['R1', 'R2', 'R3', 'R4'].map((r) => <span key={r} className="text-center">{r}</span>)}
+      </div>
+      {conditions.map(([name, vals]) => (
+        <div key={name} className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 py-2.5 items-center text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
+          <span style={{ color: 'var(--text-muted)' }}>{name}</span>
+          {vals.map((v, i) => (
+            <span key={i} className="text-center font-mono text-[13px]" style={{ color: v === 'Y' ? 'var(--accent)' : v === 'N' ? 'var(--text-faint)' : 'var(--text-faint)' }}>{v}</span>
+          ))}
+        </div>
+      ))}
+      {actions.map(([name, marks]) => (
+        <div key={name} className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 py-2.5 items-center text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
+          <span className="font-medium" style={{ color: 'var(--text)' }}>{name}</span>
+          {marks.map((m, i) => (
+            <span key={i} className="grid place-items-center">
+              {m ? <span className="h-2.5 w-2.5 rounded-full" style={{ background: 'var(--accent)' }} /> : <span style={{ color: 'var(--text-faint)' }}>·</span>}
+            </span>
+          ))}
+        </div>
+      ))}
+      <p className="mt-3 text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>4 rules · full condition coverage</p>
+    </div>
+  )
+}
+
+/* ── Delivery Board: kanban flow ────────────────────────────── */
+const board = [
+  { col: 'To do', tint: 'var(--text-faint)', cards: [{ t: 'Payments regression', tag: '12 cases' }] },
+  { col: 'In progress', tint: 'var(--accent)', cards: [{ t: 'Refund edge cases', tag: '8 cases' }, { t: 'Login rate-limit', tag: '5 cases' }] },
+  { col: 'Done', tint: '#22c55e', cards: [{ t: 'Checkout smoke', tag: 'passed' }] },
+]
+
+function DeliveryBoardMock() {
+  return (
+    <div className="grid grid-cols-3 gap-3">
+      {board.map((c) => (
+        <div key={c.col}>
+          <div className="flex items-center gap-1.5 mb-3">
+            <span className="h-2 w-2 rounded-full" style={{ background: c.tint }} />
+            <span className="eyebrow">{c.col}</span>
+          </div>
+          <div className="space-y-2.5">
+            {c.cards.map((card) => (
+              <div key={card.t} className="rounded-lg p-3" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
+                <div className="text-[13px] font-medium leading-snug" style={{ color: 'var(--text)' }}>{card.t}</div>
+                <div className="mt-1.5 text-[12px] font-mono" style={{ color: 'var(--text-faint)' }}>{card.tag}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
