@@ -30,7 +30,7 @@ export const profile = {
   // Hero stats — career-level (platform-specific numbers live in the flagship panel, no overlap)
   stats: [
     { value: 9, label: 'Years in QA' },
-    { value: 4600, label: 'Tests written', compact: true },
+    { value: 4000, label: 'Automated tests', compact: true },
     { value: 8, label: 'Modules built' },
   ],
 }
@@ -133,7 +133,7 @@ export const timeline = [
     meta: 'Full-time',
     period: '2017 — Present',
     summary:
-      'Lead requirements analysis and design, maintain, and run functional, regression, GUI and database test cases for complex enterprise web apps; validate backend data across Microsoft SQL Server and Oracle, and drive defects to closure with developers in an Agile/Scrum cadence.',
+      'Analyze requirements, then design, maintain, and run functional, regression, GUI and database test cases for complex enterprise web apps; validate backend data across Microsoft SQL Server and Oracle, and drive defects to closure with developers in an Agile/Scrum cadence.',
     now: true,
   },
   {

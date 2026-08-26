@@ -127,12 +127,6 @@ export function Contact() {
                   </motion.p>
                 )}
               </AnimatePresence>
-
-              {!hasSupabase && (
-                <p className="text-xs text-center font-mono" style={{ color: 'var(--text-faint)' }}>
-                  Supabase not configured — using email fallback.
-                </p>
-              )}
             </form>
           </Reveal>
         </div>
