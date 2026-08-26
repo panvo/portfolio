@@ -12,11 +12,12 @@ import { Reveal } from './ui/Reveal'
  * <shot>.png into public/shots and that panel switches to the real screenshot.
  */
 const PANELS = [
+  { label: 'cortex · knowledge-engine', shot: 'cortex', Mock: CortexMock },
+  { label: 'test-studio · requirements', shot: 'test-studio', Mock: StudioMock },
   { label: 'test-copilot · chat', shot: 'copilot', Mock: CortexMock },
   { label: 'test-copilot · test-case-generator', shot: 'test-cases', Mock: StudioMock },
   { label: 'test-design · decision-table', shot: 'decision-table', Mock: DecisionTableMock },
   { label: 'test-design · state-modeler', shot: 'state-modeler', Mock: StateMock },
-  { label: 'cortex · ask', shot: 'cortex', Mock: CortexMock },
 ]
 
 export function Tour() {
@@ -48,7 +49,7 @@ export function Tour() {
         <Reveal delay={0.1}>
           <p className="mt-8 flex items-center justify-center gap-2 text-xs font-mono text-center" style={{ color: 'var(--text-faint)' }}>
             <ShieldCheck size={14} style={{ color: 'var(--accent)' }} />
-            Real captures + representative mockups · sample data only · no live records or logins exposed
+            Real screens captured from the live TestOps Hub · double-click any panel to enlarge
           </p>
         </Reveal>
       </div>

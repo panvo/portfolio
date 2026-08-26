@@ -242,5 +242,5 @@ export const skillHighlights = [
 export const tour = {
   kicker: 'Product tour',
   title: 'See TestOps Hub in action',
-  sub: 'A safe, representative look at the platform — sample data only, no live records or logins exposed.',
+  sub: 'Real screens from the platform — AI knowledge retrieval, governed test design, an app-aware copilot, and generated coverage.',
 }
