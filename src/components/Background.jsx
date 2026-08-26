@@ -1,23 +1,39 @@
+import { motion } from 'framer-motion'
+
 /**
- * Minimal, editorial backdrop. Light: clean paper with a whisper-soft
- * accent tint + fading grid near the top. Dark: same shapes, deeper.
- * Intentionally quiet — the content carries the page.
+ * Dark, minimal backdrop with two soft, slowly drifting accent glows
+ * (violet + cyan) — enough life to feel premium without clutter.
  */
 export function Background() {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden" style={{ background: 'var(--bg)' }}>
-      {/* soft accent glow, top-right */}
-      <div
+      <motion.div
         className="absolute"
         style={{
-          top: '-14%',
+          top: '-16%',
           right: '-8%',
-          width: '46vw',
-          height: '46vw',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 66%)',
-          filter: 'blur(30px)',
+          width: '48vw',
+          height: '48vw',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 66%)',
+          filter: 'blur(20px)',
         }}
+        animate={{ x: ['0%', '5%', '0%'], y: ['0%', '4%', '0%'] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
+      <motion.div
+        className="absolute"
+        style={{
+          bottom: '-18%',
+          left: '-10%',
+          width: '42vw',
+          height: '42vw',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 66%)',
+          filter: 'blur(20px)',
+        }}
+        animate={{ x: ['0%', '6%', '0%'], y: ['0%', '-4%', '0%'] }}
+        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
       {/* faint fading grid */}
       <div
         className="absolute inset-0"
@@ -26,8 +42,8 @@ export function Background() {
             'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
           backgroundSize: '72px 72px',
           opacity: 0.5,
-          maskImage: 'radial-gradient(ellipse 70% 45% at 50% 0%, black, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 45% at 50% 0%, black, transparent 80%)',
+          maskImage: 'radial-gradient(ellipse 75% 55% at 50% 0%, black, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 75% 55% at 50% 0%, black, transparent 80%)',
         }}
       />
     </div>

@@ -177,8 +177,9 @@ function Stat({ value, label, compact }) {
   )
 }
 
-function FeatureCard({ label, icon }) {
+function FeatureCard({ label, icon, color }) {
   const Icon = icons[icon] || Layers
+  const tone = color === 'lime' ? 'var(--accent-2)' : 'var(--accent)'
   const spot = (e) => {
     const r = e.currentTarget.getBoundingClientRect()
     e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
@@ -186,9 +187,18 @@ function FeatureCard({ label, icon }) {
   }
   return (
     <Magnetic strength={0.12}>
-      <a href="#skills" onMouseMove={spot} className="feature-card group block p-6 h-40 sm:h-44">
+      <a
+        href="#skills"
+        onMouseMove={spot}
+        className="feature-card group block p-6 h-40 sm:h-44"
+        style={{
+          '--tone': tone,
+          background: `linear-gradient(155deg, color-mix(in srgb, ${tone} 18%, var(--surface)), var(--surface) 70%)`,
+          borderColor: `color-mix(in srgb, ${tone} 34%, var(--border))`,
+        }}
+      >
         <div className="relative z-10 flex flex-col justify-between h-full">
-          <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--accent)' }}>
+          <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: `color-mix(in srgb, ${tone} 20%, transparent)`, border: `1px solid color-mix(in srgb, ${tone} 40%, transparent)`, color: tone }}>
             <Icon size={22} />
           </span>
           <div className="flex items-end justify-between gap-3">
@@ -197,7 +207,7 @@ function FeatureCard({ label, icon }) {
             </span>
             <span
               className="grid place-items-center h-9 w-9 rounded-full shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              style={{ border: '1.5px solid var(--border-strong)', color: 'var(--accent)' }}
+              style={{ border: `1.5px solid color-mix(in srgb, ${tone} 55%, transparent)`, color: tone }}
             >
               <ArrowUpRight size={18} />
             </span>
