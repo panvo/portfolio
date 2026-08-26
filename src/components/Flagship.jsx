@@ -1,19 +1,26 @@
 import { Sparkles } from 'lucide-react'
 import { flagship } from '../content/profile'
+import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 import { Metric } from './ui/Metric'
 
 export function Flagship() {
   return (
-    <section id="flagship" className="py-16 scroll-mt-24">
+    <section id="work" className="py-24 sm:py-28 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
+        <SectionHeading
+          kicker="Selected work"
+          title="The flagship"
+          sub="TestOps Hub — the platform I'm building to fix enterprise QA end to end."
+        />
+
         <div className="card overflow-hidden" style={{ boxShadow: 'var(--shadow)' }}>
           <div className="grid lg:grid-cols-[1.25fr_1fr]">
             {/* left */}
             <div className="p-8 sm:p-12 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>
               <Reveal>
                 <div className="inline-flex items-center gap-2 chip mb-6">
-                  <Sparkles size={14} style={{ color: 'var(--accent)' }} /> {flagship.kicker}
+                  <Sparkles size={14} style={{ color: 'var(--accent)' }} /> AI-native platform
                 </div>
               </Reveal>
               <Reveal delay={0.05}>

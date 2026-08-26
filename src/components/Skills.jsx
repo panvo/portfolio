@@ -13,7 +13,7 @@ export function Skills() {
                 <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
                 <span className="eyebrow">What I do</span>
               </div>
-              <p className="text-sm max-w-xs" style={{ color: 'var(--text-faint)' }}>
+              <p className="text-[15px] leading-relaxed max-w-xs" style={{ color: 'var(--text-muted)' }}>
                 From requirements to release — designing, running, and automating the tests that keep enterprise software honest.
               </p>
             </div>
@@ -32,9 +32,9 @@ export function Skills() {
               {skillGroups.map((g) => (
                 <RevealItem key={g.title}>
                   <div className="eyebrow mb-3">{g.title}</div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-2">
                     {g.items.map((it) => (
-                      <li key={it} className="text-[14px]" style={{ color: 'var(--text-muted)' }}>{it}</li>
+                      <li key={it} className="text-[15px]" style={{ color: 'var(--text-muted)' }}>{it}</li>
                     ))}
                   </ul>
                 </RevealItem>

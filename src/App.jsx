@@ -4,9 +4,9 @@ import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { About } from './components/About'
 import { Skills } from './components/Skills'
-import { Work } from './components/Work'
 import { Flagship } from './components/Flagship'
 import { Modules } from './components/Modules'
+import { Tour } from './components/Tour'
 import { Experience } from './components/Experience'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -21,9 +21,9 @@ export default function App() {
         <Hero />
         <About />
         <Skills />
-        <Work />
         <Flagship />
         <Modules />
+        <Tour />
         <Experience />
         <Contact />
       </main>

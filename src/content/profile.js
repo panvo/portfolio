@@ -216,21 +216,10 @@ export const skillHighlights = [
   'AI-Assisted QA Tooling',
 ]
 
-// Projects presented as a clean index list (à la the reference)
-export const workProjects = [
-  {
-    index: '01',
-    name: 'TestOps Hub',
-    category: 'AI-native QA Platform',
-    year: '2026',
-    href: '#flagship',
-    flagship: true,
-  },
-  {
-    index: '02',
-    name: 'Faculty Evaluation & Grading System',
-    category: 'Academic Information System',
-    year: '2017',
-    href: '#',
-  },
-]
+// Product tour — safe, representative mockups of TestOps Hub (fake sample data,
+// no real records / auth / backend). Swap in real screenshots at /public/shots/* later.
+export const tour = {
+  kicker: 'Product tour',
+  title: 'See TestOps Hub in action',
+  sub: 'A safe, representative look at the platform — sample data only, no live records or logins exposed.',
+}

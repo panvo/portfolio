@@ -40,9 +40,9 @@
   --surface-2: rgba(255, 255, 255, 0.07);
   --border: rgba(255, 255, 255, 0.1);
   --border-strong: rgba(255, 255, 255, 0.2);
-  --text: rgba(255, 255, 255, 0.94);
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --text-faint: rgba(255, 255, 255, 0.42);
+  --text: rgba(255, 255, 255, 0.95);
+  --text-muted: rgba(255, 255, 255, 0.72);
+  --text-faint: rgba(255, 255, 255, 0.55);
   --accent: #ff6a4d;
   --lime: #cdf24a;
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
@@ -118,8 +118,8 @@ body {
 /* Tracked caps label */
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.24em;
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-faint);
 }
@@ -238,7 +238,53 @@ body {
 
 /* Ghosted display line (the dimmed second title line, à la the reference) */
 .ghost {
-  color: color-mix(in srgb, var(--text) 15%, transparent);
+  color: color-mix(in srgb, var(--text) 26%, transparent);
+}
+
+/* Orange duotone portrait treatment (matches the reference card) */
+.duotone-wrap {
+  position: relative;
+  background: linear-gradient(160deg, #ff7a4d, #e8431f 78%);
+}
+.duotone-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+  filter: grayscale(1) contrast(1.06) brightness(1.03);
+  mix-blend-mode: multiply;
+}
+.duotone-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 138, 92, 0.35), transparent 45%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Browser-chrome frame for the product tour */
+.browser {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--bg-soft);
+  box-shadow: var(--shadow);
+}
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+}
+.browser-dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 999px;
 }
 
 /* The light profile card (stays light in both themes) */

@@ -100,10 +100,18 @@ function ProfileCard() {
         <Flame size={15} />
       </motion.div>
 
-      {/* portrait — drop a real photo at /public/portrait.jpg and swap the block below */}
-      <div className="relative rounded-[20px] overflow-hidden aspect-[4/5] grid place-items-center" style={{ background: 'linear-gradient(160deg, #ff7a4d, #ef4a2a 70%)' }}>
-        {/* <img src="/portrait.jpg" alt="Jhon Rey Bañaga" className="absolute inset-0 h-full w-full object-cover" /> */}
-        <span className="font-display font-bold text-7xl" style={{ color: 'rgba(0,0,0,0.82)' }}>JR</span>
+      {/* portrait — save your photo to /public/portrait.jpg and it auto-loads with an
+          orange duotone (matching the reference). The JR monogram shows until then. */}
+      <div className="duotone-wrap rounded-[20px] overflow-hidden aspect-[4/5] grid place-items-center">
+        <span className="font-display font-bold text-7xl" style={{ color: 'rgba(0,0,0,0.6)' }}>JR</span>
+        <img
+          src="/portrait.jpg"
+          alt={profile.name}
+          className="duotone-img"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
       </div>
 
       <div className="mt-5 px-1">
