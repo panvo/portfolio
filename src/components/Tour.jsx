@@ -35,8 +35,8 @@ export function Tour() {
       <div className="shell">
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
-        {/* one panel at a time, full width */}
-        <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+        {/* two panels per row */}
+        <div className="grid md:grid-cols-2 gap-6 items-start">
           {PANELS.map((p, i) => (
             <Reveal key={p.shot} delay={i * 0.04}>
               <BrowserFrame label={p.label} shot={p.shot} onZoom={setZoom}>
