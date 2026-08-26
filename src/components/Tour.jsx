@@ -34,8 +34,8 @@ export function Tour() {
             </BrowserFrame>
           </Reveal>
           <Reveal delay={0.14}>
-            <BrowserFrame label="delivery-board · flow" shot="delivery-board">
-              <DeliveryBoardMock />
+            <BrowserFrame label="test-design · state-modeler" shot="state-modeler">
+              <StateMock />
             </BrowserFrame>
           </Reveal>
         </div>
@@ -191,6 +191,26 @@ function DecisionTableMock() {
         </div>
       ))}
       <p className="mt-3 text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>4 rules · full condition coverage</p>
+    </div>
+  )
+}
+
+/* ── State Modeler: fallback mini-diagram ───────────────────── */
+function StateMock() {
+  const nodes = ['Submitted', 'Under Review', 'Approved', 'Funded']
+  return (
+    <div className="flex flex-col justify-center h-full gap-4 py-4">
+      <div className="flex items-center justify-between gap-2">
+        {nodes.map((n, i) => (
+          <div key={n} className="flex items-center gap-2">
+            <span className="grid place-items-center text-center text-[12px] leading-tight h-16 w-16 rounded-full px-1" style={{ border: `2px solid ${i === 0 ? 'var(--accent)' : i === nodes.length - 1 ? 'var(--accent-2)' : 'var(--border-strong)'}`, color: 'var(--text-muted)' }}>
+              {n}
+            </span>
+            {i < nodes.length - 1 && <span style={{ color: 'var(--text-faint)' }}>→</span>}
+          </div>
+        ))}
+      </div>
+      <p className="text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>6 states · 6 transitions · deterministic</p>
     </div>
   )
 }
