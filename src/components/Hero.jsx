@@ -94,7 +94,7 @@ function ProfileCard() {
         <path d="M6 48 C 70 6, 230 6, 294 30" stroke="var(--accent)" strokeWidth="2.5" strokeDasharray="4 7" strokeLinecap="round" opacity="0.9" />
       </svg>
 
-      {/* portrait — save your photo to /public/portrait.jpg; it loads with the orange duotone */}
+      {/* portrait — save your photo to /public/portrait.jpg; it loads with a natural color grade + soft vignette */}
       <div className="duotone-wrap rounded-[18px] overflow-hidden aspect-[4/5] grid place-items-center">
         {imgOk ? (
           <img src="/portrait.jpg" alt={profile.name} className="duotone-img" onError={() => setImgOk(false)} />

@@ -26,9 +26,16 @@ export function Footer() {
             {profile.name}<span style={{ color: 'var(--accent)' }}>.</span>
           </a>
 
-          <a href="#top" className="grid place-items-center h-9 w-9 rounded-full transition-colors" style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }} aria-label="Back to top">
-            <ArrowUp size={16} />
-          </a>
+          <div className="flex items-center gap-2.5">
+            <IconLink href={profile.linkedin} label="LinkedIn"><Linkedin size={16} /></IconLink>
+            <IconLink href={`mailto:${profile.email}`} label="Email"><Mail size={16} /></IconLink>
+            {profile.github && (
+              <IconLink href={profile.github} label="GitHub"><Github size={16} /></IconLink>
+            )}
+            <a href="#top" className="grid place-items-center h-9 w-9 rounded-full transition-all duration-200 hover:-translate-y-0.5" style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }} aria-label="Back to top">
+              <ArrowUp size={16} />
+            </a>
+          </div>
         </div>
 
         <div className="hairline my-8" />
@@ -55,10 +62,10 @@ function IconLink({ href, label, children }) {
       target={href.startsWith('http') ? '_blank' : undefined}
       rel="noreferrer"
       aria-label={label}
-      className="grid place-items-center h-9 w-9 rounded-full transition-colors"
+      className="grid place-items-center h-9 w-9 rounded-full transition-all duration-200 hover:-translate-y-0.5"
       style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
-      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-      onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)'; e.currentTarget.style.borderColor = 'color-mix(in srgb, var(--accent) 50%, var(--border))' }}
+      onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.borderColor = 'var(--border)' }}
     >
       {children}
     </a>

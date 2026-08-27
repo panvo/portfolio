@@ -1,23 +1,13 @@
 import { MapPin } from 'lucide-react'
 import { experienceHeading, timeline } from '../content/profile'
 import { Reveal } from './ui/Reveal'
+import { SectionHeading } from './ui/SectionHeading'
 
 export function Experience() {
   return (
     <section id="experience" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
-        {/* heading */}
-        <Reveal>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
-            <span className="eyebrow" style={{ color: 'var(--accent)' }}>{experienceHeading.kicker}</span>
-          </div>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.02] mb-14">
-            {experienceHeading.title}
-          </h2>
-        </Reveal>
+        <SectionHeading kicker={experienceHeading.kicker} title={experienceHeading.title} />
 
         {/* timeline — full width, two columns (content + meta rail) */}
         <div className="relative">
