@@ -258,20 +258,22 @@ export const skillGroups = [
       'Equivalence Partitioning',
       'Boundary-Value Analysis',
       'Decision Tables',
+      'State Transition Testing',
+      'Pairwise Testing',
       'Traceability',
     ],
   },
   {
     title: 'Databases',
-    items: ['Microsoft SQL Server', 'Oracle SQL Developer', 'SQL'],
+    items: ['Microsoft SQL Server', 'Oracle SQL Developer', 'PostgreSQL', 'Supabase', 'SQL', 'T-SQL', 'PL/SQL'],
   },
   {
     title: 'Build & AI',
-    items: ['JavaScript', 'React', 'Supabase', 'Git & GitHub', 'Prompt Engineering', 'Generative AI'],
+    items: ['JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Netlify', 'Git & GitHub', 'Prompt Engineering', 'Generative AI'],
   },
   {
     title: 'Process & Tools',
-    items: ['Agile / Scrum', 'SDLC', 'Trac', 'TortoiseSVN', 'SharePoint', 'Technical Writing'],
+    items: ['Agile / Scrum', 'SDLC', 'Defect Management', 'Trac', 'TortoiseSVN', 'SharePoint', 'Technical Writing'],
   },
 ]
 

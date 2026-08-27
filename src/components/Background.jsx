@@ -1,10 +1,12 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 /**
  * Dark, minimal backdrop with two soft, slowly drifting accent glows
- * (violet + cyan) — enough life to feel premium without clutter.
+ * (brown + slate) — enough life to feel premium without clutter.
+ * Drift pauses under prefers-reduced-motion.
  */
 export function Background() {
+  const reduce = useReducedMotion()
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden" style={{ background: 'var(--bg)' }}>
       <motion.div
@@ -18,8 +20,8 @@ export function Background() {
           filter: 'blur(20px)',
           willChange: 'transform',
         }}
-        animate={{ x: ['0%', '5%', '0%'], y: ['0%', '4%', '0%'] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduce ? undefined : { x: ['0%', '5%', '0%'], y: ['0%', '4%', '0%'] }}
+        transition={reduce ? undefined : { duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
         className="absolute"
@@ -32,8 +34,8 @@ export function Background() {
           filter: 'blur(20px)',
           willChange: 'transform',
         }}
-        animate={{ x: ['0%', '6%', '0%'], y: ['0%', '-4%', '0%'] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+        animate={reduce ? undefined : { x: ['0%', '6%', '0%'], y: ['0%', '-4%', '0%'] }}
+        transition={reduce ? undefined : { duration: 26, repeat: Infinity, ease: 'easeInOut' }}
       />
 
       {/* faint fading grid */}

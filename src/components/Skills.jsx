@@ -102,7 +102,11 @@ function Capability({ label, n }) {
 const LOGO_SKILLS = {
   JavaScript: 'javascript',
   React: 'react',
+  'Tailwind CSS': 'tailwind',
+  Vite: 'vite',
+  Netlify: 'netlify',
   Supabase: 'supabase',
+  PostgreSQL: 'postgresql',
   'Git & GitHub': 'github',
   'Microsoft SQL Server': 'sql-server',
   'Oracle SQL Developer': 'oracle',

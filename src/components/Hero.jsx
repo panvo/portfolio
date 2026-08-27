@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin } from 'lucide-react'
 import { profile, heroCards } from '../content/profile'
 import { useCountUp } from '../lib/hooks'
@@ -18,12 +18,13 @@ const rise = {
 }
 
 export function Hero() {
+  const reduce = useReducedMotion()
   return (
     <section id="top" className="relative pt-28 sm:pt-32 pb-16">
       <div className="shell">
         <motion.div
           variants={stagger}
-          initial="hidden"
+          initial={reduce ? false : 'hidden'}
           animate="show"
           className="grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-14 items-stretch"
         >
@@ -48,7 +49,7 @@ export function Hero() {
             </motion.div>
 
             {/* big two-line title */}
-            <h1 className="font-display font-semibold tracking-[-0.03em] leading-[0.86] text-[3.6rem] sm:text-[5.4rem] xl:text-[7rem]">
+            <h1 aria-label="Software Tester" className="font-display font-semibold tracking-[-0.03em] leading-[0.86] text-[3.6rem] sm:text-[5.4rem] xl:text-[7rem]">
               <span className="block overflow-hidden">
                 <motion.span className="block" variants={{ hidden: { y: '110%' }, show: { y: 0, transition: { duration: 0.9, ease } } }}>
                   SOFTWARE
@@ -103,9 +104,9 @@ function ProfileCard() {
         )}
       </div>
 
-      <h2 className="mt-6 font-display font-bold text-[1.7rem] tracking-tight" style={{ color: 'var(--paper-ink)' }}>
+      <p className="mt-6 font-display font-bold text-[1.7rem] tracking-tight" style={{ color: 'var(--paper-ink)' }}>
         {profile.name}
-      </h2>
+      </p>
 
       {/* centered flame badge on a dashed curl (à la the reference) */}
       <div className="relative mt-3 mb-1 h-12 grid place-items-center">
