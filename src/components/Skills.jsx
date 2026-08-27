@@ -59,7 +59,7 @@ export function Skills() {
                   {/* right: chips */}
                   <div className="flex flex-wrap gap-2 md:content-center">
                     {g.items.map((it) => (
-                      <span key={it} className="chip !text-[13px]">{it}</span>
+                      <SkillChip key={it} name={it} />
                     ))}
                   </div>
                 </div>
@@ -94,5 +94,41 @@ function Capability({ label, n }) {
         style={{ color: 'var(--accent)', opacity: hover ? 1 : 0, transform: hover ? 'translate(0,0)' : 'translate(-8px,8px)' }}
       />
     </div>
+  )
+}
+
+// Tools/tech that can show a brand logo. Drop the file at public/logos/<slug>.svg
+// (or .png) and it appears automatically; otherwise the chip stays text-only.
+const LOGO_SKILLS = {
+  JavaScript: 'javascript',
+  React: 'react',
+  Supabase: 'supabase',
+  'Git & GitHub': 'github',
+  'Microsoft SQL Server': 'sql-server',
+  'Oracle SQL Developer': 'oracle',
+  SQL: 'sql',
+  Trac: 'trac',
+  TortoiseSVN: 'tortoisesvn',
+  SharePoint: 'sharepoint',
+  'Prompt Engineering': 'openai',
+  'Generative AI': 'claude',
+}
+
+function SkillChip({ name }) {
+  const slug = LOGO_SKILLS[name]
+  // try .svg, then .png, then give up and show text only
+  const [ext, setExt] = useState(slug ? 'svg' : null)
+  return (
+    <span className="chip !text-[13px] inline-flex items-center gap-1.5">
+      {ext && (
+        <img
+          src={`/logos/${slug}.${ext}`}
+          alt=""
+          className="h-3.5 w-3.5 object-contain shrink-0"
+          onError={() => setExt((e) => (e === 'svg' ? 'png' : null))}
+        />
+      )}
+      {name}
+    </span>
   )
 }
