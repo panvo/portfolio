@@ -41,15 +41,13 @@ export function Nav({ theme, toggle }) {
         style={{ scaleX: progress, background: 'var(--accent)' }}
       />
 
-      {/* blurred top scrim so page content never collides with the floating pill */}
+      {/* top scrim — plain gradient fade (no backdrop-filter: it re-blurs every
+          scroll frame and janks). Content softly fades out under the floating pill. */}
       <div
         className="fixed top-0 inset-x-0 h-24 z-40 pointer-events-none"
         style={{
-          backdropFilter: 'blur(9px)',
-          WebkitBackdropFilter: 'blur(9px)',
-          background: 'linear-gradient(to bottom, color-mix(in srgb, var(--bg) 82%, transparent), transparent)',
-          maskImage: 'linear-gradient(to bottom, black 58%, transparent)',
-          WebkitMaskImage: 'linear-gradient(to bottom, black 58%, transparent)',
+          background:
+            'linear-gradient(to bottom, var(--bg) 6%, color-mix(in srgb, var(--bg) 72%, transparent) 42%, transparent)',
         }}
       />
 
@@ -63,10 +61,10 @@ export function Nav({ theme, toggle }) {
         <div
           className="flex items-center gap-1 rounded-full p-1.5"
           style={{
-            background: 'color-mix(in srgb, var(--bg) 90%, transparent)',
+            background: 'color-mix(in srgb, var(--bg) 94%, transparent)',
             border: '1px solid var(--border-strong)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
             boxShadow: 'var(--shadow)',
           }}
         >

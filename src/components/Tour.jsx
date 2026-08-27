@@ -89,6 +89,8 @@ function BrowserFrame({ label, shot, onZoom, children }) {
           <img
             src={src}
             alt={label}
+            loading="lazy"
+            decoding="async"
             className="block w-full rounded-lg cursor-zoom-in"
             style={{ height: 360, objectFit: 'cover', objectPosition: 'top', border: '1px solid var(--border)' }}
             title="Double-click to enlarge"

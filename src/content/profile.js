@@ -25,7 +25,7 @@ export const profile = {
   // Contact + socials
   email: 'iamjhondrey@yahoo.com',
   linkedin: 'https://www.linkedin.com/in/panvo/',
-  github: '', // add your GitHub URL to show the button, e.g. 'https://github.com/panvo'
+  github: 'https://github.com/panvo',
 
   // Hero stats — career-level (platform-specific numbers live in the flagship panel, no overlap)
   stats: [

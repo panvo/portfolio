@@ -16,6 +16,7 @@ export function Background() {
           height: '48vw',
           background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 66%)',
           filter: 'blur(20px)',
+          willChange: 'transform',
         }}
         animate={{ x: ['0%', '5%', '0%'], y: ['0%', '4%', '0%'] }}
         transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
@@ -29,6 +30,7 @@ export function Background() {
           height: '42vw',
           background: 'radial-gradient(circle, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 66%)',
           filter: 'blur(20px)',
+          willChange: 'transform',
         }}
         animate={{ x: ['0%', '6%', '0%'], y: ['0%', '-4%', '0%'] }}
         transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
