@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Home, FolderKanban, Briefcase, Wrench, Mail } from 'lucide-react'
+import { Home, FolderKanban, Briefcase, Wrench, BadgeCheck, Mail } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
 const links = [
@@ -8,6 +8,7 @@ const links = [
   { href: '#work', label: 'Work', Icon: FolderKanban },
   { href: '#experience', label: 'Experience', Icon: Briefcase },
   { href: '#skills', label: 'Skills', Icon: Wrench },
+  { href: '#certifications', label: 'Certifications', Icon: BadgeCheck },
   { href: '#contact', label: 'Contact', Icon: Mail },
 ]
 

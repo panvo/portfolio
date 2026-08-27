@@ -1,9 +1,9 @@
-import { ShieldCheck, Award, GraduationCap, BadgeCheck } from 'lucide-react'
+import { ShieldCheck, Award, GraduationCap, BadgeCheck, Landmark, Linkedin } from 'lucide-react'
 import { certHeading, certifications } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 
-const icons = { ShieldCheck, Award, GraduationCap, BadgeCheck }
+const icons = { ShieldCheck, Award, GraduationCap, BadgeCheck, Landmark, Linkedin }
 
 export function Certifications() {
   return (
