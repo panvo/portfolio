@@ -15,7 +15,8 @@ export function Flagship() {
           sub="TestOps Hub — the platform I'm building to fix enterprise QA end to end."
         />
 
-        <SpotlightCard className="card overflow-hidden" style={{ boxShadow: 'var(--shadow)' }}>
+        <div className="glow-border" style={{ boxShadow: 'var(--shadow)' }}>
+        <SpotlightCard className="card overflow-hidden">
           <div className="grid lg:grid-cols-[1.25fr_1fr]">
             {/* left */}
             <div className="p-8 sm:p-12 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>
@@ -62,6 +63,7 @@ export function Flagship() {
             </Reveal>
           </div>
         </SpotlightCard>
+        </div>
       </div>
     </section>
   )

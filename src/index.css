@@ -136,6 +136,79 @@ textarea::placeholder {
   opacity: 1;
 }
 
+/* ── Bold signature effects ─────────────────────────────────── */
+
+/* Rotating gradient border (Flagship signature card) */
+@property --ang {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotate-ang {
+  to {
+    --ang: 360deg;
+  }
+}
+.glow-border {
+  position: relative;
+  border-radius: 20px;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.6px;
+  background: conic-gradient(from var(--ang), transparent 0%, var(--accent) 18%, var(--accent-2) 40%, transparent 60%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotate-ang 7s linear infinite;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Sheen sweeping the hero display line */
+@keyframes sheen {
+  0% {
+    background-position: 135% 0;
+  }
+  100% {
+    background-position: -35% 0;
+  }
+}
+.title-sheen {
+  background: linear-gradient(100deg, var(--text) 42%, color-mix(in srgb, var(--accent) 82%, #fff) 50%, var(--text) 58%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: sheen 7s ease-in-out infinite;
+}
+
+/* Global cursor glow (desktop pointers only) */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 480px;
+  height: 480px;
+  margin: -240px 0 0 -240px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow.on {
+    opacity: 1;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 11px;
 }
@@ -284,11 +357,6 @@ textarea::placeholder {
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
 }
 
 /* Ghosted display line (the dimmed second title line, à la the reference) */

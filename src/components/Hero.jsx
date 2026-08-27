@@ -19,7 +19,7 @@ const rise = {
 
 export function Hero() {
   const { scrollY } = useScroll()
-  const heroY = useSpring(useTransform(scrollY, [0, 700], [0, -56]), { stiffness: 120, damping: 30, mass: 0.4 })
+  const heroY = useSpring(useTransform(scrollY, [0, 800], [0, -110]), { stiffness: 120, damping: 30, mass: 0.4 })
   return (
     <section id="top" className="relative pt-28 sm:pt-32 pb-16">
       <div className="shell">
@@ -53,7 +53,7 @@ export function Hero() {
             {/* big two-line title */}
             <h1 aria-label="Software Tester" className="font-display font-semibold tracking-[-0.03em] leading-[0.86] text-[3.6rem] sm:text-[5.4rem] xl:text-[7rem]">
               <span className="block overflow-hidden">
-                <motion.span className="block" variants={{ hidden: { y: '110%' }, show: { y: 0, transition: { duration: 0.9, ease } } }}>
+                <motion.span className="block title-sheen" variants={{ hidden: { y: '110%' }, show: { y: 0, transition: { duration: 0.9, ease } } }}>
                   SOFTWARE
                 </motion.span>
               </span>

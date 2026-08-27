@@ -1,8 +1,10 @@
 import { useTheme } from './lib/theme'
 import { useSmoothScroll } from './lib/useSmoothScroll'
 import { Background } from './components/Background'
+import { CursorGlow } from './components/CursorGlow'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
+import { Marquee } from './components/Marquee'
 import { About } from './components/About'
 import { Skills } from './components/Skills'
 import { Flagship } from './components/Flagship'
@@ -19,9 +21,11 @@ export default function App() {
   return (
     <div className="relative min-h-screen">
       <Background />
+      <CursorGlow />
       <Nav theme={theme} toggle={toggle} />
       <main>
         <Hero />
+        <Marquee />
         <About />
         <Skills />
         <Flagship />

@@ -7,8 +7,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
  */
 export function Background() {
   const { scrollY } = useScroll()
-  const y1 = useTransform(scrollY, [0, 1600], [0, 140]) // top-right glow eases down
-  const y2 = useTransform(scrollY, [0, 1600], [0, -110]) // bottom-left glow eases up
+  const y1 = useTransform(scrollY, [0, 1600], [0, 240]) // top-right glow eases down
+  const y2 = useTransform(scrollY, [0, 1600], [0, -190]) // bottom-left glow eases up
 
   return (
     <>
