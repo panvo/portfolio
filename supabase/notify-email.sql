@@ -76,6 +76,35 @@ begin
     )
   );
 
+  -- ── Auto-reply: confirmation to the person who messaged you ──
+  -- NOTE: with the onboarding@resend.dev sender this ONLY delivers to your own
+  -- Resend-account email. To send confirmations to ANY visitor, verify a domain
+  -- in Resend and change the 'from' below to your verified address
+  -- (e.g. 'Jhon Rey Bañaga <hello@yourdomain.com>'). Until then it fails quietly
+  -- and the message is still saved + you still get your notification above.
+  perform net.http_post(
+    url := 'https://api.resend.com/emails',
+    headers := jsonb_build_object(
+      'Authorization', 'Bearer ' || api_key,
+      'Content-Type', 'application/json'
+    ),
+    body := jsonb_build_object(
+      'from', 'Jhon Rey Bañaga <onboarding@resend.dev>',  -- ← change to your verified sender
+      'to', jsonb_build_array(new.email),
+      'subject', 'Thanks for reaching out — I got your message',
+      'html',
+        '<div style="font-family:system-ui,Arial,sans-serif;font-size:15px;color:#111;line-height:1.6">' ||
+        '<p>Hi ' || coalesce(new.name, 'there') || ',</p>' ||
+        '<p>Thanks for reaching out through my portfolio — I have received your message ' ||
+        'and will get back to you as soon as I can.</p>' ||
+        '<p style="margin-top:16px">Best,<br>Jhon Rey Bañaga<br>' ||
+        '<span style="color:#888;font-size:13px">QA Engineer &middot; Software Tester</span></p>' ||
+        '<p style="color:#999;font-size:12px;margin-top:18px">This is an automated confirmation — ' ||
+        'you can simply reply to this email.</p>' ||
+        '</div>'
+    )
+  );
+
   return new;
 end;
 $$;

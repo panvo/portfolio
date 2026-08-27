@@ -32,8 +32,8 @@ export function Certifications() {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <h3 className="font-display font-semibold tracking-tight leading-tight">{c.name}</h3>
-                        {c.tag && <span className="chip !py-0.5 !px-2 !text-[11px]" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>{c.tag}</span>}
-                        {c.course && <span className="chip !py-0.5 !px-2 !text-[11px]">Course</span>}
+                        {c.tag && <span className="chip !py-0.5 !px-2 !text-[12px]" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>{c.tag}</span>}
+                        {c.course && <span className="chip !py-0.5 !px-2 !text-[12px]">Course</span>}
                       </div>
                       <div className="mt-1 text-[14px]" style={{ color: 'var(--text-muted)' }}>{c.issuer}</div>
                       {c.credentialId && (
