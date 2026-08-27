@@ -1,27 +1,25 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Sparkles, ShieldCheck, Maximize2, X } from 'lucide-react'
-import { tour } from '../content/profile'
+import {
+  Maximize2, X, ShieldCheck, ArrowUpRight,
+  LayoutDashboard, Activity, Brain, MessageSquareText, FlaskConical, Receipt, KanbanSquare, Webhook, MessagesSquare,
+} from 'lucide-react'
+import { tour, tourModules } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
-import { Reveal } from './ui/Reveal'
 
 /**
- * A SAFE demo of TestOps Hub. The decision-table and state-modeler panels are REAL
- * dark screenshots (public/shots/*.png); the rest are representative mockups with
- * sample data only — no live records, auth, or backend exposed. Drop a PNG named
- * <shot>.png into public/shots and that panel switches to the real screenshot.
+ * Interactive product tour — a tab list (left) swaps a real screenshot of each
+ * TestOps Hub module into a big browser-frame viewer (right). Screenshots live at
+ * public/shots/<shot>.png; a missing shot falls back to a labelled placeholder so
+ * the section never breaks.
  */
-const PANELS = [
-  { label: 'cortex · knowledge-engine', shot: 'cortex', Mock: CortexMock },
-  { label: 'test-studio · requirements', shot: 'test-studio', Mock: StudioMock },
-  { label: 'test-copilot · chat', shot: 'copilot', Mock: CortexMock },
-  { label: 'test-copilot · test-case-generator', shot: 'test-cases', Mock: StudioMock },
-  { label: 'test-design · decision-table', shot: 'decision-table', Mock: DecisionTableMock },
-  { label: 'test-design · state-modeler', shot: 'state-modeler', Mock: StateMock },
-]
+const icons = { LayoutDashboard, ShieldCheck, Activity, Brain, MessageSquareText, FlaskConical, Receipt, KanbanSquare, Webhook, MessagesSquare }
+const EASE = [0.16, 1, 0.3, 1]
 
 export function Tour() {
+  const [active, setActive] = useState(0)
   const [zoom, setZoom] = useState(null)
+  const mod = tourModules[active]
 
   useEffect(() => {
     if (!zoom) return
@@ -35,23 +33,77 @@ export function Tour() {
       <div className="shell">
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
-        {/* two panels per row */}
-        <div className="grid md:grid-cols-2 gap-6 items-start">
-          {PANELS.map((p, i) => (
-            <Reveal key={p.shot} delay={i * 0.04}>
-              <BrowserFrame label={p.label} shot={p.shot} onZoom={setZoom}>
-                <p.Mock />
-              </BrowserFrame>
-            </Reveal>
-          ))}
-        </div>
+        <div className="grid lg:grid-cols-[290px_1fr] gap-8 lg:gap-10 items-start">
+          {/* ── tab list (vertical on desktop, horizontal strip on mobile) ── */}
+          <div className="lg:sticky lg:top-24">
+            <div className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 -mx-1 px-1 snap-x scroll-px-1">
+              {tourModules.map((m, i) => {
+                const Icon = icons[m.icon] || Brain
+                const on = i === active
+                return (
+                  <button
+                    key={m.id}
+                    onClick={() => setActive(i)}
+                    aria-pressed={on}
+                    className="relative shrink-0 snap-start flex items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-200"
+                    style={{ color: on ? 'var(--text)' : 'var(--text-muted)' }}
+                  >
+                    {on && (
+                      <motion.span
+                        layoutId="tour-active"
+                        className="absolute inset-0 rounded-xl"
+                        style={{ background: 'var(--surface-2)', border: '1px solid var(--border-strong)' }}
+                        transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                      />
+                    )}
+                    <span
+                      className="relative grid place-items-center h-9 w-9 rounded-lg shrink-0 transition-all duration-200"
+                      style={
+                        on
+                          ? { background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', color: '#fff', boxShadow: '0 8px 20px -10px color-mix(in srgb, var(--accent) 60%, transparent)' }
+                          : { background: 'var(--surface-2)', color: 'var(--accent)', border: '1px solid var(--border)' }
+                      }
+                    >
+                      <Icon size={17} />
+                    </span>
+                    <span className="relative min-w-0">
+                      <span className="block font-display font-medium text-[14.5px] leading-tight whitespace-nowrap">{m.name}</span>
+                      <span className="block eyebrow !text-[10px] !tracking-[0.12em] mt-0.5">{m.category}</span>
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
 
-        <Reveal delay={0.1}>
-          <p className="mt-8 flex items-center justify-center gap-2 text-xs font-mono text-center" style={{ color: 'var(--text-faint)' }}>
-            <ShieldCheck size={14} style={{ color: 'var(--accent)' }} />
-            Real screens captured from the live TestOps Hub · double-click any panel to enlarge
-          </p>
-        </Reveal>
+          {/* ── viewer ── */}
+          <div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={mod.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.38, ease: EASE }}
+              >
+                <div className="mb-4">
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-tight">{mod.name}</h3>
+                    <span className="chip !py-0.5 !px-2.5 !text-[11px]" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>{mod.category}</span>
+                  </div>
+                  <p className="mt-2 text-[15px] leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>{mod.tagline}</p>
+                </div>
+
+                <BrowserFrame mod={mod} onZoom={setZoom} />
+              </motion.div>
+            </AnimatePresence>
+
+            <p className="mt-6 flex items-center gap-2 text-xs font-mono" style={{ color: 'var(--text-faint)' }}>
+              <ShieldCheck size={14} style={{ color: 'var(--accent)' }} />
+              Real screens from the live TestOps Hub · pick a module on the left, or click the frame to enlarge
+            </p>
+          </div>
+        </div>
       </div>
 
       <Lightbox src={zoom} onClose={() => setZoom(null)} />
@@ -59,49 +111,67 @@ export function Tour() {
   )
 }
 
-function BrowserFrame({ label, shot, onZoom, children }) {
-  // Real screenshot from /public/shots/<shot>.png when present, else the mockup.
-  const [useShot, setUseShot] = useState(Boolean(shot))
-  const src = `/shots/${shot}.png`
+function BrowserFrame({ mod, onZoom }) {
+  const [ok, setOk] = useState(true)
+  const src = `/shots/${mod.shot}.png`
   return (
-    <motion.div
-      className="browser"
-      whileHover={{ y: -4 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-    >
+    <motion.div className="browser" whileHover={{ y: -3 }} transition={{ type: 'spring', stiffness: 300, damping: 24 }}>
       <div className="browser-bar">
         <span className="browser-dot" style={{ background: '#ff5f57' }} />
         <span className="browser-dot" style={{ background: '#febc2e' }} />
         <span className="browser-dot" style={{ background: '#28c840' }} />
-        <span className="ml-3 font-mono text-[12.5px]" style={{ color: 'var(--text-faint)' }}>{label}</span>
-        {useShot && (
+        <span className="ml-3 font-mono text-[12.5px] truncate" style={{ color: 'var(--text-faint)' }}>localhost:8888{mod.route}</span>
+        {ok && (
           <button
-            onClick={() => onZoom?.(src)}
-            className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-mono rounded-md px-2 py-1 transition-colors"
+            onClick={() => onZoom(src)}
+            className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-mono rounded-md px-2 py-1 shrink-0 transition-colors"
             style={{ color: 'var(--text-faint)', border: '1px solid var(--border)' }}
           >
             <Maximize2 size={12} /> Enlarge
           </button>
         )}
       </div>
-      {useShot ? (
-        <div className="p-4 sm:p-5" style={{ background: 'var(--bg)' }}>
+      {ok ? (
+        <div className="p-3 sm:p-4" style={{ background: 'var(--bg)' }}>
           <img
             src={src}
-            alt={label}
+            alt={mod.name}
             loading="lazy"
             decoding="async"
             className="block w-full rounded-lg cursor-zoom-in"
-            style={{ height: 360, objectFit: 'cover', objectPosition: 'top', border: '1px solid var(--border)' }}
-            title="Double-click to enlarge"
-            onDoubleClick={() => onZoom?.(src)}
-            onError={() => setUseShot(false)}
+            style={{ aspectRatio: '16 / 10', objectFit: 'cover', objectPosition: 'top', border: '1px solid var(--border)' }}
+            title="Click to enlarge"
+            onClick={() => onZoom(src)}
+            onError={() => setOk(false)}
           />
         </div>
       ) : (
-        <div className="p-5 sm:p-6" style={{ minHeight: 300 }}>{children}</div>
+        <ShotPending mod={mod} />
       )}
     </motion.div>
+  )
+}
+
+function ShotPending({ mod }) {
+  const Icon = icons[mod.icon] || Brain
+  return (
+    <div
+      className="grid place-items-center text-center px-8"
+      style={{ aspectRatio: '16 / 10', background: 'linear-gradient(160deg, var(--surface-2), var(--bg) 70%)' }}
+    >
+      <div className="flex flex-col items-center gap-3">
+        <span
+          className="grid place-items-center h-14 w-14 rounded-2xl"
+          style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', color: '#fff', boxShadow: '0 12px 30px -14px color-mix(in srgb, var(--accent) 60%, transparent)' }}
+        >
+          <Icon size={26} />
+        </span>
+        <div className="font-display font-semibold text-lg">{mod.name}</div>
+        <div className="inline-flex items-center gap-1.5 font-mono text-[11px]" style={{ color: 'var(--text-faint)' }}>
+          <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: 'var(--accent)' }} /> screenshot coming
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -139,174 +209,5 @@ function Lightbox({ src, onClose }) {
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
-
-/* ── Cortex: AI knowledge answer with citations ─────────────── */
-function CortexMock() {
-  return (
-    <div>
-      <div className="flex items-center gap-2 rounded-xl px-3.5 py-2.5" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
-        <Search size={16} style={{ color: 'var(--text-faint)' }} />
-        <span className="text-sm" style={{ color: 'var(--text-muted)' }}>How do we validate refund edge cases?</span>
-      </div>
-
-      <div className="mt-4 rounded-xl p-4" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles size={14} style={{ color: 'var(--accent)' }} />
-          <span className="eyebrow">Answer</span>
-          <span className="ml-auto text-[12.5px] font-mono px-2 py-0.5 rounded-full" style={{ color: '#22c55e', border: '1px solid rgba(34,197,94,0.4)' }}>
-            High · 0.94
-          </span>
-        </div>
-        <p className="text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-          Refund edge cases are covered by three scenarios. A refund that exceeds the original charge must be
-          rejected; partial refunds round to two decimals; and refunds to an expired card fall back to store
-          credit.
-        </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {['SPEC-142', 'TC-1042', 'KB-07'].map((c) => (
-            <span key={c} className="text-[12.5px] font-mono px-2 py-1 rounded-md" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--text-muted)' }}>
-              {c}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ── Test Studio: scenario table ────────────────────────────── */
-const rows = [
-  { id: 'QA-1042', name: 'Refund exceeds original charge', pri: 'High', status: 'Failed' },
-  { id: 'QA-1043', name: 'Partial refund rounds correctly', pri: 'Medium', status: 'Passed' },
-  { id: 'QA-1044', name: 'Refund to expired card', pri: 'High', status: 'Blocked' },
-  { id: 'QA-1045', name: 'Duplicate refund prevented', pri: 'High', status: 'Passed' },
-]
-const statusColor = {
-  Passed: { c: '#22c55e', b: 'rgba(34,197,94,0.4)' },
-  Failed: { c: '#f43f5e', b: 'rgba(244,63,94,0.4)' },
-  Blocked: { c: '#f59e0b', b: 'rgba(245,158,11,0.4)' },
-}
-
-function StudioMock() {
-  return (
-    <div>
-      <div className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 px-1 pb-3 eyebrow" style={{ borderBottom: '1px solid var(--border)' }}>
-        <span>ID</span>
-        <span>Test case</span>
-        <span>Priority</span>
-        <span>Status</span>
-      </div>
-      {rows.map((r) => {
-        const s = statusColor[r.status]
-        return (
-          <div key={r.id} className="grid grid-cols-[auto_1fr_auto_auto] gap-x-4 items-center px-1 py-3 text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
-            <span className="font-mono text-[12px]" style={{ color: 'var(--text-faint)' }}>{r.id}</span>
-            <span style={{ color: 'var(--text-muted)' }}>{r.name}</span>
-            <span className="text-[12.5px]" style={{ color: r.pri === 'High' ? 'var(--accent)' : 'var(--text-faint)' }}>{r.pri}</span>
-            <span className="text-[12.5px] font-mono px-2 py-0.5 rounded-full whitespace-nowrap" style={{ color: s.c, border: `1px solid ${s.b}` }}>
-              {r.status}
-            </span>
-          </div>
-        )
-      })}
-      <div className="mt-4 flex items-center gap-2 text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>
-        <span className="h-1.5 w-1.5 rounded-full" style={{ background: '#22c55e' }} /> 2 passed
-        <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f43f5e' }} /> 1 failed
-        <span className="h-1.5 w-1.5 rounded-full ml-2" style={{ background: '#f59e0b' }} /> 1 blocked
-      </div>
-    </div>
-  )
-}
-
-/* ── Decision Table: conditions → rules → actions ───────────── */
-const conditions = [
-  ['Valid card', ['Y', 'Y', 'Y', 'N']],
-  ['Sufficient funds', ['Y', 'Y', 'N', '–']],
-  ['Within daily limit', ['Y', 'N', '–', '–']],
-]
-const actions = [
-  ['Approve', [true, false, false, false]],
-  ['Decline', [false, true, true, true]],
-]
-
-function DecisionTableMock() {
-  return (
-    <div>
-      <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 pb-2 eyebrow" style={{ borderBottom: '1px solid var(--border)' }}>
-        <span>Condition</span>
-        {['R1', 'R2', 'R3', 'R4'].map((r) => <span key={r} className="text-center">{r}</span>)}
-      </div>
-      {conditions.map(([name, vals]) => (
-        <div key={name} className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 py-2.5 items-center text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
-          <span style={{ color: 'var(--text-muted)' }}>{name}</span>
-          {vals.map((v, i) => (
-            <span key={i} className="text-center font-mono text-[13px]" style={{ color: v === 'Y' ? 'var(--accent)' : v === 'N' ? 'var(--text-faint)' : 'var(--text-faint)' }}>{v}</span>
-          ))}
-        </div>
-      ))}
-      {actions.map(([name, marks]) => (
-        <div key={name} className="grid grid-cols-[1.4fr_repeat(4,1fr)] gap-x-2 py-2.5 items-center text-[14px]" style={{ borderBottom: '1px solid var(--border)' }}>
-          <span className="font-medium" style={{ color: 'var(--text)' }}>{name}</span>
-          {marks.map((m, i) => (
-            <span key={i} className="grid place-items-center">
-              {m ? <span className="h-2.5 w-2.5 rounded-full" style={{ background: 'var(--accent)' }} /> : <span style={{ color: 'var(--text-faint)' }}>·</span>}
-            </span>
-          ))}
-        </div>
-      ))}
-      <p className="mt-3 text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>4 rules · full condition coverage</p>
-    </div>
-  )
-}
-
-/* ── State Modeler: fallback mini-diagram ───────────────────── */
-function StateMock() {
-  const nodes = ['Submitted', 'Under Review', 'Approved', 'Funded']
-  return (
-    <div className="flex flex-col justify-center h-full gap-4 py-4">
-      <div className="flex items-center justify-between gap-2">
-        {nodes.map((n, i) => (
-          <div key={n} className="flex items-center gap-2">
-            <span className="grid place-items-center text-center text-[12px] leading-tight h-16 w-16 rounded-full px-1" style={{ border: `2px solid ${i === 0 ? 'var(--accent)' : i === nodes.length - 1 ? 'var(--accent-2)' : 'var(--border-strong)'}`, color: 'var(--text-muted)' }}>
-              {n}
-            </span>
-            {i < nodes.length - 1 && <span style={{ color: 'var(--text-faint)' }}>→</span>}
-          </div>
-        ))}
-      </div>
-      <p className="text-[12.5px] font-mono" style={{ color: 'var(--text-faint)' }}>6 states · 6 transitions · deterministic</p>
-    </div>
-  )
-}
-
-/* ── Delivery Board: kanban flow ────────────────────────────── */
-const board = [
-  { col: 'To do', tint: 'var(--text-faint)', cards: [{ t: 'Payments regression', tag: '12 cases' }] },
-  { col: 'In progress', tint: 'var(--accent)', cards: [{ t: 'Refund edge cases', tag: '8 cases' }, { t: 'Login rate-limit', tag: '5 cases' }] },
-  { col: 'Done', tint: '#22c55e', cards: [{ t: 'Checkout smoke', tag: 'passed' }] },
-]
-
-function DeliveryBoardMock() {
-  return (
-    <div className="grid grid-cols-3 gap-3">
-      {board.map((c) => (
-        <div key={c.col}>
-          <div className="flex items-center gap-1.5 mb-3">
-            <span className="h-2 w-2 rounded-full" style={{ background: c.tint }} />
-            <span className="eyebrow">{c.col}</span>
-          </div>
-          <div className="space-y-2.5">
-            {c.cards.map((card) => (
-              <div key={card.t} className="rounded-lg p-3" style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
-                <div className="text-[13px] font-medium leading-snug" style={{ color: 'var(--text)' }}>{card.t}</div>
-                <div className="mt-1.5 text-[12px] font-mono" style={{ color: 'var(--text-faint)' }}>{card.tag}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
   )
 }
