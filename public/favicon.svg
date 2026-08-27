@@ -1,13 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e6b380"/>
-      <stop offset="0.55" stop-color="#bf8657"/>
-      <stop offset="1" stop-color="#7c4a2a"/>
+      <stop offset="0" stop-color="#c69a86"/>
+      <stop offset="0.5" stop-color="#a5673f"/>
+      <stop offset="1" stop-color="#8a9098"/>
     </linearGradient>
     <radialGradient id="glow" cx="0.5" cy="0.4" r="0.62">
-      <stop offset="0" stop-color="#c88a5c" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#c88a5c" stop-opacity="0"/>
+      <stop offset="0" stop-color="#a5673f" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#a5673f" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="64" height="64" rx="16" fill="#140f0b"/>

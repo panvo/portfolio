@@ -23,8 +23,8 @@
   --text: #16161a;
   --text-muted: #55555d;
   --text-faint: #8c8c94;
-  --accent: #8f5628; /* deep mocha (light theme) */
-  --accent-2: #9c7526; /* antique gold — distinct 2nd warm tone */
+  --accent: #7c4d2c; /* dark brown (light theme) */
+  --accent-2: #5f656e; /* mid slate gray — readable under white glyphs + as an icon color */
   --lime: var(--accent-2);
   --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
   /* the left profile card stays light in both themes (a deliberate contrast piece) */
@@ -44,8 +44,8 @@
   --text: rgba(255, 255, 255, 0.95);
   --text-muted: rgba(255, 255, 255, 0.72);
   --text-faint: rgba(255, 255, 255, 0.55);
-  --accent: #bf8657; /* warm bronze — pops on near-black, premium leather/whiskey tone */
-  --accent-2: #d1a24e; /* antique gold — distinct 2nd warm metal (bronze + gold) */
+  --accent: #a5673f; /* dark brown — warm, muted, reads brown (not golden) on near-black */
+  --accent-2: #7e858f; /* mid slate gray — reads under white glyphs AND as an icon color on dark */
   --lime: var(--accent-2);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
   --paper: #f7f6f2;
@@ -278,27 +278,16 @@ textarea::placeholder {
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  /* dark, moody, cinematic — deep shadows + warm tone (à la the studio reference) */
-  filter: contrast(1.32) brightness(0.78) saturate(0.98) sepia(0.16);
+  /* light neutral grade — owner edits the photo itself; CSS just frames it cleanly */
+  filter: contrast(1.06) brightness(0.98) saturate(1.02);
 }
-/* heavy warm vignette crushes the bright window into near-black drama + a bronze wash */
+/* gentle neutral vignette — seats the portrait in the card without recoloring it */
 .duotone-wrap::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 82% at 50% 34%, transparent 26%, rgba(6, 4, 2, 0.82)),
-    linear-gradient(180deg, rgba(6, 4, 2, 0.62) 0%, rgba(6, 4, 2, 0.2) 26%, transparent 48%, rgba(6, 4, 2, 0.44) 76%, rgba(4, 3, 1, 0.86) 100%),
-    linear-gradient(155deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent 46%);
-  pointer-events: none;
-}
-/* a soft warm key-light from the top so the face lifts off the background */
-.duotone-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: radial-gradient(70% 45% at 50% 22%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
-  mix-blend-mode: soft-light;
+  background: radial-gradient(125% 88% at 50% 30%, transparent 56%, rgba(6, 6, 8, 0.42)),
+    linear-gradient(180deg, rgba(6, 6, 8, 0.26) 0%, transparent 28%, transparent 72%, rgba(6, 6, 8, 0.44) 100%);
   pointer-events: none;
 }
 
