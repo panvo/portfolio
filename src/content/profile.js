@@ -47,6 +47,17 @@ export const about = {
   paragraphs: [
     'My work lives at the intersection of requirements analysis, test-case design, and SQL-based backend validation across Microsoft SQL Server and Oracle. I partner closely with developers and stakeholders to reproduce issues, validate business rules, and protect software reliability and data integrity.',
     'Consistently recognized as a top-performing QA professional, I’m now channeling that experience into TestOps Hub — an internal platform that reimagines test design, requirements analysis, knowledge management, and AI-assisted testing.',
+    'What drives me is the system around the testing: turning fragmented docs and repetitive manual work into repeatable, traceable, well-documented workflows — so quality is built in, not bolted on.',
+  ],
+  // At-a-glance facts (all true, from experience + education)
+  facts: [
+    { label: 'Based in', value: 'Paniqui, Central Luzon, PH' },
+    { label: 'Experience', value: '9+ years in QA' },
+    { label: 'Currently', value: 'Software Tester · Austin Alba' },
+    { label: 'Focus', value: 'Functional, database & AI-assisted testing' },
+    { label: 'Databases', value: 'Microsoft SQL Server · Oracle' },
+    { label: 'Methodology', value: 'Agile / Scrum' },
+    { label: 'Open to', value: 'QA roles & testing consulting' },
   ],
 }
 

@@ -20,6 +20,11 @@ export function Contact() {
     return () => window.removeEventListener('keydown', onKey)
   }, [composing])
 
+  // close the compose modal once the message actually sends
+  useEffect(() => {
+    if (status === 'sent') setComposing(false)
+  }, [status])
+
   async function onSubmit(e) {
     e.preventDefault()
     if (status === 'sending') return
@@ -164,7 +169,7 @@ export function Contact() {
             onClick={() => setComposing(false)}
           >
             <motion.div
-              className="card w-full max-w-2xl overflow-hidden"
+              className="card w-full max-w-3xl overflow-hidden max-h-[92vh] flex flex-col"
               style={{ boxShadow: 'var(--shadow)' }}
               initial={{ scale: 0.96, opacity: 0, y: 12 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -172,37 +177,64 @@ export function Contact() {
               transition={{ type: 'spring', stiffness: 260, damping: 26 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ borderColor: 'var(--border)' }}>
-                <span className="eyebrow">Compose your message</span>
+              <div className="flex items-center justify-between px-6 py-4 border-b shrink-0" style={{ borderColor: 'var(--border)' }}>
+                <div>
+                  <span className="eyebrow">Compose your message</span>
+                  <p className="text-[13px] mt-0.5" style={{ color: 'var(--text-faint)' }}>
+                    Fill it in and send — I’ll get back to you.
+                  </p>
+                </div>
                 <button
                   onClick={() => setComposing(false)}
                   aria-label="Close"
-                  className="grid place-items-center h-8 w-8 rounded-full transition-colors"
+                  className="grid place-items-center h-9 w-9 rounded-full transition-colors shrink-0"
                   style={{ border: '1px solid var(--border)', color: 'var(--text-muted)' }}
                 >
-                  <X size={16} />
+                  <X size={17} />
                 </button>
               </div>
-              <div className="p-5">
-                <textarea
-                  autoFocus
-                  value={form.message}
-                  onChange={set('message')}
-                  placeholder="Tell me about the role or project… take your time."
-                  className="w-full rounded-xl px-4 py-3 text-[15px] leading-relaxed resize-none outline-none"
-                  style={{ height: '52vh', background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)' }}
-                  onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
-                  onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
-                />
-                <div className="mt-4 flex items-center justify-between">
+
+              <form onSubmit={onSubmit} className="p-6 space-y-4 overflow-y-auto">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Field label="Name" value={form.name} onChange={set('name')} placeholder="Your name" required />
+                  <Field label="Email" type="email" value={form.email} onChange={set('email')} placeholder="you@company.com" required />
+                </div>
+                <div>
+                  <label className="eyebrow block mb-2">Message</label>
+                  <textarea
+                    required
+                    autoFocus
+                    rows={8}
+                    value={form.message}
+                    onChange={set('message')}
+                    placeholder="Tell me about the role or project… take your time."
+                    className="w-full rounded-xl px-4 py-3 text-[15px] leading-relaxed resize-none outline-none"
+                    style={{ height: '34vh', minHeight: 180, background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)' }}
+                    onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
+                    onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between gap-4 pt-1">
                   <span className="text-xs font-mono" style={{ color: 'var(--text-faint)' }}>
                     {form.message.length} characters · Esc to close
                   </span>
-                  <button onClick={() => setComposing(false)} className="btn btn-primary !py-2 !px-5">
-                    Done
+                  <button type="submit" disabled={status === 'sending'} className="btn btn-primary !px-6">
+                    {status === 'sending' ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" /> Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Send size={15} /> {hasSupabase ? 'Send message' : 'Compose email'}
+                      </>
+                    )}
                   </button>
                 </div>
-              </div>
+                {status === 'error' && (
+                  <p className="text-sm text-center" style={{ color: '#dc2626' }}>{err}</p>
+                )}
+              </form>
             </motion.div>
           </motion.div>
         )}
