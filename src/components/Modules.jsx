@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { modules } from '../content/profile'
 import { RevealGroup, RevealItem, Reveal } from './ui/Reveal'
+import { SpotlightCard } from './ui/SpotlightCard'
 
 const icons = { Brain, FlaskConical, MessageSquareText, Network, ShieldCheck, BugPlay, Webhook, ScanText }
 
@@ -37,8 +38,9 @@ export function Modules() {
             const Icon = icons[m.icon] || Brain
             return (
               <RevealItem key={m.name}>
-                <article
-                  className="group card relative h-full p-6 overflow-hidden transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
+                <SpotlightCard
+                  as="article"
+                  className="group card h-full p-6 overflow-hidden transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
                 >
                   <ArrowUpRight
                     size={18}
@@ -63,7 +65,7 @@ export function Modules() {
                   <p className="text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                     {m.desc}
                   </p>
-                </article>
+                </SpotlightCard>
               </RevealItem>
             )
           })}

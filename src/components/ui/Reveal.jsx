@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const EASE = [0.16, 1, 0.3, 1]
 const VIEW = { once: true, margin: '-80px' }
@@ -6,16 +6,15 @@ const VIEW = { once: true, margin: '-80px' }
 /**
  * Scroll-triggered reveal — GPU-composited (opacity + translateY only).
  * No blur/filter animation: those re-rasterize every frame and jank on scroll.
- * Honors prefers-reduced-motion (renders instantly, never stuck hidden).
+ * Motion-first (plays regardless of OS reduce-motion, by owner's choice).
  */
 export function Reveal({ children, delay = 0, y = 26, className = '', as = 'div' }) {
   const M = motion[as] || motion.div
-  const reduce = useReducedMotion()
   return (
     <M
       className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={VIEW}
       transition={{ duration: 0.7, delay, ease: EASE }}
     >
@@ -45,8 +44,6 @@ export function RevealGroup({ children, className = '', stagger = 0.08 }) {
  * clip never shaves their tails.
  */
 export function MaskText({ children, delay = 0, duration = 0.9, className = '' }) {
-  const reduce = useReducedMotion()
-  if (reduce) return <span className={`block ${className}`}>{children}</span>
   return (
     <span className="block overflow-hidden pb-[0.22em] -mb-[0.22em]">
       <motion.span
@@ -63,18 +60,13 @@ export function MaskText({ children, delay = 0, duration = 0.9, className = '' }
 }
 
 export function RevealItem({ children, className = '', y = 24 }) {
-  const reduce = useReducedMotion()
   return (
     <motion.div
       className={className}
-      variants={
-        reduce
-          ? undefined
-          : {
-              hidden: { opacity: 0, y },
-              show: { opacity: 1, y: 0, transition: { duration: 0.66, ease: EASE } },
-            }
-      }
+      variants={{
+        hidden: { opacity: 0, y },
+        show: { opacity: 1, y: 0, transition: { duration: 0.66, ease: EASE } },
+      }}
     >
       {children}
     </motion.div>

@@ -3,6 +3,7 @@ import { flagship } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 import { Metric } from './ui/Metric'
+import { SpotlightCard } from './ui/SpotlightCard'
 
 export function Flagship() {
   return (
@@ -14,7 +15,7 @@ export function Flagship() {
           sub="TestOps Hub — the platform I'm building to fix enterprise QA end to end."
         />
 
-        <div className="card overflow-hidden" style={{ boxShadow: 'var(--shadow)' }}>
+        <SpotlightCard className="card overflow-hidden" style={{ boxShadow: 'var(--shadow)' }}>
           <div className="grid lg:grid-cols-[1.25fr_1fr]">
             {/* left */}
             <div className="p-8 sm:p-12 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>
@@ -60,7 +61,7 @@ export function Flagship() {
               </div>
             </Reveal>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
     </section>
   )

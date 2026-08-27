@@ -2,13 +2,12 @@ import { useEffect } from 'react'
 import Lenis from 'lenis'
 
 /**
- * Buttery momentum scrolling via Lenis. Respects reduced-motion, and routes
- * in-page anchor clicks through Lenis so nav jumps ease instead of snapping.
+ * Buttery momentum scrolling via Lenis. Routes in-page anchor clicks through
+ * Lenis so nav jumps ease instead of snapping. Motion-first — always on, by
+ * owner's choice (previously disabled under prefers-reduced-motion).
  */
 export function useSmoothScroll() {
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

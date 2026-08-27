@@ -4,6 +4,7 @@ import { Send, Check, Loader2, Maximize2, X } from 'lucide-react'
 import { profile } from '../content/profile'
 import { sendMessage, hasSupabase } from '../lib/supabase'
 import { Reveal, MaskText } from './ui/Reveal'
+import { Magnetic } from './ui/Magnetic'
 
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -121,6 +122,7 @@ export function Contact() {
                 />
               </div>
 
+              <Magnetic strength={0.12}>
               <button type="submit" disabled={status === 'sending'} className="btn btn-primary w-full justify-center !py-4 !text-[15px]">
                 <AnimatePresence mode="wait" initial={false}>
                   {status === 'sending' ? (
@@ -138,6 +140,7 @@ export function Contact() {
                   )}
                 </AnimatePresence>
               </button>
+              </Magnetic>
 
               <AnimatePresence>
                 {status === 'sent' && (
@@ -218,6 +221,7 @@ export function Contact() {
                   <span className="text-xs font-mono" style={{ color: 'var(--text-faint)' }}>
                     {form.message.length} characters · Esc to close
                   </span>
+                  <Magnetic>
                   <button type="submit" disabled={status === 'sending'} className="btn btn-primary !px-6">
                     {status === 'sending' ? (
                       <>
@@ -229,6 +233,7 @@ export function Contact() {
                       </>
                     )}
                   </button>
+                  </Magnetic>
                 </div>
                 {status === 'error' && (
                   <p className="text-sm text-center" style={{ color: '#dc2626' }}>{err}</p>

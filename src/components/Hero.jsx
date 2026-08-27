@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin } from 'lucide-react'
 import { profile, heroCards } from '../content/profile'
 import { useCountUp } from '../lib/hooks'
@@ -18,13 +18,15 @@ const rise = {
 }
 
 export function Hero() {
-  const reduce = useReducedMotion()
+  const { scrollY } = useScroll()
+  const heroY = useSpring(useTransform(scrollY, [0, 700], [0, -56]), { stiffness: 120, damping: 30, mass: 0.4 })
   return (
     <section id="top" className="relative pt-28 sm:pt-32 pb-16">
       <div className="shell">
+        <motion.div style={{ y: heroY }}>
         <motion.div
           variants={stagger}
-          initial={reduce ? false : 'hidden'}
+          initial="hidden"
           animate="show"
           className="grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-14 items-stretch"
         >
@@ -80,6 +82,7 @@ export function Hero() {
               ))}
             </motion.div>
           </div>
+        </motion.div>
         </motion.div>
       </div>
     </section>
