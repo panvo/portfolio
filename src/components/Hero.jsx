@@ -193,12 +193,12 @@ function FeatureCard({ label, icon, color }) {
         className="feature-card group block p-6 h-40 sm:h-44"
         style={{
           '--tone': tone,
-          background: `linear-gradient(155deg, color-mix(in srgb, ${tone} 18%, var(--surface)), var(--surface) 70%)`,
-          borderColor: `color-mix(in srgb, ${tone} 34%, var(--border))`,
+          background: `linear-gradient(155deg, color-mix(in srgb, ${tone} 30%, var(--surface)), var(--surface) 72%)`,
+          borderColor: `color-mix(in srgb, ${tone} 55%, var(--border))`,
         }}
       >
         <div className="relative z-10 flex flex-col justify-between h-full">
-          <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: `color-mix(in srgb, ${tone} 20%, transparent)`, border: `1px solid color-mix(in srgb, ${tone} 40%, transparent)`, color: tone }}>
+          <span className="grid place-items-center h-11 w-11 rounded-xl" style={{ background: `color-mix(in srgb, ${tone} 30%, transparent)`, border: `1px solid color-mix(in srgb, ${tone} 60%, transparent)`, color: tone }}>
             <Icon size={22} />
           </span>
           <div className="flex items-end justify-between gap-3">

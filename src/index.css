@@ -23,7 +23,7 @@
   --text: #16161a;
   --text-muted: #55555d;
   --text-faint: #8c8c94;
-  --accent: #7c4d2c; /* dark brown (light theme) */
+  --accent: #6e3f1d; /* deep rich brown (light theme) */
   --accent-2: #5f656e; /* mid slate gray — readable under white glyphs + as an icon color */
   --lime: var(--accent-2);
   --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
@@ -44,7 +44,7 @@
   --text: rgba(255, 255, 255, 0.95);
   --text-muted: rgba(255, 255, 255, 0.72);
   --text-faint: rgba(255, 255, 255, 0.55);
-  --accent: #a5673f; /* dark brown — warm, muted, reads brown (not golden) on near-black */
+  --accent: #a05a2c; /* deep rich brown — cognac/chestnut, saturated so it reads warm on near-black */
   --accent-2: #7e858f; /* mid slate gray — reads under white glyphs AND as an icon color on dark */
   --lime: var(--accent-2);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
