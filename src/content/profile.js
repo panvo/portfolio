@@ -8,7 +8,7 @@ export const profile = {
   firstName: 'Jhon Rey',
   role: 'QA Engineer · Software Tester',
   location: 'Paniqui, Central Luzon, Philippines',
-  available: true, // shows the "Available for work" badge
+  available: false, // shows the "Available for work" badge
 
   // The big hero statement. Keep it punchy.
   headline: [
