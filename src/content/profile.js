@@ -132,8 +132,11 @@ export const timeline = [
     org: 'Austin Alba Consulting, Inc.',
     meta: 'Full-time',
     period: '2017 — Present',
+    duration: '9 yrs 2 mos',
+    location: 'Makati City, Philippines',
     summary:
-      'Analyze requirements, then design, maintain, and run functional, regression, GUI and database test cases for complex enterprise web apps; validate backend data across Microsoft SQL Server and Oracle, and drive defects to closure with developers in an Agile/Scrum cadence.',
+      'Analyze requirements to identify scenarios, risks and coverage, then design, maintain, and run functional, regression, exploratory, GUI and database test cases for complex enterprise web applications. Validate backend data and transactions across Microsoft SQL Server and Oracle, prepare SQL scripts, test data and technical/user documentation, and drive client-reported defects to closure with developers — consistently recognized as a top-performing QA professional in an Agile/Scrum team.',
+    tags: ['Functional & Regression', 'SQL Server', 'Oracle', 'Trac', 'TortoiseSVN', 'SharePoint', 'Agile/Scrum'],
     now: true,
   },
   {
@@ -143,7 +146,8 @@ export const timeline = [
     meta: 'Side project',
     period: '2026 — Present',
     summary:
-      'Designing and building an internal QA platform — Cortex knowledge retrieval, governed Test Studio, AI copilot, and design tools — with React, Supabase and Claude to fix fragmented docs, thin coverage, and broken traceability.',
+      'Designing and building an internal QA platform end to end — Cortex knowledge retrieval, governed Test Studio, an app-aware AI copilot, and design tools (decision tables, EP/BVA, state modeling) — to fix fragmented docs, thin coverage, and broken traceability. Backed by 4,000+ automated tests, 51 quality gates, and 105 row-level-security policies.',
+    tags: ['React', 'Vite', 'Tailwind', 'Supabase', 'Framer Motion', 'Claude AI'],
     now: true,
   },
   {
@@ -152,8 +156,10 @@ export const timeline = [
     org: 'Tarlac State University',
     meta: 'Cum Laude',
     period: '2013 — 2017',
+    location: 'Tarlac, Philippines',
     summary:
-      'Graduated Cum Laude with an Academic Excellence Award (2015–2017) and Dean’s Lister standing — the foundation that launched a QA career.',
+      'Graduated Cum Laude with a General Weighted Average of 1.73, an Academic Excellence Award (2015–2017), and Dean’s Lister standing (2014–2016). Served as Vice President of a campus student organization (2015–2016) — the foundation that launched a QA career.',
+    tags: ['Cum Laude', 'GWA 1.73', 'Dean’s Lister', 'Academic Excellence Award'],
   },
 ]
 

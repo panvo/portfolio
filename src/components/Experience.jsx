@@ -1,3 +1,4 @@
+import { MapPin } from 'lucide-react'
 import { experienceHeading, timeline } from '../content/profile'
 import { Reveal } from './ui/Reveal'
 
@@ -18,13 +19,12 @@ export function Experience() {
           </h2>
         </Reveal>
 
-        {/* timeline */}
-        <div className="relative max-w-3xl">
-          {/* the vertical rail */}
+        {/* timeline — full width, two columns (content + meta rail) */}
+        <div className="relative">
           <div className="absolute left-[6px] top-3 bottom-3 w-px" style={{ background: 'linear-gradient(var(--border-strong), var(--border) 85%, transparent)' }} />
 
-          {timeline.map((item, i) => (
-            <Reveal key={item.role} delay={0} className="relative pl-9 pb-11 last:pb-0">
+          {timeline.map((item) => (
+            <Reveal key={item.role} className="relative pl-9 pb-12 last:pb-0">
               {/* node */}
               <span
                 className="absolute left-0 top-1.5 grid place-items-center h-3.5 w-3.5 rounded-full"
@@ -38,8 +38,8 @@ export function Experience() {
                 )}
               </span>
 
-              {/* header row */}
-              <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div className="grid lg:grid-cols-[1fr_280px] gap-4 lg:gap-12">
+                {/* main */}
                 <div>
                   <h3 className="font-display font-semibold text-xl sm:text-[1.4rem] tracking-tight leading-tight">
                     {item.role}
@@ -48,16 +48,31 @@ export function Experience() {
                     <span style={{ color: 'var(--accent)' }}>{item.org}</span>
                     <span style={{ color: 'var(--text-faint)' }}> · {item.meta}</span>
                   </div>
+                  <p className="mt-3 text-[15px] leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>
+                    {item.summary}
+                  </p>
+                  {item.tags && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {item.tags.map((t) => (
+                        <span key={t} className="chip !text-[12.5px]">{t}</span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <span className="font-mono text-[13px] whitespace-nowrap pt-1" style={{ color: 'var(--text-faint)' }}>
-                  {item.period}
-                </span>
-              </div>
 
-              {/* summary */}
-              <p className="mt-3 max-w-xl text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                {item.summary}
-              </p>
+                {/* right meta rail */}
+                <div className="flex flex-row lg:flex-col lg:items-end gap-x-4 gap-y-1.5 lg:pt-1 flex-wrap">
+                  <span className="font-mono text-[13px] whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>{item.period}</span>
+                  {item.duration && (
+                    <span className="font-mono text-[12px] whitespace-nowrap" style={{ color: 'var(--text-faint)' }}>{item.duration}</span>
+                  )}
+                  {item.location && (
+                    <span className="inline-flex items-center gap-1 text-[13px]" style={{ color: 'var(--text-faint)' }}>
+                      <MapPin size={13} /> {item.location}
+                    </span>
+                  )}
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
