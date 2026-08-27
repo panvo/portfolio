@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Linkedin, Github, Send, Check, Loader2, Maximize2, X } from 'lucide-react'
+import { Send, Check, Loader2, Maximize2, X } from 'lucide-react'
 import { profile } from '../content/profile'
 import { sendMessage, hasSupabase } from '../lib/supabase'
 import { Reveal, MaskText } from './ui/Reveal'
@@ -78,18 +78,6 @@ export function Contact() {
               </p>
             </Reveal>
 
-            <Reveal delay={0.2}>
-              <div className="mt-8 flex gap-3">
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" className="btn btn-ghost !px-4">
-                  <Linkedin size={17} /> LinkedIn
-                </a>
-                {profile.github && (
-                  <a href={profile.github} target="_blank" rel="noreferrer" className="btn btn-ghost !px-4">
-                    <Github size={17} /> GitHub
-                  </a>
-                )}
-              </div>
-            </Reveal>
           </div>
 
           {/* right: form */}
