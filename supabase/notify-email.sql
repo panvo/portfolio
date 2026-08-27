@@ -59,7 +59,10 @@ begin
     ),
     body := jsonb_build_object(
       'from', 'Portfolio <onboarding@resend.dev>',   -- ← change to your verified sender later
-      'to', jsonb_build_array('iamjhondrey@yahoo.com'), -- ← your inbox
+      -- NOTE: the onboarding@resend.dev sandbox ONLY delivers to the email your Resend
+      -- account is registered under. You signed up via GitHub = iamjhondrey@gmail.com,
+      -- so notifications MUST go there until you verify a domain in Resend.
+      'to', jsonb_build_array('iamjhondrey@gmail.com'), -- ← your Resend-account inbox
       'reply_to', new.email,                          -- reply goes straight to the sender
       'subject', 'New portfolio message from ' || coalesce(new.name, 'someone'),
       'html',
