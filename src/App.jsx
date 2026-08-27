@@ -9,6 +9,7 @@ import { Flagship } from './components/Flagship'
 import { Modules } from './components/Modules'
 import { Tour } from './components/Tour'
 import { Experience } from './components/Experience'
+import { Certifications } from './components/Certifications'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 
@@ -27,6 +28,7 @@ export default function App() {
         <Modules />
         <Tour />
         <Experience />
+        <Certifications />
         <Contact />
       </main>
       <Footer />

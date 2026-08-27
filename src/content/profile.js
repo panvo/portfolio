@@ -170,6 +170,53 @@ export const education = {
   ],
 }
 
+// ── Certifications & licenses ─────────────────────────────────
+export const certHeading = {
+  kicker: 'Credentials',
+  title: 'Certifications & licenses',
+  sub: 'Verified professional credentials, plus focused courses that keep the craft current.',
+}
+
+export const certifications = [
+  {
+    name: 'Security and Privacy: Privileged Role',
+    issuer: 'Peak Performance Solutions',
+    date: 'Apr 2026',
+    expires: 'Apr 2027',
+    tag: 'CJIS',
+    icon: 'ShieldCheck',
+    active: true,
+  },
+  {
+    name: 'Civil Service Eligibility — Presidential Decree No. 907',
+    issuer: 'Civil Service Commission (Philippines)',
+    date: 'Nov 2019',
+    credentialId: '03190707',
+    icon: 'Award',
+  },
+  {
+    name: 'Test Automation Foundations',
+    issuer: 'LinkedIn Learning',
+    date: 'Nov 2023',
+    icon: 'GraduationCap',
+    course: true,
+  },
+  {
+    name: 'Agile Testing',
+    issuer: 'LinkedIn Learning',
+    date: 'Nov 2023',
+    icon: 'GraduationCap',
+    course: true,
+  },
+  {
+    name: 'Software Development Life Cycle (SDLC)',
+    issuer: 'LinkedIn Learning',
+    date: 'Nov 2023',
+    icon: 'GraduationCap',
+    course: true,
+  },
+]
+
 // ── Skills, grouped (curated — the ones that matter) ──────────
 export const skillGroups = [
   {
