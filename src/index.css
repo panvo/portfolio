@@ -23,8 +23,8 @@
   --text: #16161a;
   --text-muted: #55555d;
   --text-faint: #8c8c94;
-  --accent: #6d5efc; /* vibrant violet */
-  --accent-2: #12a8bf; /* cyan secondary */
+  --accent: #8f5628; /* deep mocha (light theme) */
+  --accent-2: #6b4325; /* espresso secondary */
   --lime: var(--accent-2);
   --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
   /* the left profile card stays light in both themes (a deliberate contrast piece) */
@@ -44,8 +44,8 @@
   --text: rgba(255, 255, 255, 0.95);
   --text-muted: rgba(255, 255, 255, 0.72);
   --text-faint: rgba(255, 255, 255, 0.55);
-  --accent: #7c6cff;
-  --accent-2: #34d0e6;
+  --accent: #bf8657; /* warm bronze — pops on near-black, premium leather/whiskey tone */
+  --accent-2: #855230; /* rich cocoa — gradient depth + warm glow */
   --lime: var(--accent-2);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
   --paper: #f7f6f2;
@@ -265,10 +265,10 @@ textarea::placeholder {
   color: color-mix(in srgb, var(--text) 26%, transparent);
 }
 
-/* Natural-color portrait — alive, with a subtle frame + depth */
+/* Cinematic editorial portrait — moody, dramatic, warm-graded (à la a studio B&W) */
 .duotone-wrap {
   position: relative;
-  background: #12131a;
+  background: #140f0b;
   isolation: isolate;
 }
 .duotone-img {
@@ -278,15 +278,27 @@ textarea::placeholder {
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  filter: brightness(0.84) contrast(1.14) saturate(1.08);
+  /* warm, rich, alive — punchy contrast + a hint of bronze, NOT washed-out gray */
+  filter: contrast(1.18) brightness(0.96) saturate(1.12) sepia(0.12);
 }
-/* tame the blown-out window + vignette so the portrait reads rich, not bright */
+/* moody-but-warm vignette that crushes the bright window into drama + a bronze glow */
 .duotone-wrap::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(8, 10, 18, 0.5) 0%, rgba(8, 10, 18, 0.12) 26%, transparent 52%, rgba(8, 10, 18, 0.28) 78%, rgba(8, 10, 18, 0.55) 100%),
-    radial-gradient(115% 80% at 50% 34%, transparent 52%, rgba(8, 10, 18, 0.42));
+  background: radial-gradient(135% 90% at 50% 28%, transparent 42%, rgba(10, 6, 4, 0.6)),
+    linear-gradient(178deg, rgba(10, 6, 4, 0.5) 0%, rgba(10, 6, 4, 0.06) 30%, transparent 54%, rgba(10, 6, 4, 0.34) 80%, rgba(7, 4, 3, 0.7) 100%),
+    linear-gradient(155deg, color-mix(in srgb, var(--accent) 20%, transparent), transparent 50%);
+  pointer-events: none;
+}
+/* a soft warm key-light from the top so the face lifts off the background */
+.duotone-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(70% 45% at 50% 22%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%);
+  mix-blend-mode: soft-light;
   pointer-events: none;
 }
 

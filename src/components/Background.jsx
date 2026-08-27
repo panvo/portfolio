@@ -14,7 +14,7 @@ export function Background() {
           right: '-8%',
           width: '48vw',
           height: '48vw',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 66%)',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 36%, transparent), transparent 66%)',
           filter: 'blur(20px)',
           willChange: 'transform',
         }}
@@ -28,7 +28,7 @@ export function Background() {
           left: '-10%',
           width: '42vw',
           height: '42vw',
-          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent-2) 20%, transparent), transparent 66%)',
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent-2) 30%, transparent), transparent 66%)',
           filter: 'blur(20px)',
           willChange: 'transform',
         }}
