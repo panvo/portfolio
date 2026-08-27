@@ -7,7 +7,7 @@ const icons = { ShieldCheck, Award, GraduationCap, BadgeCheck, Landmark, Linkedi
 
 export function Certifications() {
   return (
-    <section id="certifications" className="py-24 sm:py-28 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="certifications" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading kicker={certHeading.kicker} title={certHeading.title} sub={certHeading.sub} />
 

@@ -31,7 +31,7 @@ export function Tour() {
   }, [zoom])
 
   return (
-    <section id="tour" className="py-24 sm:py-28 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="tour" className="py-24 sm:py-32 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
