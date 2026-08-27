@@ -16,7 +16,7 @@ export function Flagship() {
         />
 
         <div className="glow-border" style={{ boxShadow: 'var(--shadow)' }}>
-        <SpotlightCard className="card overflow-hidden">
+        <SpotlightCard className="card overflow-hidden" style={{ background: 'var(--bg-soft)' }}>
           <div className="grid lg:grid-cols-[1.25fr_1fr]">
             {/* left */}
             <div className="p-8 sm:p-12 border-b lg:border-b-0 lg:border-r" style={{ borderColor: 'var(--border)' }}>

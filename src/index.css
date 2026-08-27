@@ -138,34 +138,35 @@ textarea::placeholder {
 
 /* ── Bold signature effects ─────────────────────────────────── */
 
-/* Rotating gradient border (Flagship signature card) */
-@property --ang {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-@keyframes rotate-ang {
+/* Rotating gradient border (Flagship signature card).
+   transform-rotate on a pre-painted conic layer = pure GPU composite (no per-frame
+   paint). An opaque inner card masks the centre so only the 1.6px edge shows. */
+@keyframes spin-border {
   to {
-    --ang: 360deg;
+    transform: rotate(360deg);
   }
 }
 .glow-border {
   position: relative;
-  border-radius: 20px;
+  border-radius: 21px;
+  padding: 1.6px;
+  overflow: hidden;
+  isolation: isolate;
 }
 .glow-border::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.6px;
-  background: conic-gradient(from var(--ang), transparent 0%, var(--accent) 18%, var(--accent-2) 40%, transparent 60%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotate-ang 7s linear infinite;
+  inset: -60%;
+  z-index: 0;
+  background: conic-gradient(from 0deg, transparent 0deg, var(--accent) 55deg, var(--accent-2) 130deg, transparent 210deg, transparent 360deg);
+  animation: spin-border 7s linear infinite;
+  will-change: transform;
   pointer-events: none;
-  z-index: 3;
+}
+.glow-border > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
 }
 
 /* Sheen sweeping the hero display line */
@@ -185,6 +186,15 @@ textarea::placeholder {
   -webkit-text-fill-color: transparent;
   color: transparent;
   animation: sheen 7s ease-in-out infinite;
+}
+/* solid title on phones — skip the per-frame text repaint where it costs most */
+@media (max-width: 700px) {
+  .title-sheen {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: var(--text);
+    color: var(--text);
+  }
 }
 
 /* Global cursor glow (desktop pointers only) */
