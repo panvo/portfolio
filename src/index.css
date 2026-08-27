@@ -24,7 +24,7 @@
   --text-muted: #55555d;
   --text-faint: #8c8c94;
   --accent: #8f5628; /* deep mocha (light theme) */
-  --accent-2: #6b4325; /* espresso secondary */
+  --accent-2: #9c7526; /* antique gold — distinct 2nd warm tone */
   --lime: var(--accent-2);
   --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
   /* the left profile card stays light in both themes (a deliberate contrast piece) */
@@ -45,7 +45,7 @@
   --text-muted: rgba(255, 255, 255, 0.72);
   --text-faint: rgba(255, 255, 255, 0.55);
   --accent: #bf8657; /* warm bronze — pops on near-black, premium leather/whiskey tone */
-  --accent-2: #855230; /* rich cocoa — gradient depth + warm glow */
+  --accent-2: #d1a24e; /* antique gold — distinct 2nd warm metal (bronze + gold) */
   --lime: var(--accent-2);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
   --paper: #f7f6f2;
@@ -278,17 +278,17 @@ textarea::placeholder {
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  /* warm, rich, alive — punchy contrast + a hint of bronze, NOT washed-out gray */
-  filter: contrast(1.18) brightness(0.96) saturate(1.12) sepia(0.12);
+  /* dark, moody, cinematic — deep shadows + warm tone (à la the studio reference) */
+  filter: contrast(1.32) brightness(0.78) saturate(0.98) sepia(0.16);
 }
-/* moody-but-warm vignette that crushes the bright window into drama + a bronze glow */
+/* heavy warm vignette crushes the bright window into near-black drama + a bronze wash */
 .duotone-wrap::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(135% 90% at 50% 28%, transparent 42%, rgba(10, 6, 4, 0.6)),
-    linear-gradient(178deg, rgba(10, 6, 4, 0.5) 0%, rgba(10, 6, 4, 0.06) 30%, transparent 54%, rgba(10, 6, 4, 0.34) 80%, rgba(7, 4, 3, 0.7) 100%),
-    linear-gradient(155deg, color-mix(in srgb, var(--accent) 20%, transparent), transparent 50%);
+  background: radial-gradient(120% 82% at 50% 34%, transparent 26%, rgba(6, 4, 2, 0.82)),
+    linear-gradient(180deg, rgba(6, 4, 2, 0.62) 0%, rgba(6, 4, 2, 0.2) 26%, transparent 48%, rgba(6, 4, 2, 0.44) 76%, rgba(4, 3, 1, 0.86) 100%),
+    linear-gradient(155deg, color-mix(in srgb, var(--accent) 24%, transparent), transparent 46%);
   pointer-events: none;
 }
 /* a soft warm key-light from the top so the face lifts off the background */
