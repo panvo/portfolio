@@ -132,7 +132,7 @@ function ProfileCard() {
 
       <div className="mt-5 mb-1 flex items-center justify-center gap-2.5">
         <Social href={profile.linkedin} label="LinkedIn"><Linkedin size={17} /></Social>
-        <Social href={`mailto:${profile.email}`} label="Email"><Mail size={17} /></Social>
+        <Social href="#contact" label="Email"><Mail size={17} /></Social>
         {profile.github && <Social href={profile.github} label="GitHub"><Github size={17} /></Social>}
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Linkedin, Github, Send, Check, Loader2, ArrowUpRight, Maximize2, X } from 'lucide-react'
+import { Linkedin, Github, Send, Check, Loader2, Maximize2, X } from 'lucide-react'
 import { profile } from '../content/profile'
 import { sendMessage, hasSupabase } from '../lib/supabase'
-import { Reveal } from './ui/Reveal'
+import { Reveal, MaskText } from './ui/Reveal'
 
 export function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
@@ -48,7 +48,7 @@ export function Contact() {
   return (
     <section id="contact" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
-        <div className="grid lg:grid-cols-[1fr_1fr] gap-14 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-start">
           {/* left: pitch */}
           <div>
             <Reveal>
@@ -57,11 +57,12 @@ export function Contact() {
                 <span className="eyebrow">Contact</span>
               </div>
             </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.03em] leading-[0.95]">
-                Let’s work<br />together<span style={{ color: 'var(--accent)' }}>.</span>
-              </h2>
-            </Reveal>
+            <h2 className="font-display text-5xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.03em] leading-[0.95]">
+              <MaskText duration={0.85}>Let’s work</MaskText>
+              <MaskText delay={0.12} duration={0.85}>
+                together<span style={{ color: 'var(--accent)' }}>.</span>
+              </MaskText>
+            </h2>
             <Reveal delay={0.1}>
               <p className="mt-7 max-w-md text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
                 Open to QA roles, testing consulting, and collaborations. Send a message and I’ll get back to you.
@@ -69,11 +70,12 @@ export function Contact() {
             </Reveal>
 
             <Reveal delay={0.15}>
-              <div className="mt-9 space-y-1">
-                <a href={`mailto:${profile.email}`} className="ulink inline-flex items-center gap-2 text-lg font-display">
-                  {profile.email} <ArrowUpRight size={17} style={{ color: 'var(--accent)' }} />
-                </a>
-              </div>
+              <p className="mt-9 flex items-center gap-2.5 text-[15px]" style={{ color: 'var(--text-muted)' }}>
+                <span className="grid place-items-center h-7 w-7 rounded-lg shrink-0" style={{ background: 'color-mix(in srgb, var(--accent) 14%, transparent)', color: 'var(--accent)' }}>
+                  <Send size={14} />
+                </span>
+                Use the form — it lands straight in my inbox.
+              </p>
             </Reveal>
 
             <Reveal delay={0.2}>
@@ -92,7 +94,16 @@ export function Contact() {
 
           {/* right: form */}
           <Reveal delay={0.1}>
-            <form onSubmit={onSubmit} className="card p-7 sm:p-8 space-y-4" style={{ boxShadow: 'var(--shadow)' }}>
+            <form onSubmit={onSubmit} className="card p-7 sm:p-9 space-y-5" style={{ boxShadow: 'var(--shadow)', background: 'linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 24%, transparent))' }}>
+              <div className="flex items-center gap-3.5 pb-5 border-b" style={{ borderColor: 'var(--border)' }}>
+                <span className="grid place-items-center h-11 w-11 rounded-xl shrink-0" style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', color: '#fff', boxShadow: '0 8px 22px -10px color-mix(in srgb, var(--accent) 65%, transparent)' }}>
+                  <Send size={18} />
+                </span>
+                <div>
+                  <h3 className="font-display font-semibold text-lg tracking-tight leading-tight">Send a message</h3>
+                  <p className="text-[13px] mt-0.5" style={{ color: 'var(--text-faint)' }}>Fill it in — it lands straight in my inbox.</p>
+                </div>
+              </div>
               <Field label="Name" value={form.name} onChange={set('name')} placeholder="Your name" required />
               <Field label="Email" type="email" value={form.email} onChange={set('email')} placeholder="you@company.com" required />
               <div>
@@ -110,19 +121,19 @@ export function Contact() {
                 </div>
                 <textarea
                   required
-                  rows={4}
+                  rows={5}
                   value={form.message}
                   onChange={set('message')}
                   onDoubleClick={() => setComposing(true)}
                   placeholder="Tell me about the role or project…  (double-click to expand)"
-                  className="w-full rounded-xl px-4 py-3 text-sm resize-none outline-none transition-colors"
+                  className="w-full rounded-xl px-4 py-3.5 text-[15px] leading-relaxed resize-none outline-none transition-colors"
                   style={{ background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)' }}
                   onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
                   onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
                 />
               </div>
 
-              <button type="submit" disabled={status === 'sending'} className="btn btn-primary w-full justify-center">
+              <button type="submit" disabled={status === 'sending'} className="btn btn-primary w-full justify-center !py-4 !text-[15px]">
                 <AnimatePresence mode="wait" initial={false}>
                   {status === 'sending' ? (
                     <motion.span key="s" className="inline-flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -249,7 +260,7 @@ function Field({ label, ...props }) {
       <label className="eyebrow block mb-2">{label}</label>
       <input
         {...props}
-        className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-colors"
+        className="w-full rounded-xl px-4 py-3.5 text-[15px] outline-none transition-colors"
         style={{ background: 'var(--bg)', border: '1px solid var(--border)', color: 'var(--text)' }}
         onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
         onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}

@@ -97,6 +97,14 @@ body {
   color: #fff;
 }
 
+/* Placeholders read as hints — italic + faint so a form never looks pre-filled */
+input::placeholder,
+textarea::placeholder {
+  font-style: italic;
+  color: var(--text-faint);
+  opacity: 0.8;
+}
+
 ::-webkit-scrollbar {
   width: 11px;
 }

@@ -28,7 +28,7 @@ export function Footer() {
 
           <div className="flex items-center gap-2.5">
             <IconLink href={profile.linkedin} label="LinkedIn"><Linkedin size={16} /></IconLink>
-            <IconLink href={`mailto:${profile.email}`} label="Email"><Mail size={16} /></IconLink>
+            <IconLink href="#contact" label="Email"><Mail size={16} /></IconLink>
             {profile.github && (
               <IconLink href={profile.github} label="GitHub"><Github size={16} /></IconLink>
             )}
