@@ -42,13 +42,17 @@ export function Nav({ theme, toggle }) {
         style={{ scaleX: progress, background: 'var(--accent)' }}
       />
 
-      {/* top scrim — plain gradient fade (no backdrop-filter: it re-blurs every
-          scroll frame and janks). Content softly fades out under the floating pill. */}
+      {/* top scrim — frosted glass. Blurs content passing under the nav, then the
+          frost + tint dissolve into the page via a bottom mask (no hard edge). */}
       <div
         className="fixed top-0 inset-x-0 h-24 z-40 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, var(--bg) 6%, color-mix(in srgb, var(--bg) 72%, transparent) 42%, transparent)',
+            'linear-gradient(to bottom, color-mix(in srgb, var(--bg) 86%, transparent) 0%, color-mix(in srgb, var(--bg) 42%, transparent) 46%, transparent 100%)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          maskImage: 'linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%)',
         }}
       />
 
