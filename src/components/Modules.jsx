@@ -7,6 +7,7 @@ import {
   BugPlay,
   Webhook,
   ScanText,
+  ArrowUpRight,
 } from 'lucide-react'
 import { modules } from '../content/profile'
 import { RevealGroup, RevealItem, Reveal } from './ui/Reveal'
@@ -37,15 +38,25 @@ export function Modules() {
             return (
               <RevealItem key={m.name}>
                 <article
-                  className="card h-full p-6 transition-all duration-300 hover:-translate-y-1.5"
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = 'var(--shadow)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = 'none')}
+                  className="group card relative h-full p-6 overflow-hidden transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
                 >
+                  <ArrowUpRight
+                    size={18}
+                    className="absolute top-5 right-5 opacity-0 -translate-x-1 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
+                    style={{ color: 'var(--accent)' }}
+                  />
                   <div
-                    className="grid place-items-center h-11 w-11 rounded-xl mb-5"
+                    className="relative grid place-items-center h-11 w-11 rounded-xl mb-5 overflow-hidden transition-transform duration-300 group-hover:scale-105"
                     style={{ background: 'var(--surface-2)', border: '1px solid var(--border)' }}
                   >
-                    <Icon size={19} style={{ color: 'var(--accent)' }} />
+                    <span
+                      className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))' }}
+                    />
+                    <Icon
+                      size={19}
+                      className="relative z-[1] text-[color:var(--accent)] transition-colors duration-300 group-hover:text-white"
+                    />
                   </div>
                   <div className="eyebrow mb-2">{m.tag}</div>
                   <h4 className="font-display font-semibold text-lg tracking-tight mb-2">{m.name}</h4>
