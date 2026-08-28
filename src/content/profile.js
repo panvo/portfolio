@@ -311,27 +311,96 @@ export const tour = {
   sub: 'Ten real modules from the platform — pick one to see it. From an AI knowledge engine and an app-aware copilot to team governance, delivery, and API testing.',
 }
 
-// Interactive showcase — each entry is one tab that swaps a real screenshot
-// (public/shots/<shot>.png) into the viewer. `icon` maps to lucide in Tour.jsx.
+// Interactive showcase — each module has a gallery of real screenshots
+// (public/shots/<file>.png). Missing files fall back to a "coming" tile.
+// `icon` maps to lucide in Tour.jsx. Order here drives the grouped tab list.
 export const tourModules = [
-  { id: 'home', name: 'Command Center', category: 'Overview', icon: 'LayoutDashboard', route: '/home', shot: 'home',
-    tagline: 'Your whole QA operation at a glance — KPIs, live activity, system health and next actions in one command center.' },
-  { id: 'admin', name: 'Admin Console', category: 'Governance', icon: 'ShieldCheck', route: '/admin-console', shot: 'admin-console',
-    tagline: 'Role-based governance across the team — users & access, AI credits, audit trails and live usage reports.' },
-  { id: 'qa-health', name: 'QA Health', category: 'Governance', icon: 'Activity', route: '/qa-health', shot: 'qa-health',
-    tagline: 'A living quality score with severity bands and evidence-backed findings — each one traceable and actionable.' },
-  { id: 'cortex', name: 'Cortex', category: 'AI', icon: 'Brain', route: '/cortex', shot: 'cortex',
-    tagline: 'A retrieval-augmented knowledge engine that answers QA questions with real, verifiable citations.' },
-  { id: 'copilot', name: 'Copilot Chat', category: 'AI', icon: 'MessageSquareText', route: '/copilot/chat', shot: 'copilot',
-    tagline: 'An app-aware AI copilot that drafts cases, analyzes requirements and answers from your own data.' },
-  { id: 'studio', name: 'Test Studio', category: 'Test Design', icon: 'FlaskConical', route: '/test-design/intake', shot: 'test-studio',
-    tagline: 'Governed authoring — from requirements to scenarios to execution and delivered versions, fully traceable.' },
-  { id: 'trace', name: 'Trace Log', category: 'Governance', icon: 'Receipt', route: '/utility/trace-log', shot: 'trace-log',
-    tagline: 'Every AI call audited — model, tokens, latency and cost in USD and PHP. Responsible AI, measured.' },
-  { id: 'delivery', name: 'Delivery Board', category: 'Delivery', icon: 'KanbanSquare', route: '/delivery-board', shot: 'delivery-board',
-    tagline: 'A cross-project delivery command center — lanes, ownership, health scoring and stand-up metrics.' },
-  { id: 'api', name: 'API Tester', category: 'Delivery', icon: 'Webhook', route: '/api-workbench', shot: 'api-tester',
-    tagline: 'Design → send → assert API tests as a workflow, with run history, reports and AI failure analysis.' },
-  { id: 'exchange', name: 'Exchange', category: 'Community', icon: 'MessagesSquare', route: '/exchange', shot: 'exchange',
-    tagline: 'A team knowledge exchange — discussions, Q&A, guides, feature requests and a moderation queue.' },
+  {
+    id: 'home', name: 'Command Center', category: 'Overview', icon: 'LayoutDashboard', route: '/home',
+    tagline: 'Your whole QA operation at a glance — KPIs, live activity, system health and next actions in one command center.',
+    shots: [
+      { file: 'home-overview', label: 'Overview' },
+      { file: 'home-work-lifecycle', label: 'Work lifecycle' },
+    ],
+  },
+  {
+    id: 'cortex', name: 'Cortex', category: 'AI', icon: 'Brain', route: '/cortex',
+    tagline: 'A retrieval-augmented knowledge engine that answers QA questions with real, verifiable citations.',
+    shots: [
+      { file: 'cortex-overview', label: 'Overview' },
+      { file: 'cortex-ask', label: 'Ask' },
+      { file: 'cortex-answer', label: 'Answer' },
+      { file: 'cortex-insights', label: 'Insights' },
+      { file: 'cortex-knowledge-base', label: 'Knowledge base' },
+    ],
+  },
+  {
+    id: 'copilot', name: 'Copilot Chat', category: 'AI', icon: 'MessageSquareText', route: '/copilot/chat',
+    tagline: 'An app-aware AI copilot that drafts cases, analyzes requirements and answers from your own data.',
+    shots: [
+      { file: 'copilot-ask', label: 'Ask' },
+      { file: 'copilot-answer', label: 'Answer' },
+      { file: 'copilot-answer-2', label: 'Answer II' },
+      { file: 'copilot-assistant-profile', label: 'Assistant profile' },
+    ],
+  },
+  {
+    id: 'test-case-generator', name: 'Test Case Generator', category: 'AI', icon: 'Wand2', route: '/copilot/test-case-generator',
+    tagline: 'Turn a feature or requirement into structured, ready-to-run test cases in seconds.',
+    shots: [{ file: 'test-case-generator', label: 'Generator' }],
+  },
+  {
+    id: 'test-case-reviewer', name: 'Test Case Reviewer', category: 'AI', icon: 'ClipboardCheck', route: '/copilot/test-case-reviewer',
+    tagline: 'AI review of your test cases — clarity, coverage, gaps and weak assertions, flagged and explained.',
+    shots: [{ file: 'test-case-reviewer', label: 'Reviewer' }],
+  },
+  {
+    id: 'studio', name: 'Test Studio', category: 'Test Design', icon: 'FlaskConical', route: '/test-design/intake',
+    tagline: 'Governed authoring — requirements to scenarios to execution, with AI extraction and an in-context chat.',
+    shots: [
+      { file: 'test-studio-dashboard', label: 'Dashboard' },
+      { file: 'test-studio-requirements-and-scenarios', label: 'Requirements & scenarios' },
+      { file: 'test-studio-candidates', label: 'Candidates' },
+      { file: 'test-studio-extraction', label: 'Extraction' },
+      { file: 'test-studio-chat', label: 'Chat' },
+    ],
+  },
+  {
+    id: 'qa-health', name: 'QA Health', category: 'Governance', icon: 'Activity', route: '/qa-health',
+    tagline: 'A living quality score with severity bands and evidence-backed findings — each one traceable and actionable.',
+    shots: [{ file: 'qa-health', label: 'Health' }],
+  },
+  {
+    id: 'admin', name: 'Admin Console', category: 'Governance', icon: 'ShieldCheck', route: '/admin-console',
+    tagline: 'Role-based governance across the team — overview, users & access, AI pricing, audit trails and reports.',
+    shots: [
+      { file: 'admin-console-overview', label: 'Overview' },
+      { file: 'admin-console-ai-pricing', label: 'AI pricing' },
+    ],
+  },
+  {
+    id: 'impact-watch', name: 'Impact Watch', category: 'Governance', icon: 'Radar', route: '/impact-watch',
+    tagline: 'A cross-tool change feed — what changed, where, and everything it might affect downstream.',
+    shots: [{ file: 'impact-watch', label: 'Impact feed' }],
+  },
+  {
+    id: 'trace', name: 'Trace Log', category: 'Governance', icon: 'Receipt', route: '/utility/trace-log',
+    tagline: 'Every AI call audited — model, tokens, latency and cost in USD and PHP. Responsible AI, measured.',
+    shots: [{ file: 'tracelog', label: 'Audit ledger' }],
+  },
+  {
+    id: 'delivery', name: 'Delivery Board', category: 'Delivery', icon: 'KanbanSquare', route: '/delivery-board',
+    tagline: 'A cross-project delivery command center — lanes, ownership, health scoring and stand-up metrics.',
+    shots: [{ file: 'delivery-board', label: 'Board' }],
+  },
+  {
+    id: 'api', name: 'API Tester', category: 'Delivery', icon: 'Webhook', route: '/api-workbench',
+    tagline: 'Design → send → assert API tests as a workflow, with run history, reports and AI failure analysis.',
+    shots: [{ file: 'api-tester', label: 'Workbench' }],
+  },
+  {
+    id: 'exchange', name: 'Exchange', category: 'Community', icon: 'MessagesSquare', route: '/exchange',
+    tagline: 'A team knowledge exchange — discussions, Q&A, guides, feature requests and a moderation queue.',
+    shots: [{ file: 'exchange', label: 'Community' }],
+  },
 ]
