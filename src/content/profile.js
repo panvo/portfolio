@@ -31,7 +31,7 @@ export const profile = {
   stats: [
     { value: 9, label: 'Years in QA' },
     { value: 4000, label: 'Automated tests', compact: true },
-    { value: 8, label: 'Modules built' },
+    { value: 13, label: 'Modules built' },
   ],
 }
 

@@ -36,6 +36,16 @@ export function Tour() {
   const mod = tourModules[active]
   const shot = mod.shots[shotIdx] || mod.shots[0]
 
+  // a module card in the overview grid can open a module here
+  useEffect(() => {
+    const onSel = (e) => {
+      const i = e.detail
+      if (typeof i === 'number' && i >= 0 && i < tourModules.length) { setActive(i); setShotIdx(0) }
+    }
+    window.addEventListener('tour:select', onSel)
+    return () => window.removeEventListener('tour:select', onSel)
+  }, [])
+
   const selectModule = (i) => { setActive(i); setShotIdx(0) }
   const openLight = () => setLight({ modIndex: active, index: shotIdx })
   const goto = (i) => { setLight((l) => (l ? { ...l, index: i } : l)); setShotIdx(i) }

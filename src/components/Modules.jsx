@@ -1,19 +1,17 @@
 import {
-  Brain,
-  FlaskConical,
-  MessageSquareText,
-  Network,
-  ShieldCheck,
-  BugPlay,
-  Webhook,
-  ScanText,
-  ArrowUpRight,
+  LayoutDashboard, Brain, MessageSquareText, Wand2, ClipboardCheck, FlaskConical,
+  Activity, ShieldCheck, Radar, Receipt, KanbanSquare, Webhook, MessagesSquare, ArrowUpRight,
 } from 'lucide-react'
-import { modules } from '../content/profile'
+import { tourModules } from '../content/profile'
 import { RevealGroup, RevealItem, Reveal } from './ui/Reveal'
 import { SpotlightCard } from './ui/SpotlightCard'
 
-const icons = { Brain, FlaskConical, MessageSquareText, Network, ShieldCheck, BugPlay, Webhook, ScanText }
+const icons = { LayoutDashboard, Brain, MessageSquareText, Wand2, ClipboardCheck, FlaskConical, Activity, ShieldCheck, Radar, Receipt, KanbanSquare, Webhook, MessagesSquare }
+
+function openInTour(index) {
+  window.dispatchEvent(new CustomEvent('tour:select', { detail: index }))
+  document.getElementById('tour')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 
 export function Modules() {
   return (
@@ -24,23 +22,25 @@ export function Modules() {
             <div>
               <span className="eyebrow">Inside TestOps Hub</span>
               <h3 className="mt-3 font-display text-2xl sm:text-3xl font-semibold tracking-tight">
-                Eight modules, one platform
+                {tourModules.length} modules, one platform
               </h3>
             </div>
             <p className="max-w-xs text-sm" style={{ color: 'var(--text-faint)' }}>
-              Each module solves a distinct QA problem — sharing one governed, AI-aware core.
+              Each solves a distinct QA problem — click any to open it live in the tour below.
             </p>
           </div>
         </Reveal>
 
         <RevealGroup className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {modules.map((m) => {
+          {tourModules.map((m, i) => {
             const Icon = icons[m.icon] || Brain
             return (
-              <RevealItem key={m.name}>
+              <RevealItem key={m.id}>
                 <SpotlightCard
-                  as="article"
-                  className="group card h-full p-6 overflow-hidden transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
+                  as="button"
+                  onClick={() => openInTour(i)}
+                  aria-label={`Open ${m.name} in the tour`}
+                  className="group card w-full h-full text-left p-6 overflow-hidden cursor-pointer transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
                 >
                   <ArrowUpRight
                     size={18}
@@ -55,16 +55,19 @@ export function Modules() {
                       className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                       style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))' }}
                     />
-                    <Icon
-                      size={19}
-                      className="relative z-[1] text-[color:var(--accent)] transition-colors duration-300 group-hover:text-white"
-                    />
+                    <Icon size={19} className="relative z-[1] text-[color:var(--accent)] transition-colors duration-300 group-hover:text-white" />
                   </div>
-                  <div className="eyebrow mb-2">{m.tag}</div>
+                  <div className="eyebrow mb-2">{m.category}</div>
                   <h4 className="font-display font-semibold text-lg tracking-tight mb-2">{m.name}</h4>
                   <p className="text-[14px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                    {m.desc}
+                    {m.tagline}
                   </p>
+                  <span
+                    className="mt-4 inline-flex items-center gap-1 font-mono text-[11px] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+                    style={{ color: 'var(--accent)' }}
+                  >
+                    See it live <ArrowUpRight size={12} />
+                  </span>
                 </SpotlightCard>
               </RevealItem>
             )
