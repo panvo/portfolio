@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  Maximize2, X, ShieldCheck, Plus, Minus, ChevronLeft, ChevronRight, RotateCcw,
+  Maximize2, X, ShieldCheck, Plus, Minus, ChevronLeft, ChevronRight,
   LayoutDashboard, Activity, Brain, MessageSquareText, FlaskConical, Receipt, KanbanSquare, Webhook, MessagesSquare,
   Wand2, ClipboardCheck, Radar,
 } from 'lucide-react'
@@ -11,8 +11,10 @@ import { SectionHeading } from './ui/SectionHeading'
 /**
  * Interactive product tour. A grouped module list (left) drives a viewer (right)
  * that shows that module's gallery of real screenshots. Clicking a shot opens a
- * premium lightbox: fit-to-screen, zoom (buttons / wheel / click), pan, arrow-key
- * navigation, an info bar, and a thumbnail strip. Shots: public/shots/<file>.png.
+ * premium lightbox: fit-to-screen by default (whole image visible), true zoom via
+ * real dimensions inside a scrollable stage (wheel + scrollbar scroll large/zoomed
+ * images), ← → to switch views, ↑ ↓ to switch modules, thumbnails + an info bar.
+ * Shots: public/shots/<file>.png.
  */
 const icons = { LayoutDashboard, Activity, Brain, MessageSquareText, FlaskConical, Receipt, KanbanSquare, Webhook, MessagesSquare, Wand2, ClipboardCheck, Radar }
 const EASE = [0.16, 1, 0.3, 1]
@@ -28,8 +30,8 @@ const GROUPS = (() => {
 })()
 
 export function Tour() {
-  const [active, setActive] = useState(0) // module index
-  const [shotIdx, setShotIdx] = useState(0) // shot within the active module
+  const [active, setActive] = useState(0)
+  const [shotIdx, setShotIdx] = useState(0)
   const [light, setLight] = useState(null) // { modIndex, index } | null
   const mod = tourModules[active]
   const shot = mod.shots[shotIdx] || mod.shots[0]
@@ -44,6 +46,12 @@ export function Tour() {
     setShotIdx(n)
     return { ...l, index: n }
   })
+  const navModule = (dir) => setLight((l) => {
+    if (!l) return l
+    const n = (l.modIndex + dir + tourModules.length) % tourModules.length
+    setActive(n); setShotIdx(0)
+    return { modIndex: n, index: 0 }
+  })
 
   return (
     <section id="tour" className="py-24 sm:py-32 border-t" style={{ borderColor: 'var(--border)' }}>
@@ -51,7 +59,7 @@ export function Tour() {
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
         <div className="grid grid-cols-1 lg:grid-cols-[286px_1fr] gap-8 lg:gap-10 items-start">
-          {/* ── module list — grouped vertical (desktop) / flat strip (mobile) ── */}
+          {/* ── module list ── */}
           <div className="lg:sticky lg:top-24 min-w-0">
             <div className="flex lg:flex-col gap-2 lg:gap-1 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 -mx-1 px-1 snap-x">
               {GROUPS.map((g) => (
@@ -137,7 +145,7 @@ export function Tour() {
         </div>
       </div>
 
-      <Lightbox state={light} onClose={() => setLight(null)} onNav={nav} onGoto={goto} />
+      <Lightbox state={light} onClose={() => setLight(null)} onNav={nav} onNavModule={navModule} onGoto={goto} />
     </section>
   )
 }
@@ -204,7 +212,6 @@ function ShotPending({ mod, shot }) {
   )
 }
 
-/* ── Premium lightbox: fit / zoom / pan / arrow-nav / info / thumbnails ── */
 function CtrlBtn({ onClick, disabled, label, children }) {
   return (
     <button
@@ -220,9 +227,11 @@ function CtrlBtn({ onClick, disabled, label, children }) {
   )
 }
 
-function Lightbox({ state, onClose, onNav, onGoto }) {
-  const [scale, setScale] = useState(1)
-  const [off, setOff] = useState({ x: 0, y: 0 })
+function Lightbox({ state, onClose, onNav, onNavModule, onGoto }) {
+  const [zoom, setZoom] = useState(1)
+  const [nat, setNat] = useState({ w: 0, h: 0 })
+  const [box, setBox] = useState({ w: 0, h: 0 })
+  const stageRef = useRef(null)
   const drag = useRef(null)
 
   const mod = state ? tourModules[state.modIndex] : null
@@ -230,15 +239,24 @@ function Lightbox({ state, onClose, onNav, onGoto }) {
   const shot = mod ? shots[state.index] : null
   const many = shots.length > 1
 
-  // reset zoom/pan whenever the shown image changes
-  useEffect(() => { setScale(1); setOff({ x: 0, y: 0 }) }, [state?.modIndex, state?.index])
+  useEffect(() => { setZoom(1) }, [state?.modIndex, state?.index])
 
-  const zoomBy = (d) => setScale((s) => {
-    const n = Math.min(4, Math.max(1, +(s + d).toFixed(2)))
-    if (n === 1) setOff({ x: 0, y: 0 })
-    return n
-  })
-  const reset = () => { setScale(1); setOff({ x: 0, y: 0 }) }
+  // measure the stage so we can size the image in real pixels (enables scrollbars)
+  useEffect(() => {
+    if (!state) return
+    const measure = () => { const el = stageRef.current; if (el) setBox({ w: el.clientWidth, h: el.clientHeight }) }
+    measure()
+    const id = setTimeout(measure, 60)
+    window.addEventListener('resize', measure)
+    return () => { clearTimeout(id); window.removeEventListener('resize', measure) }
+  }, [state])
+
+  const PAD = 48
+  const fit = nat.w && box.w ? Math.min((box.w - PAD) / nat.w, (box.h - PAD) / nat.h) : 0
+  const dispW = fit ? Math.round(nat.w * fit * zoom) : null
+  const dispH = fit ? Math.round(nat.h * fit * zoom) : null
+
+  const zoomBy = (d) => setZoom((z) => Math.min(4, Math.max(1, +(z + d).toFixed(2))))
 
   useEffect(() => {
     if (!state) return
@@ -246,24 +264,20 @@ function Lightbox({ state, onClose, onNav, onGoto }) {
       if (e.key === 'Escape') onClose()
       else if (e.key === 'ArrowRight') onNav(1)
       else if (e.key === 'ArrowLeft') onNav(-1)
-      else if (e.key === '+' || e.key === '=') zoomBy(0.3)
-      else if (e.key === '-' || e.key === '_') zoomBy(-0.3)
-      else if (e.key === '0') reset()
+      else if (e.key === 'ArrowDown') { e.preventDefault(); onNavModule(1) }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); onNavModule(-1) }
+      else if (e.key === '+' || e.key === '=') zoomBy(0.5)
+      else if (e.key === '-' || e.key === '_') zoomBy(-0.5)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [state, onNav, onClose])
+  }, [state, onNav, onNavModule, onClose])
 
-  const onWheel = (e) => { e.preventDefault(); zoomBy(e.deltaY < 0 ? 0.3 : -0.3) }
-  const onPointerDown = (e) => { if (scale <= 1) return; e.currentTarget.setPointerCapture?.(e.pointerId); drag.current = { x: e.clientX, y: e.clientY, ox: off.x, oy: off.y, moved: false } }
-  const onPointerMove = (e) => { if (!drag.current) return; const dx = e.clientX - drag.current.x, dy = e.clientY - drag.current.y; if (Math.abs(dx) + Math.abs(dy) > 3) drag.current.moved = true; setOff({ x: drag.current.ox + dx, y: drag.current.oy + dy }) }
+  // grab-to-scroll when the image is larger than the stage
+  const zoomed = zoom > 1
+  const onPointerDown = (e) => { const el = stageRef.current; if (!el || !zoomed) return; drag.current = { x: e.clientX, y: e.clientY, l: el.scrollLeft, t: el.scrollTop } }
+  const onPointerMove = (e) => { const el = stageRef.current; if (!el || !drag.current) return; el.scrollLeft = drag.current.l - (e.clientX - drag.current.x); el.scrollTop = drag.current.t - (e.clientY - drag.current.y) }
   const endDrag = () => { drag.current = null }
-  const onImgClick = (e) => { e.stopPropagation(); if (drag.current?.moved) return; scale === 1 ? zoomBy(1) : reset() }
-
-  // touch swipe for prev/next (only when not zoomed)
-  const touch = useRef(null)
-  const onTouchStart = (e) => { touch.current = { x: e.touches[0].clientX } }
-  const onTouchEnd = (e) => { if (!touch.current || scale > 1) return; const dx = e.changedTouches[0].clientX - touch.current.x; if (Math.abs(dx) > 55) onNav(dx < 0 ? 1 : -1); touch.current = null }
 
   const Icon = mod ? (icons[mod.icon] || Brain) : Brain
 
@@ -272,7 +286,7 @@ function Lightbox({ state, onClose, onNav, onGoto }) {
       {state && (
         <motion.div
           className="fixed inset-0 z-[100] flex flex-col"
-          style={{ background: 'rgba(6,7,12,0.94)', backdropFilter: 'blur(10px)' }}
+          style={{ background: 'rgba(6,7,12,0.95)', backdropFilter: 'blur(10px)' }}
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           onClick={onClose}
         >
@@ -291,77 +305,63 @@ function Lightbox({ state, onClose, onNav, onGoto }) {
               </div>
             </div>
             <div className="flex items-center gap-1.5 shrink-0">
-              <CtrlBtn onClick={() => zoomBy(-0.3)} disabled={scale <= 1} label="Zoom out"><Minus size={16} /></CtrlBtn>
-              <span className="font-mono text-[12px] w-11 text-center tabular-nums" style={{ color: 'rgba(255,255,255,0.8)' }}>{Math.round(scale * 100)}%</span>
-              <CtrlBtn onClick={() => zoomBy(0.3)} disabled={scale >= 4} label="Zoom in"><Plus size={16} /></CtrlBtn>
-              <CtrlBtn onClick={reset} disabled={scale === 1} label="Reset zoom"><RotateCcw size={15} /></CtrlBtn>
+              <CtrlBtn onClick={() => zoomBy(-0.5)} disabled={zoom <= 1} label="Zoom out"><Minus size={16} /></CtrlBtn>
+              <span className="font-mono text-[12px] w-11 text-center tabular-nums" style={{ color: 'rgba(255,255,255,0.8)' }}>{Math.round(zoom * 100)}%</span>
+              <CtrlBtn onClick={() => zoomBy(0.5)} disabled={zoom >= 4} label="Zoom in"><Plus size={16} /></CtrlBtn>
               <span className="w-px h-6 mx-1" style={{ background: 'rgba(255,255,255,0.16)' }} />
               <CtrlBtn onClick={onClose} label="Close"><X size={17} /></CtrlBtn>
             </div>
           </div>
 
-          {/* stage */}
-          <div className="relative flex-1 overflow-hidden" onClick={onClose}>
+          {/* stage (scrollable) */}
+          <div className="relative flex-1 min-h-0">
             {many && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); onNav(-1) }} aria-label="Previous" className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full transition-transform hover:scale-105" style={{ color: '#fff', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.16)' }}>
+                <button onClick={(e) => { e.stopPropagation(); onNav(-1) }} aria-label="Previous view" className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full transition-transform hover:scale-105" style={{ color: '#fff', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.16)' }}>
                   <ChevronLeft size={22} />
                 </button>
-                <button onClick={(e) => { e.stopPropagation(); onNav(1) }} aria-label="Next" className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full transition-transform hover:scale-105" style={{ color: '#fff', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.16)' }}>
+                <button onClick={(e) => { e.stopPropagation(); onNav(1) }} aria-label="Next view" className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 grid place-items-center h-11 w-11 rounded-full transition-transform hover:scale-105" style={{ color: '#fff', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.16)' }}>
                   <ChevronRight size={22} />
                 </button>
               </>
             )}
             <div
-              className="absolute inset-0 grid place-items-center px-4 sm:px-16 py-4"
-              onWheel={onWheel}
+              ref={stageRef}
+              className="absolute inset-0 overflow-auto"
+              onClick={onClose}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={endDrag}
               onPointerLeave={endDrag}
-              onTouchStart={onTouchStart}
-              onTouchEnd={onTouchEnd}
-              style={{ cursor: scale > 1 ? (drag.current ? 'grabbing' : 'grab') : 'zoom-in' }}
+              style={{ cursor: zoomed ? (drag.current ? 'grabbing' : 'grab') : 'default' }}
             >
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={`${state.modIndex}-${state.index}`}
-                  src={`/shots/${shot.file}.png`}
-                  alt={`${mod.name} — ${shot.label}`}
-                  draggable={false}
-                  onClick={onImgClick}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: EASE }}
-                  className="rounded-lg select-none"
-                  style={{
-                    maxWidth: '100%',
-                    maxHeight: '100%',
-                    objectFit: 'contain',
-                    transform: `translate(${off.x}px, ${off.y}px) scale(${scale})`,
-                    transition: drag.current ? 'none' : 'transform 0.2s ease',
-                    boxShadow: '0 30px 90px -20px rgba(0,0,0,0.85)',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                  }}
-                />
-              </AnimatePresence>
+              <div style={{ minWidth: '100%', minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={`${state.modIndex}-${state.index}`}
+                    src={`/shots/${shot.file}.png`}
+                    alt={`${mod.name} — ${shot.label}`}
+                    draggable={false}
+                    onLoad={(e) => setNat({ w: e.target.naturalWidth, h: e.target.naturalHeight })}
+                    onClick={(e) => e.stopPropagation()}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}
+                    className="rounded-lg select-none block"
+                    style={dispW
+                      ? { width: dispW, height: dispH, maxWidth: 'none', flexShrink: 0, boxShadow: '0 30px 90px -20px rgba(0,0,0,0.85)', border: '1px solid rgba(255,255,255,0.1)' }
+                      : { maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', boxShadow: '0 30px 90px -20px rgba(0,0,0,0.85)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  />
+                </AnimatePresence>
+              </div>
             </div>
           </div>
 
-          {/* thumbnail strip */}
+          {/* thumbnails */}
           {many && (
             <div className="flex items-center justify-center gap-2 px-4 py-3 overflow-x-auto shrink-0" onClick={(e) => e.stopPropagation()}>
               {shots.map((s, i) => {
                 const on = i === state.index
                 return (
-                  <button
-                    key={s.file}
-                    onClick={() => onGoto(i)}
-                    title={s.label}
-                    className="relative h-12 w-20 rounded-md overflow-hidden shrink-0 transition-all duration-200"
-                    style={{ border: on ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,0.14)', opacity: on ? 1 : 0.55 }}
-                  >
+                  <button key={s.file} onClick={() => onGoto(i)} title={s.label} className="relative h-12 w-20 rounded-md overflow-hidden shrink-0 transition-all duration-200" style={{ border: on ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,0.14)', opacity: on ? 1 : 0.55 }}>
                     <img src={`/shots/${s.file}.png`} alt={s.label} loading="lazy" className="w-full h-full object-cover object-top" />
                   </button>
                 )
@@ -369,9 +369,8 @@ function Lightbox({ state, onClose, onNav, onGoto }) {
             </div>
           )}
 
-          {/* hint */}
           <div className="hidden sm:block text-center pb-2 font-mono text-[10.5px]" style={{ color: 'rgba(255,255,255,0.4)' }} onClick={(e) => e.stopPropagation()}>
-            scroll or click to zoom · drag to pan · ← → to switch · Esc to close
+            +/− to zoom · scroll or drag to move · ← → views · ↑ ↓ modules · Esc to close
           </div>
         </motion.div>
       )}
