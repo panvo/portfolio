@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Home, FolderKanban, Briefcase, Wrench, BadgeCheck, Mail } from 'lucide-react'
-import { ThemeToggle } from './ThemeToggle'
+import { Home, FolderKanban, Briefcase, Wrench, BadgeCheck, Mail, Sun, Moon } from 'lucide-react'
 
 const links = [
   { href: '#top', label: 'Home', Icon: Home },
@@ -81,7 +80,7 @@ export function Nav({ theme, toggle }) {
                 href={href}
                 aria-label={label}
                 title={label}
-                className="relative grid place-items-center h-10 w-10 rounded-full transition-colors"
+                className="relative grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-full transition-colors"
                 style={{ color: on ? 'var(--bg)' : 'var(--text-muted)' }}
               >
                 {on && (
@@ -98,18 +97,29 @@ export function Nav({ theme, toggle }) {
               </a>
             )
           })}
+
+          {/* divider + theme toggle — inside the pill so it never collides with
+              the bar on narrow screens */}
+          <span className="w-px h-5 mx-0.5 sm:mx-1 shrink-0" style={{ background: 'var(--border)' }} />
+          <button
+            onClick={toggle}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title="Toggle theme"
+            className="relative grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden transition-colors shrink-0"
+            style={{ color: 'var(--text-muted)' }}
+          >
+            <motion.span
+              key={theme}
+              initial={{ y: 12, opacity: 0, rotate: -30 }}
+              animate={{ y: 0, opacity: 1, rotate: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="grid place-items-center"
+            >
+              {theme === 'dark' ? <Moon size={17} /> : <Sun size={17} />}
+            </motion.span>
+          </button>
         </div>
       </motion.nav>
-
-      {/* theme toggle, floating top-right */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-6 right-6 z-50"
-      >
-        <ThemeToggle theme={theme} toggle={toggle} />
-      </motion.div>
     </>
   )
 }

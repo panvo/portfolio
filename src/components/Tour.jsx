@@ -50,9 +50,9 @@ export function Tour() {
       <div className="shell">
         <SectionHeading kicker={tour.kicker} title={tour.title} sub={tour.sub} />
 
-        <div className="grid lg:grid-cols-[286px_1fr] gap-8 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[286px_1fr] gap-8 lg:gap-10 items-start">
           {/* ── module list — grouped vertical (desktop) / flat strip (mobile) ── */}
-          <div className="lg:sticky lg:top-24">
+          <div className="lg:sticky lg:top-24 min-w-0">
             <div className="flex lg:flex-col gap-2 lg:gap-1 overflow-x-auto lg:overflow-visible pb-3 lg:pb-0 -mx-1 px-1 snap-x">
               {GROUPS.map((g) => (
                 <div key={g.cat} className="contents lg:block">
@@ -103,7 +103,7 @@ export function Tour() {
           </div>
 
           {/* ── viewer ── */}
-          <div>
+          <div className="min-w-0">
             <AnimatePresence mode="wait">
               <motion.div key={mod.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.34, ease: EASE }}>
                 <div className="mb-4">
