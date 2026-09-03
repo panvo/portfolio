@@ -58,12 +58,12 @@ export function Modules() {
                 {g.items.map((m) => {
                   const Icon = icons[m.icon] || Brain
                   return (
-                    <RevealItem key={m.id}>
+                    <RevealItem key={m.id} className="h-full">
                       <SpotlightCard
                         as="button"
                         onClick={() => openInTour(m.index)}
                         aria-label={`Open ${m.name} in the tour`}
-                        className="group card w-full h-full text-left p-5 overflow-hidden cursor-pointer transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
+                        className="group card w-full h-full text-left p-5 flex flex-col overflow-hidden cursor-pointer transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow)] hover:border-[color:var(--border-strong)]"
                       >
                         <ArrowUpRight size={16} className="absolute top-4 right-4 opacity-0 -translate-x-1 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0" style={{ color: 'var(--accent)' }} />
                         <div className="flex items-center gap-3 mb-3">
@@ -73,14 +73,12 @@ export function Modules() {
                           </div>
                           <h4 className="font-display font-semibold text-[15px] tracking-tight leading-tight">{m.name}</h4>
                         </div>
-                        <p className="text-[13px] leading-relaxed line-clamp-3" style={{ color: 'var(--text-muted)' }}>
+                        <p className="text-[13px] leading-relaxed line-clamp-3 flex-1" style={{ color: 'var(--text-muted)' }}>
                           {m.tagline}
                         </p>
-                        {m.shots.length > 1 && (
-                          <div className="mt-3 font-mono text-[10.5px]" style={{ color: 'var(--text-faint)' }}>
-                            {m.shots.length} views
-                          </div>
-                        )}
+                        <div className="mt-3 h-4 flex items-center gap-1.5 font-mono text-[10.5px]" style={{ color: 'var(--text-faint)' }}>
+                          {m.shots.length > 1 ? `${m.shots.length} views` : ''}
+                        </div>
                       </SpotlightCard>
                     </RevealItem>
                   )

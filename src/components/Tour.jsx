@@ -125,23 +125,51 @@ export function Tour() {
                   <p className="mt-2 text-[15px] leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>{mod.tagline}</p>
                 </div>
 
-                {mod.shots.length > 1 && (
+                {mod.shots.length > 1 && (mod.shots.some((s) => s.group) ? (
+                  <div className="space-y-2.5 mb-4">
+                    {/* tool selector */}
+                    <div className="flex flex-wrap gap-2">
+                      {[...new Set(mod.shots.map((s) => s.group))].map((gp) => {
+                        const on = shot.group === gp
+                        const first = mod.shots.findIndex((s) => s.group === gp)
+                        return (
+                          <button key={gp} onClick={() => setShotIdx(first)}
+                            className="px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-all duration-200"
+                            style={on ? { background: 'var(--text)', color: 'var(--bg)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
+                            {gp}
+                          </button>
+                        )
+                      })}
+                    </div>
+                    {/* view within the active tool */}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <span className="eyebrow !text-[10px] mr-1" style={{ color: 'var(--text-faint)' }}>View</span>
+                      {mod.shots.map((s, i) => ({ s, i })).filter((x) => x.s.group === shot.group).map(({ s, i }) => {
+                        const on = i === shotIdx
+                        return (
+                          <button key={s.file} onClick={() => setShotIdx(i)}
+                            className="px-2.5 py-1 rounded-md text-[12px] font-medium transition-all duration-200"
+                            style={on ? { background: 'color-mix(in srgb, var(--accent) 18%, transparent)', color: 'var(--accent)', border: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)' } : { color: 'var(--text-faint)', border: '1px solid var(--border)' }}>
+                            {s.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ) : (
                   <div className="flex flex-wrap gap-2 mb-3">
                     {mod.shots.map((s, i) => {
                       const on = i === shotIdx
                       return (
-                        <button
-                          key={s.file}
-                          onClick={() => setShotIdx(i)}
+                        <button key={s.file} onClick={() => setShotIdx(i)}
                           className="px-3 py-1.5 rounded-full text-[12.5px] font-medium transition-all duration-200"
-                          style={on ? { background: 'var(--text)', color: 'var(--bg)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}
-                        >
+                          style={on ? { background: 'var(--text)', color: 'var(--bg)' } : { background: 'var(--surface-2)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
                           {s.label}
                         </button>
                       )
                     })}
                   </div>
-                )}
+                ))}
 
                 <ShotFrame mod={mod} shot={shot} onOpen={openLight} />
               </motion.div>
@@ -309,7 +337,7 @@ function Lightbox({ state, onClose, onNav, onNavModule, onGoto }) {
               <div className="min-w-0">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="font-display font-semibold text-white truncate">{mod.name}</span>
-                  <span className="font-mono text-[11px] rounded-full px-2 py-0.5 shrink-0" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.75)' }}>{shot.label}</span>
+                  <span className="font-mono text-[11px] rounded-full px-2 py-0.5 shrink-0" style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.75)' }}>{shot.group ? `${shot.group} · ${shot.label}` : shot.label}</span>
                 </div>
                 <div className="font-mono text-[11.5px] truncate" style={{ color: 'rgba(255,255,255,0.5)' }}>localhost:8888{mod.route} · {state.index + 1} / {shots.length}</div>
               </div>
