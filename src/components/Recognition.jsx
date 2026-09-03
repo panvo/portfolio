@@ -1,44 +1,52 @@
-import { Quote } from 'lucide-react'
 import { recognition } from '../content/profile'
-import { Reveal, MaskText } from './ui/Reveal'
+import { Reveal } from './ui/Reveal'
 
 /**
- * A premium recognition band — a large centered pull-quote (honest: from the
- * owner's track record) plus three real credential highlights.
+ * A compact, premium recognition band — an eyebrow, a large pull-quote (honest:
+ * from the owner's track record), a context line, and three real credentials.
+ * Uses plain Reveal (fade+rise) so the quote always renders.
  */
 export function Recognition() {
   return (
-    <section className="py-24 sm:py-32 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section className="py-16 sm:py-20 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center">
           <Reveal>
-            <span
-              className="inline-grid place-items-center h-12 w-12 rounded-2xl mb-8"
-              style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', color: '#fff', boxShadow: '0 14px 34px -16px color-mix(in srgb, var(--accent) 60%, transparent)' }}
-            >
-              <Quote size={22} />
-            </span>
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
+              <span className="eyebrow">Recognition</span>
+              <span className="h-px w-8" style={{ background: 'var(--accent)' }} />
+            </div>
           </Reveal>
 
-          <blockquote className="font-display text-3xl sm:text-4xl md:text-[2.9rem] font-semibold tracking-tight leading-[1.15]">
-            <MaskText>{'“' + recognition.quote + '”'}</MaskText>
-          </blockquote>
+          <Reveal delay={0.05}>
+            <blockquote className="relative font-display text-[1.7rem] sm:text-4xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.18]">
+              <span
+                className="absolute -top-5 left-1/2 -translate-x-1/2 text-6xl leading-none select-none pointer-events-none"
+                style={{ color: 'color-mix(in srgb, var(--accent) 26%, transparent)', fontFamily: 'Georgia, "Times New Roman", serif' }}
+                aria-hidden="true"
+              >
+                &ldquo;
+              </span>
+              {recognition.quote}
+            </blockquote>
+          </Reveal>
 
-          <Reveal delay={0.15}>
-            <p className="mt-6 text-[15px] sm:text-base leading-relaxed max-w-2xl mx-auto" style={{ color: 'var(--text-muted)' }}>
+          <Reveal delay={0.1}>
+            <p className="mt-5 text-[15px] leading-relaxed max-w-xl mx-auto" style={{ color: 'var(--text-muted)' }}>
               {recognition.context}
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {recognition.highlights.map((h, i) => (
-            <Reveal key={h.label} delay={0.1 + i * 0.08}>
+            <Reveal key={h.label} delay={0.12 + i * 0.07}>
               <div
-                className="card h-full p-6 text-center"
+                className="card h-full p-5 text-center transition-transform duration-300 hover:-translate-y-1"
                 style={{ background: 'linear-gradient(180deg, var(--surface), color-mix(in srgb, var(--surface) 30%, transparent))' }}
               >
-                <div className="font-display font-semibold text-lg tracking-tight" style={{ color: 'var(--accent-text)' }}>{h.label}</div>
+                <div className="font-display font-semibold text-[15px] tracking-tight" style={{ color: 'var(--accent-text)' }}>{h.label}</div>
                 <div className="mt-1.5 text-[13px] leading-relaxed" style={{ color: 'var(--text-faint)' }}>{h.sub}</div>
               </div>
             </Reveal>
