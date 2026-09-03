@@ -31,7 +31,7 @@ export const profile = {
   stats: [
     { value: 9, label: 'Years in QA' },
     { value: 4000, label: 'Automated tests', compact: true },
-    { value: 13, label: 'Modules built' },
+    { value: 16, label: 'Modules built' },
   ],
 }
 
@@ -315,6 +315,7 @@ export const tour = {
 // (public/shots/<file>.png). Missing files fall back to a "coming" tile.
 // `icon` maps to lucide in Tour.jsx. Order here drives the grouped tab list.
 export const tourModules = [
+  // ── Overview ──
   {
     id: 'home', name: 'Command Center', category: 'Overview', icon: 'LayoutDashboard', route: '/home',
     tagline: 'Your whole QA operation at a glance — KPIs, live activity, system health and next actions in one command center.',
@@ -323,6 +324,13 @@ export const tourModules = [
       { file: 'home-work-lifecycle', label: 'Work lifecycle' },
     ],
   },
+  {
+    id: 'recent', name: 'Recent Work', category: 'Overview', icon: 'History', route: '/recent',
+    tagline: 'Pick up exactly where you left off — your recent tools and projects, one tap away.',
+    shots: [{ file: 'recent-work', label: 'Recent' }],
+  },
+
+  // ── AI ──
   {
     id: 'cortex', name: 'Cortex', category: 'AI', icon: 'Brain', route: '/cortex',
     tagline: 'A retrieval-augmented knowledge engine that answers QA questions with real, verifiable citations.',
@@ -345,15 +353,15 @@ export const tourModules = [
     ],
   },
   {
-    id: 'test-case-generator', name: 'Test Case Generator', category: 'AI', icon: 'Wand2', route: '/copilot/test-case-generator',
-    tagline: 'Turn a feature or requirement into structured, ready-to-run test cases in seconds.',
-    shots: [{ file: 'test-case-generator', label: 'Generator' }],
+    id: 'test-case-ai', name: 'Test Case AI', category: 'AI', icon: 'Wand2', route: '/copilot/test-case-generator',
+    tagline: 'Generate structured test cases from a requirement, then AI-review them for coverage, clarity and weak assertions.',
+    shots: [
+      { file: 'test-case-generator', label: 'Generator' },
+      { file: 'test-case-reviewer', label: 'Reviewer' },
+    ],
   },
-  {
-    id: 'test-case-reviewer', name: 'Test Case Reviewer', category: 'AI', icon: 'ClipboardCheck', route: '/copilot/test-case-reviewer',
-    tagline: 'AI review of your test cases — clarity, coverage, gaps and weak assertions, flagged and explained.',
-    shots: [{ file: 'test-case-reviewer', label: 'Reviewer' }],
-  },
+
+  // ── Test Design ──
   {
     id: 'studio', name: 'Test Studio', category: 'Test Design', icon: 'FlaskConical', route: '/test-design/intake',
     tagline: 'Governed authoring — requirements to scenarios to execution, with AI extraction and an in-context chat.',
@@ -365,6 +373,23 @@ export const tourModules = [
       { file: 'test-studio-chat', label: 'Chat' },
     ],
   },
+  {
+    id: 'design-tools', name: 'Design Tools', category: 'Test Design', icon: 'Network', route: '/test-design/decision-table',
+    tagline: 'Model coverage visually — decision tables, equivalence partitioning & boundary values, and state-transition machines — each generating test cases.',
+    shots: [
+      { file: 'decision-table-setup', label: 'Decision · Setup' },
+      { file: 'decision-table-simulate', label: 'Decision · Simulate' },
+      { file: 'decision-table', label: 'Decision · Table' },
+      { file: 'EP-BVA-setup', label: 'EP/BVA · Setup' },
+      { file: 'EP-BVA-visualize', label: 'EP/BVA · Visualize' },
+      { file: 'EP-BVA-table', label: 'EP/BVA · Table' },
+      { file: 'state-transition-model', label: 'State · Model' },
+      { file: 'state-transition-diagram', label: 'State · Diagram' },
+      { file: 'state-transition-table', label: 'State · Table' },
+    ],
+  },
+
+  // ── Governance ──
   {
     id: 'qa-health', name: 'QA Health', category: 'Governance', icon: 'Activity', route: '/qa-health',
     tagline: 'A living quality score with severity bands and evidence-backed findings — each one traceable and actionable.',
@@ -388,6 +413,8 @@ export const tourModules = [
     tagline: 'Every AI call audited — model, tokens, latency and cost in USD and PHP. Responsible AI, measured.',
     shots: [{ file: 'tracelog', label: 'Audit ledger' }],
   },
+
+  // ── Delivery ──
   {
     id: 'delivery', name: 'Delivery Board', category: 'Delivery', icon: 'KanbanSquare', route: '/delivery-board',
     tagline: 'A cross-project delivery command center — lanes, ownership, health scoring and stand-up metrics.',
@@ -399,8 +426,27 @@ export const tourModules = [
     shots: [{ file: 'api-tester', label: 'Workbench' }],
   },
   {
+    id: 'resource-library', name: 'Resource Library', category: 'Delivery', icon: 'Library', route: '/resource-library',
+    tagline: 'A versioned home for QA docs and references — linked to requirements, connections and Cortex.',
+    shots: [
+      { file: 'resource-library', label: 'Overview' },
+      { file: 'resource-library-document', label: 'Documents' },
+      { file: 'resource-library-connections', label: 'Connections' },
+    ],
+  },
+
+  // ── Community ──
+  {
     id: 'exchange', name: 'Exchange', category: 'Community', icon: 'MessagesSquare', route: '/exchange',
     tagline: 'A team knowledge exchange — discussions, Q&A, guides, feature requests and a moderation queue.',
     shots: [{ file: 'exchange', label: 'Community' }],
+  },
+  {
+    id: 'messaging', name: 'Messaging', category: 'Community', icon: 'Inbox', route: '/inbox',
+    tagline: 'Team messaging and admin broadcasts — threaded conversations that keep everyone in sync.',
+    shots: [
+      { file: 'messaging', label: 'Inbox' },
+      { file: 'admin-messaging', label: 'Admin broadcast' },
+    ],
   },
 ]
