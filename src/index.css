@@ -22,8 +22,9 @@
   --border-strong: rgba(22, 22, 26, 0.2);
   --text: #16161a;
   --text-muted: #55555d;
-  --text-faint: #8c8c94;
+  --text-faint: #6c6c75; /* darkened for AA-readable faint labels on the paper bg */
   --accent: #6e3f1d; /* deep rich brown (light theme) */
+  --accent-text: #6e3f1d; /* accent used as text — already high-contrast on paper */
   --accent-2: #5f656e; /* mid slate gray — readable under white glyphs + as an icon color */
   --lime: var(--accent-2);
   --shadow: 0 20px 50px -24px rgba(22, 22, 26, 0.28);
@@ -44,7 +45,8 @@
   --text: rgba(255, 255, 255, 0.95);
   --text-muted: rgba(255, 255, 255, 0.72);
   --text-faint: rgba(255, 255, 255, 0.55);
-  --accent: #a05a2c; /* deep rich brown — cognac/chestnut, saturated so it reads warm on near-black */
+  --accent: #a05a2c; /* deep rich brown — cognac/chestnut, for fills, borders & icons */
+  --accent-text: #b06f3e; /* lighter warm brown for accent TEXT on dark (4.9:1 — AA readable) */
   --accent-2: #7e858f; /* mid slate gray — reads under white glyphs AND as an icon color on dark */
   --lime: var(--accent-2);
   --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
@@ -371,7 +373,7 @@ textarea::placeholder {
 
 /* Ghosted display line (the dimmed second title line, à la the reference) */
 .ghost {
-  color: color-mix(in srgb, var(--text) 26%, transparent);
+  color: color-mix(in srgb, var(--text) 50%, transparent);
 }
 
 /* Cinematic editorial portrait — moody, dramatic, warm-graded (à la a studio B&W) */

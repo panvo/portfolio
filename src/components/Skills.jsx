@@ -81,7 +81,7 @@ function Capability({ label, n }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <span className="font-mono text-sm shrink-0" style={{ color: 'var(--accent)' }}>0{n}</span>
+      <span className="font-mono text-sm shrink-0" style={{ color: 'var(--accent-text)' }}>0{n}</span>
       <span
         className="flex-1 font-display font-medium tracking-tight text-2xl sm:text-4xl md:text-[2.75rem] leading-tight transition-colors duration-300"
         style={{ color: hover ? 'var(--accent)' : 'var(--text)' }}

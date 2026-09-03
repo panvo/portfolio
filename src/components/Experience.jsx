@@ -35,7 +35,7 @@ export function Experience() {
                     {item.role}
                   </h3>
                   <div className="mt-1 text-[15px]">
-                    <span style={{ color: 'var(--accent)' }}>{item.org}</span>
+                    <span style={{ color: 'var(--accent-text)' }}>{item.org}</span>
                     <span style={{ color: 'var(--text-faint)' }}> · {item.meta}</span>
                   </div>
                   <p className="mt-3 text-[15px] leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>

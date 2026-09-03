@@ -120,7 +120,7 @@ export function Tour() {
                 <div className="mb-4">
                   <div className="flex items-center gap-2.5 flex-wrap">
                     <h3 className="font-display text-xl sm:text-2xl font-semibold tracking-tight">{mod.name}</h3>
-                    <span className="chip !py-0.5 !px-2.5 !text-[11px]" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>{mod.category}</span>
+                    <span className="chip !py-0.5 !px-2.5 !text-[11px]" style={{ borderColor: 'var(--accent)', color: 'var(--accent-text)' }}>{mod.category}</span>
                   </div>
                   <p className="mt-2 text-[15px] leading-relaxed max-w-2xl" style={{ color: 'var(--text-muted)' }}>{mod.tagline}</p>
                 </div>
@@ -149,7 +149,7 @@ export function Tour() {
                         return (
                           <button key={s.file} onClick={() => setShotIdx(i)}
                             className="px-2.5 py-1 rounded-md text-[12px] font-medium transition-all duration-200"
-                            style={on ? { background: 'color-mix(in srgb, var(--accent) 18%, transparent)', color: 'var(--accent)', border: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)' } : { color: 'var(--text-faint)', border: '1px solid var(--border)' }}>
+                            style={on ? { background: 'color-mix(in srgb, var(--accent) 18%, transparent)', color: 'var(--accent-text)', border: '1px solid color-mix(in srgb, var(--accent) 45%, transparent)' } : { color: 'var(--text-faint)', border: '1px solid var(--border)' }}>
                             {s.label}
                           </button>
                         )

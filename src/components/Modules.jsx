@@ -48,7 +48,7 @@ export function Modules() {
               {/* category header */}
               <Reveal>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="eyebrow !text-[11px]" style={{ color: 'var(--accent)' }}>{g.cat}</span>
+                  <span className="eyebrow !text-[11px]" style={{ color: 'var(--accent-text)' }}>{g.cat}</span>
                   <span className="font-mono text-[11px]" style={{ color: 'var(--text-faint)' }}>{String(g.items.length).padStart(2, '0')}</span>
                   <span className="h-px flex-1" style={{ background: 'var(--border)' }} />
                 </div>

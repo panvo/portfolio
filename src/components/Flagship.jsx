@@ -31,7 +31,7 @@ export function Flagship() {
                 </h3>
               </Reveal>
               <Reveal delay={0.1}>
-                <p className="mt-3 text-lg" style={{ color: 'var(--accent)' }}>{flagship.tagline}</p>
+                <p className="mt-3 text-lg" style={{ color: 'var(--accent-text)' }}>{flagship.tagline}</p>
               </Reveal>
               <Reveal delay={0.15}>
                 <p className="mt-6 max-w-xl text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
