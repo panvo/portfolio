@@ -7,7 +7,7 @@ import { SpotlightCard } from './ui/SpotlightCard'
 
 export function Flagship() {
   return (
-    <section id="work" className="pt-24 sm:pt-32 pb-16 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="work" className="pt-20 sm:pt-24 pb-14 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading
           kicker="Selected work"

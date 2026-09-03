@@ -5,7 +5,7 @@ import { SectionHeading } from './ui/SectionHeading'
 
 export function Experience() {
   return (
-    <section id="experience" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="experience" className="py-20 sm:py-24 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading kicker={experienceHeading.kicker} title={experienceHeading.title} />
 

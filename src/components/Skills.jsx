@@ -14,7 +14,7 @@ const groupIcons = {
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="skills" className="py-20 sm:py-24 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading
           kicker="Toolkit"

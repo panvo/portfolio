@@ -3,7 +3,7 @@ import { Reveal } from './ui/Reveal'
 
 export function About() {
   return (
-    <section id="about" className="py-24 sm:py-32 scroll-mt-24">
+    <section id="about" className="py-20 sm:py-24 scroll-mt-24">
       <div className="shell">
         {/* eyebrow */}
         <Reveal>

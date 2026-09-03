@@ -47,7 +47,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 sm:py-32 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
+    <section id="contact" className="py-20 sm:py-24 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-start">
           {/* left: pitch */}
