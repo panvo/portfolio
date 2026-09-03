@@ -9,4 +9,15 @@ export default defineConfig({
     port: 5180,
     host: true,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // split heavy vendors into their own long-cache chunks (motion is the big one)
+        manualChunks: {
+          motion: ['framer-motion'],
+          react: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
 })

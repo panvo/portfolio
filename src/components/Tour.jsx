@@ -189,7 +189,7 @@ export function Tour() {
 }
 
 function ShotFrame({ mod, shot, onOpen }) {
-  const src = `/shots/${shot.file}.png`
+  const src = `/shots/${shot.file}.webp`
   return (
     <motion.div className="browser" whileHover={{ y: -3 }} transition={{ type: 'spring', stiffness: 300, damping: 24 }}>
       <div className="browser-bar">
@@ -377,7 +377,7 @@ function Lightbox({ state, onClose, onNav, onNavModule, onGoto }) {
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={`${state.modIndex}-${state.index}`}
-                    src={`/shots/${shot.file}.png`}
+                    src={`/shots/${shot.file}.webp`}
                     alt={`${mod.name} — ${shot.label}`}
                     draggable={false}
                     onLoad={(e) => setNat({ w: e.target.naturalWidth, h: e.target.naturalHeight })}
@@ -400,7 +400,7 @@ function Lightbox({ state, onClose, onNav, onNavModule, onGoto }) {
                 const on = i === state.index
                 return (
                   <button key={s.file} onClick={() => onGoto(i)} title={s.label} className="relative h-12 w-20 rounded-md overflow-hidden shrink-0 transition-all duration-200" style={{ border: on ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,0.14)', opacity: on ? 1 : 0.55 }}>
-                    <img src={`/shots/${s.file}.png`} alt={s.label} loading="lazy" className="w-full h-full object-cover object-top" />
+                    <img src={`/shots/${s.file}.webp`} alt={s.label} loading="lazy" className="w-full h-full object-cover object-top" />
                   </button>
                 )
               })}

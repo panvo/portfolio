@@ -62,6 +62,18 @@ export const about = {
   ],
 }
 
+// ── Recognition (a premium pull-quote band) ───────────────────
+export const recognition = {
+  quote: 'Consistently recognized as a top-performing QA professional.',
+  context:
+    'Across 9+ years hardening enterprise software at Austin Alba Consulting — in Agile/Scrum teams shipping to real clients.',
+  highlights: [
+    { label: 'Cum Laude', sub: 'BS Information Technology · GWA 1.73' },
+    { label: 'Civil Service Eligible', sub: 'PD 907 · Civil Service Commission' },
+    { label: 'CJIS · Privileged Role', sub: 'Security & Privacy certified' },
+  ],
+}
+
 // ── Flagship case study ───────────────────────────────────────
 export const flagship = {
   kicker: 'Flagship project',
@@ -71,9 +83,9 @@ export const flagship = {
   summary:
     'A single platform that consolidates test analysis, test design, documentation, knowledge management, and AI-assisted testing — built to kill the recurring pain of enterprise QA: fragmented docs, repetitive manual work, incomplete coverage, and broken traceability.',
   metrics: [
-    { value: 51, suffix: '', label: 'Quality gates' },
-    { value: 105, suffix: '', label: 'Security policies (RLS)' },
-    { value: 100, suffix: '%', label: 'Cortex retrieval accuracy' },
+    { value: 51, suffix: '', label: 'Quality gates', note: 'automated checks that block regressions before any merge' },
+    { value: 105, suffix: '', label: 'Security policies (RLS)', note: 'row-level rules enforcing per-user data isolation' },
+    { value: 100, suffix: '%', label: 'Cortex retrieval accuracy', note: 'measured top-3 recall on a golden question set' },
   ],
   stack: ['React', 'Vite', 'Tailwind', 'Supabase', 'Framer Motion', 'Claude AI'],
 }

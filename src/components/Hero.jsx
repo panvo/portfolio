@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
 import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin } from 'lucide-react'
 import { profile, heroCards } from '../content/profile'
 import { useCountUp } from '../lib/hooks'
@@ -91,8 +91,26 @@ export function Hero() {
 
 function ProfileCard() {
   const [imgOk, setImgOk] = useState(true)
+  const ref = useRef(null)
+  const rx = useMotionValue(0)
+  const ry = useMotionValue(0)
+  const srx = useSpring(rx, { stiffness: 200, damping: 20, mass: 0.4 })
+  const sry = useSpring(ry, { stiffness: 200, damping: 20, mass: 0.4 })
+  const onMove = (e) => {
+    const r = ref.current?.getBoundingClientRect()
+    if (!r) return
+    ry.set(((e.clientX - r.left) / r.width - 0.5) * 9)
+    rx.set(-((e.clientY - r.top) / r.height - 0.5) * 9)
+  }
+  const onLeave = () => { rx.set(0); ry.set(0) }
   return (
-    <div className="profile-card relative h-full p-4 sm:p-5 flex flex-col text-center overflow-hidden">
+    <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ rotateX: srx, rotateY: sry, transformPerspective: 900 }}
+      className="profile-card relative h-full p-4 sm:p-5 flex flex-col text-center overflow-hidden"
+    >
       {/* top decorative dashed arc */}
       <svg className="absolute left-5 right-5 top-2 pointer-events-none" style={{ width: 'calc(100% - 40px)' }} height="54" viewBox="0 0 300 54" fill="none" preserveAspectRatio="none">
         <path d="M6 48 C 70 6, 230 6, 294 30" stroke="var(--accent)" strokeWidth="2.5" strokeDasharray="4 7" strokeLinecap="round" opacity="0.9" />
@@ -139,7 +157,7 @@ function ProfileCard() {
         <Social href="#contact" label="Email"><Mail size={17} /></Social>
         {profile.github && <Social href={profile.github} label="GitHub"><Github size={17} /></Social>}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
