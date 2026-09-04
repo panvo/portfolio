@@ -20,7 +20,7 @@ export const profile = {
 
   // One-liner under the headline.
   intro:
-    'Software Tester with 9+ years hardening enterprise web applications through manual, functional, regression and database testing. Now building TestOps Hub — an AI-native QA platform.',
+    'Software Tester with 9+ years hardening enterprise web applications through manual, functional, regression and database testing. Now designing and building TestOps Hub — an AI-native QA platform.',
 
   // Contact + socials
   email: 'iamjhondrey@yahoo.com',
@@ -50,7 +50,7 @@ export const about = {
   kicker: 'Who I am',
   paragraphs: [
     'My work lives at the intersection of requirements analysis, test-case design, and SQL-based backend validation across Microsoft SQL Server and Oracle. I partner closely with developers and stakeholders to reproduce issues, validate business rules, and protect software reliability and data integrity.',
-    'That experience now goes into TestOps Hub — an internal platform that reimagines test design, requirements analysis, knowledge management, and AI-assisted testing.',
+    'Now I’m putting that experience into TestOps Hub — an AI-native platform I designed and built end to end to reimagine test design, requirements analysis, knowledge management, and AI-assisted testing.',
     'What drives me is the system around the testing: turning fragmented docs and repetitive manual work into repeatable, traceable, well-documented workflows — so quality is built in, not bolted on.',
   ],
   // At-a-glance facts (all true, from experience + education)
@@ -68,9 +68,9 @@ export const about = {
 
 // ── Recognition (a premium pull-quote band) ───────────────────
 export const recognition = {
-  quote: 'Nine years protecting enterprise software that ships to real clients.',
+  quote: 'Nine years keeping mission-critical software honest — where a missed defect isn’t an option.',
   context:
-    'At Austin Alba Consulting, in Agile/Scrum teams — with the academic, civil-service and security credentials below to back the work.',
+    'Security-cleared enterprise QA in the law-enforcement and forensic domain at Austin Alba Consulting — the credentials below back the work.',
   highlights: [
     { label: 'Cum Laude', sub: 'BS Information Technology · GWA 1.73' },
     { label: 'Civil Service Eligible', sub: 'PD 907 · Civil Service Commission' },
@@ -312,7 +312,7 @@ export const timeline = [
     duration: '9 yrs 2 mos',
     location: 'Makati City, Philippines',
     summary:
-      'Analyze requirements to identify scenarios, risks and coverage, then design, maintain, and run functional, regression, exploratory, GUI and database test cases for complex enterprise web applications. Validate backend data and transactions across Microsoft SQL Server and Oracle, prepare SQL scripts, test data and technical/user documentation, and drive client-reported defects to closure with developers, working in an Agile/Scrum team.',
+      'Analyze requirements to identify scenarios, risks and coverage, then design, maintain, and run functional, regression, exploratory, GUI and database test cases for mission-critical enterprise applications in the law-enforcement and forensic domain. Validate backend data and transactions across Microsoft SQL Server and Oracle, prepare SQL scripts, test data and technical/user documentation, and drive client-reported defects to closure with developers, working in an Agile/Scrum team.',
     tags: ['Functional & Regression', 'SQL Server', 'Oracle', 'Trac', 'TortoiseSVN', 'SharePoint', 'Agile/Scrum'],
     now: true,
   },
