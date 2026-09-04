@@ -94,6 +94,155 @@ export const flagship = {
   stack: ['React', 'Vite', 'Tailwind', 'Supabase', 'Framer Motion', 'Claude AI'],
 }
 
+// ── The full case study (the flagship story) ──────────────────
+export const caseStudy = {
+  kicker: 'Case study',
+  title: 'How TestOps Hub got built',
+  intro:
+    'The full story behind the flagship — the manual grind that started it, the bet I made, the hard problems I solved, and what it changed.',
+  // one-line teaser surfaced on the flagship panel
+  teaser:
+    'Solo-built in ~3 months of mornings, nights and weekends — an AI-native platform that turns years of scattered QA work into one fast, traceable system. Here’s the whole story.',
+
+  chapters: [
+    {
+      no: '01',
+      eyebrow: 'The problem',
+      title: 'Everything lived in my head — and in years of scattered documents',
+      body: [
+        'A ticket travels from our project manager to a developer, then to our QA lead, who assigns it to a tester like me. The requirements arrive buried in a client email or the ticket itself — often vague, rarely complete.',
+        'From there the work was mine, and manual. Test cases came from what I knew about the system and the right checks to run. To reuse anything, I hand-scanned years of QA documents looking for a relevant case — nothing was linked to anything else, so every search was a test of memory.',
+      ],
+      pains: [
+        { t: 'Hand-scanning the archive', d: 'Years of QA documents, searched by eye every time I needed to reuse a case or reference a past test.' },
+        { t: 'Vague requirements', d: 'Client requirements arrived unclear or incomplete — reconstructing the real intent was on me.' },
+        { t: 'Test creation from scratch', d: 'Writing manual cases and scenarios by hand, ticket after ticket, was slow and repetitive.' },
+        { t: 'Nothing was linked', d: 'Requirements, cases, results and knowledge lived in separate places with no traceability between them.' },
+      ],
+      cost: 'The cost landed squarely on the tester. Developers waited for results; the client waited for the finished product; I absorbed the manual search and authoring — easily 1–2 hours per ticket that never needed to be spent, and every ticket shipped slower for it.',
+      tools: 'We had no Jira, TestRail or Zephyr. Ticketing ran on Trac — an open-source logger that records tickets but does nothing for test design or traceability. Everything past “here is a ticket” was manual.',
+    },
+    {
+      no: '02',
+      eyebrow: 'The bet',
+      title: 'Not another tracker — a personal QA assistant',
+      body: [
+        'The core idea: stop doing by hand what AI does well — extracting requirements, reasoning over them, retrieving the right past work — and wrap it in tools shaped around how testing actually happens on my team.',
+        'Buying a tool would never fit our process. Building it myself let me fold in years of testing judgment, match our real workflow, and keep enhancing it forever. The goal was never a tracker; it was an all-in-one hub for manual testers — with supervision for the QA lead and reports management can act on.',
+      ],
+      quote:
+        'This is more than a tracker. What I built is closer to a personal assistant for testing — one that knows the system, the process, and my own years of documents.',
+    },
+    {
+      no: '03',
+      eyebrow: 'The constraints',
+      title: 'Solo, self-funded, and built around a full-time job',
+      body: [
+        'I build before my 9-to-6 shift, after it, and across the weekend. It’s entirely self-funded: Claude Pro to start, then Max, plus token top-ups and a Netlify subscription when free deploys ran dry. This project is not cheap.',
+        'Because it ingests real QA documents, I cleared data handling with my boss before feeding anything into Cortex, and researched how Claude treats data first. Data safety was a precondition, not an afterthought.',
+      ],
+      stats: [
+        { k: 'Solo', v: 'One builder, start to finish' },
+        { k: '~3 months', v: 'Intensive — a 5–6 month build, compressed' },
+        { k: '6–8 hrs/day', v: 'Before work, after work · 8–12 on weekends' },
+        { k: 'Self-funded', v: 'Claude Max, tokens, hosting — out of pocket' },
+      ],
+      principles: [
+        'Cortex must retrieve accurately — grounded in my own documents, never guesses.',
+        'Extracted requirements pass through review and approval before they become real.',
+        'Premium UX — a tool I actually want to open every day.',
+        'Client data protected end to end.',
+      ],
+    },
+    {
+      no: '04',
+      eyebrow: 'The architecture',
+      title: 'React, Supabase and Claude — each doing one job well',
+      body: [
+        'The mental model is simple. React runs the interface. Supabase is the cloud store, with PostgreSQL underneath and row-level security isolating every user. Claude is both the engine I build with and the reasoning inside the tools — extraction, retrieval, drafting. Embeddings run locally in the browser, so retrieval works without shipping every document to a third party.',
+        'AI is never left to run unchecked. Claude writes code; I review every change, audit for gaps and weaknesses, and fix them. I let it propose enhancements, then decide what earns a place. It drafts documentation; I verify it. Testing my own platform is the loop that keeps it improving — the one skill I already had.',
+      ],
+      decisions: [
+        { t: 'Supabase + PostgreSQL', d: 'Integrates cleanly with the stack and Netlify, with a clear path to a local PostgreSQL deployment on-prem later.' },
+        { t: 'Retrieval-augmented Cortex', d: 'A query returns answers grounded in my own QA artifacts — with real logic tuned for retrieving the right document.' },
+        { t: 'Row-level security', d: 'Per-user isolation enforced in the database itself, not just the UI — 105 policies across the schema.' },
+      ],
+    },
+    {
+      no: '05',
+      eyebrow: 'The core three',
+      title: 'Test Studio, Cortex and Copilot',
+      body: ['Sixteen modules — but three carry the platform: the workspace where tests are authored, the engine where knowledge lives, and the assistant that ties it all together.'],
+      modules: [
+        {
+          name: 'Test Studio',
+          organ: 'Test authoring',
+          shot: 'test-studio-extraction',
+          problem: 'Turning vague requirements into reviewed, traceable test scenarios by hand.',
+          how: 'Paste or upload a requirement; the system extracts requirement candidates for you to review and approve. Approved requirements become scenarios — authored with AI, pulled from a Cortex document, or added by hand — surrounded by defect management, test rounds, multi-database testing, execution runs, versioning, a data library and a live traceability matrix.',
+          wow: 'A built-in chat that explains how each requirement was extracted — you can interrogate the reasoning, not just accept it.',
+        },
+        {
+          name: 'Cortex',
+          organ: 'Knowledge engine',
+          shot: 'cortex-answer',
+          problem: 'Years of QA knowledge trapped in unsearchable documents.',
+          how: 'Ingest documents once; Cortex retrieves the right passages on demand with tuned retrieval logic, presents grounded answers, and shows its work. It carries a knowledge base, an insights tool, and its own evaluation harness.',
+          wow: 'A deterministic golden-set evaluation — measured at 100% top-3 retrieval accuracy with zero AI calls per run — so quality is provable and repeatable, not a vibe.',
+        },
+        {
+          name: 'Copilot Chat',
+          organ: 'AI assistant',
+          shot: 'copilot-answer',
+          problem: 'Context-switching between tools and losing the thread of what the app can even do.',
+          how: 'An app-aware assistant that knows every module and surface — it drafts, answers from your own data, and guides you across the whole platform from a single chat.',
+          wow: 'It understands the entire system, so help is always one message away, wherever you are.',
+        },
+      ],
+    },
+    {
+      no: '06',
+      eyebrow: 'The hard parts',
+      title: 'Where the real engineering went',
+      items: [
+        { t: 'Getting Cortex to 100%', d: 'Retrieval accuracy came from relentless auditing — finding gaps, fixing every weakness, and re-running a golden question set built against the real documents. The evaluation is deterministic (no AI calls, exact matching), so the number holds up under scrutiny; adversarial and integrity test suites guard it.' },
+        { t: '51 automated quality gates', d: 'Every change runs a verify pipeline: 51 contract checks — AI, storage, auth, security, migration-safety, design-system, docs-sync and more — plus lint, unit tests with coverage, a production build, and 55 end-to-end journeys. A failing gate blocks the merge. I test the platform the way I test enterprise software.' },
+        { t: '105 row-level security policies', d: 'Isolation is enforced inside PostgreSQL — each user only ever sees their own rows — so a missed check in the UI can never leak another user’s data. The policies do the guarding; the interface stays simple.' },
+        { t: 'Trustworthy AI costing', d: 'Every tool computed AI cost differently, so the numbers were inaccurate. I built one costing engine in the Admin Console that auto-fetches the correct per-model rate and its peso equivalent, and the Trace Log audits every call — so spend is exact, not estimated.' },
+      ],
+    },
+    {
+      no: '07',
+      eyebrow: 'The payoff',
+      title: 'What changed',
+      body: ['Built the naive way, this platform would underperform badly. Built deliberately, it turned my slowest, most manual work into something fast and repeatable.'],
+      beforeAfter: [
+        { label: 'Testing a ticket, end to end', before: '6–8 hrs', after: '3–6 hrs' },
+        { label: 'Reusing past QA work', before: 'Manual archive scan', after: 'Cortex, instant' },
+        { label: 'Requirement → scenarios', before: 'Written from scratch', after: 'Extracted, reviewed, linked' },
+      ],
+      metrics: [
+        { value: 16, label: 'Modules', note: 'one platform' },
+        { value: 51, label: 'Quality gates', note: 'block every risky merge' },
+        { value: 105, label: 'RLS policies', note: 'per-user isolation' },
+        { value: 100, suffix: '%', label: 'Cortex accuracy', note: 'golden-set, top-3' },
+      ],
+      note: 'Live since early development, used by our five-person QA operation. Test cases generated are well beyond what manual authoring produced — enough that I stopped counting.',
+    },
+    {
+      no: '08',
+      eyebrow: 'What’s next',
+      title: 'From personal tool to company system',
+      body: [
+        'The biggest lesson: integrating many features gracefully — killing redundancy and weakness — is the hard part, harder than any single feature. Solo, it’s demanding and costly. It also showed me how much strong, reusable technology is out there to build on, and how much further I can take it.',
+        'The roadmap is to make it production-ready and bring it in-house: a local PostgreSQL deployment on a dedicated office machine, so TestOps Hub becomes a real tool our company runs on.',
+      ],
+      quote:
+        'It proves I can turn my own manual grind into tools that make the whole team faster — and that I test what I build until it actually holds.',
+    },
+  ],
+}
+
 // The modules of TestOps Hub — each a mini case study card.
 export const modules = [
   {

@@ -1,5 +1,5 @@
-import { Sparkles } from 'lucide-react'
-import { flagship } from '../content/profile'
+import { Sparkles, BookOpen, ArrowRight } from 'lucide-react'
+import { flagship, caseStudy } from '../content/profile'
 import { SectionHeading } from './ui/SectionHeading'
 import { Reveal } from './ui/Reveal'
 import { Metric } from './ui/Metric'
@@ -64,6 +64,26 @@ export function Flagship() {
           </div>
         </SpotlightCard>
         </div>
+
+        {/* bridge into the full case study */}
+        <Reveal delay={0.1}>
+          <a
+            href="#case-study"
+            className="group mt-5 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-2xl p-5 sm:p-6 transition-colors"
+            style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+          >
+            <span className="grid place-items-center h-11 w-11 rounded-xl shrink-0" style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', color: '#fff', boxShadow: '0 8px 22px -10px color-mix(in srgb, var(--accent) 65%, transparent)' }}>
+              <BookOpen size={18} />
+            </span>
+            <p className="flex-1 text-[14px] sm:text-[15px] leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              {caseStudy.teaser}
+            </p>
+            <span className="inline-flex items-center gap-1.5 font-medium text-[14px] whitespace-nowrap" style={{ color: 'var(--accent-text)' }}>
+              Read the case study
+              <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </span>
+          </a>
+        </Reveal>
       </div>
     </section>
   )

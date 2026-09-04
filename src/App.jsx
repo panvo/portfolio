@@ -11,6 +11,7 @@ import { About } from './components/About'
 import { Recognition } from './components/Recognition'
 import { Skills } from './components/Skills'
 import { Flagship } from './components/Flagship'
+import { CaseStudy } from './components/CaseStudy'
 import { Modules } from './components/Modules'
 import { Tour } from './components/Tour'
 import { Experience } from './components/Experience'
@@ -35,6 +36,7 @@ export default function App() {
         <Recognition />
         <Skills />
         <Flagship />
+        <CaseStudy />
         <Modules />
         <Tour />
         <Experience />
