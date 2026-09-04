@@ -101,7 +101,7 @@ export function Contact() {
                 </span>
                 <div>
                   <h3 className="font-display font-semibold text-lg tracking-tight leading-tight">Send a message</h3>
-                  <p className="text-[13px] mt-0.5" style={{ color: 'var(--text-faint)' }}>Fill it in — it lands straight in my inbox.</p>
+                  <p className="text-[13px] mt-0.5" style={{ color: 'var(--text-faint)' }}>A few lines is enough — I’ll reply soon.</p>
                 </div>
               </div>
               <Field label="Name" value={form.name} onChange={set('name')} placeholder="Your name" required />

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { Home, FolderKanban, Briefcase, Wrench, BadgeCheck, Mail, Sun, Moon } from 'lucide-react'
+import { Home, User, Wrench, FolderKanban, MonitorPlay, Briefcase, BadgeCheck, Mail, Sun, Moon } from 'lucide-react'
 
 const links = [
   { href: '#top', label: 'Home', Icon: Home },
-  { href: '#work', label: 'Work', Icon: FolderKanban },
-  { href: '#experience', label: 'Experience', Icon: Briefcase },
+  { href: '#about', label: 'About', Icon: User },
   { href: '#skills', label: 'Skills', Icon: Wrench },
+  { href: '#work', label: 'Flagship', Icon: FolderKanban },
+  { href: '#tour', label: 'Tour', Icon: MonitorPlay },
+  { href: '#experience', label: 'Experience', Icon: Briefcase },
   { href: '#certifications', label: 'Certifications', Icon: BadgeCheck },
   { href: '#contact', label: 'Contact', Icon: Mail },
 ]
@@ -64,7 +66,7 @@ export function Nav({ theme, toggle }) {
         style={{ top: 'calc(env(safe-area-inset-top, 0px) + 1.25rem)' }}
       >
         <div
-          className="flex items-center gap-1 rounded-full p-1.5"
+          className="flex items-center gap-0.5 sm:gap-1 rounded-full p-1 sm:p-1.5"
           style={{
             background: 'color-mix(in srgb, var(--bg) 94%, transparent)',
             border: '1px solid var(--border-strong)',
@@ -81,7 +83,7 @@ export function Nav({ theme, toggle }) {
                 href={href}
                 aria-label={label}
                 title={label}
-                className="relative grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-full transition-colors"
+                className="relative grid place-items-center h-8 w-8 sm:h-10 sm:w-10 rounded-full transition-colors"
                 style={{ color: on ? 'var(--bg)' : 'var(--text-muted)' }}
               >
                 {on && (
@@ -101,12 +103,12 @@ export function Nav({ theme, toggle }) {
 
           {/* divider + theme toggle — inside the pill so it never collides with
               the bar on narrow screens */}
-          <span className="w-px h-5 mx-0.5 sm:mx-1 shrink-0" style={{ background: 'var(--border)' }} />
+          <span className="w-px h-5 mx-0 sm:mx-0.5 shrink-0" style={{ background: 'var(--border)' }} />
           <button
             onClick={toggle}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             title="Toggle theme"
-            className="relative grid place-items-center h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden transition-colors shrink-0"
+            className="relative grid place-items-center h-8 w-8 sm:h-10 sm:w-10 rounded-full overflow-hidden transition-colors shrink-0"
             style={{ color: 'var(--text-muted)' }}
           >
             <motion.span

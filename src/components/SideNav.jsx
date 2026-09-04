@@ -5,7 +5,6 @@ const items = [
   { href: '#about', label: 'About' },
   { href: '#skills', label: 'Skills' },
   { href: '#work', label: 'Flagship' },
-  { href: '#case-study', label: 'Case study' },
   { href: '#tour', label: 'Tour' },
   { href: '#experience', label: 'Experience' },
   { href: '#certifications', label: 'Certifications' },

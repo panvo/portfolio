@@ -50,7 +50,7 @@ export const about = {
   kicker: 'Who I am',
   paragraphs: [
     'My work lives at the intersection of requirements analysis, test-case design, and SQL-based backend validation across Microsoft SQL Server and Oracle. I partner closely with developers and stakeholders to reproduce issues, validate business rules, and protect software reliability and data integrity.',
-    'Consistently recognized as a top-performing QA professional, I’m now channeling that experience into TestOps Hub — an internal platform that reimagines test design, requirements analysis, knowledge management, and AI-assisted testing.',
+    'That experience now goes into TestOps Hub — an internal platform that reimagines test design, requirements analysis, knowledge management, and AI-assisted testing.',
     'What drives me is the system around the testing: turning fragmented docs and repetitive manual work into repeatable, traceable, well-documented workflows — so quality is built in, not bolted on.',
   ],
   // At-a-glance facts (all true, from experience + education)
@@ -68,9 +68,9 @@ export const about = {
 
 // ── Recognition (a premium pull-quote band) ───────────────────
 export const recognition = {
-  quote: 'Consistently recognized as a top-performing QA professional.',
+  quote: 'Nine years protecting enterprise software that ships to real clients.',
   context:
-    'Across 9+ years hardening enterprise software at Austin Alba Consulting — in Agile/Scrum teams shipping to real clients.',
+    'At Austin Alba Consulting, in Agile/Scrum teams — with the academic, civil-service and security credentials below to back the work.',
   highlights: [
     { label: 'Cum Laude', sub: 'BS Information Technology · GWA 1.73' },
     { label: 'Civil Service Eligible', sub: 'PD 907 · Civil Service Commission' },
@@ -136,16 +136,16 @@ export const caseStudy = {
     {
       no: '03',
       eyebrow: 'The constraints',
-      title: 'Solo, self-funded, and built around a full-time job',
+      title: 'Built solo, in the hours around a full-time job',
       body: [
-        'I build before my 9-to-6 shift, after it, and across the weekend. It’s entirely self-funded: Claude Pro to start, then Max, plus token top-ups and a Netlify subscription when free deploys ran dry. This project is not cheap.',
-        'Because it ingests real QA documents, I cleared data handling with my boss before feeding anything into Cortex, and researched how Claude treats data first. Data safety was a precondition, not an afterthought.',
+        'It’s a personal project I took on in my own time — before my 9-to-6 shift, after it, and across the weekend. A lot of hours, put in because I wanted it to exist.',
+        'Because it ingests real QA documents, I cleared data handling with my manager before anything went into Cortex, and looked into how Claude treats data first. Keeping our information safe came before any feature.',
       ],
       stats: [
         { k: 'Solo', v: 'One builder, start to finish' },
         { k: '~3 months', v: 'Intensive — a 5–6 month build, compressed' },
-        { k: '6–8 hrs/day', v: 'Before work, after work · 8–12 on weekends' },
-        { k: 'Self-funded', v: 'Claude Max, tokens, hosting — out of pocket' },
+        { k: '6–8 hrs/day', v: 'Around work · more on weekends' },
+        { k: 'Personal time', v: 'A project I chose to take on' },
       ],
       principles: [
         'Cortex must retrieve accurately — grounded in my own documents, never guesses.',
@@ -188,7 +188,7 @@ export const caseStudy = {
           shot: 'cortex-answer',
           problem: 'Years of QA knowledge trapped in unsearchable documents.',
           how: 'Ingest documents once; Cortex retrieves the right passages on demand with tuned retrieval logic, presents grounded answers, and shows its work. It carries a knowledge base, an insights tool, and its own evaluation harness.',
-          wow: 'A deterministic golden-set evaluation — measured at 100% top-3 retrieval accuracy with zero AI calls per run — so quality is provable and repeatable, not a vibe.',
+          wow: 'A built-in evaluation harness that scores retrieval against a golden question set — deterministically, with no AI calls — so accuracy stays measured and repeatable, not assumed.',
         },
         {
           name: 'Copilot Chat',
@@ -203,9 +203,9 @@ export const caseStudy = {
     {
       no: '06',
       eyebrow: 'The hard parts',
-      title: 'Where the real engineering went',
+      title: 'Where the engineering got hard',
       items: [
-        { t: 'Getting Cortex to 100%', d: 'Retrieval accuracy came from relentless auditing — finding gaps, fixing every weakness, and re-running a golden question set built against the real documents. The evaluation is deterministic (no AI calls, exact matching), so the number holds up under scrutiny; adversarial and integrity test suites guard it.' },
+        { t: 'Tuning Cortex retrieval', d: 'I treated it like any critical feature — audit, find where it returned the wrong passage, fix, and re-check against a golden question set (generated, then reviewed and adjusted by hand). The evaluation runs deterministically — no AI calls, exact matching — so the score is repeatable, and adversarial and integrity suites keep it honest. On that set it lands the right document in the top three every time.' },
         { t: '51 automated quality gates', d: 'Every change runs a verify pipeline: 51 contract checks — AI, storage, auth, security, migration-safety, design-system, docs-sync and more — plus lint, unit tests with coverage, a production build, and 55 end-to-end journeys. A failing gate blocks the merge. I test the platform the way I test enterprise software.' },
         { t: '105 row-level security policies', d: 'Isolation is enforced inside PostgreSQL — each user only ever sees their own rows — so a missed check in the UI can never leak another user’s data. The policies do the guarding; the interface stays simple.' },
         { t: 'Trustworthy AI costing', d: 'Every tool computed AI cost differently, so the numbers were inaccurate. I built one costing engine in the Admin Console that auto-fetches the correct per-model rate and its peso equivalent, and the Trace Log audits every call — so spend is exact, not estimated.' },
@@ -238,7 +238,7 @@ export const caseStudy = {
         'The roadmap is to make it production-ready and bring it in-house: a local PostgreSQL deployment on a dedicated office machine, so TestOps Hub becomes a real tool our company runs on.',
       ],
       quote:
-        'It proves I can turn my own manual grind into tools that make the whole team faster — and that I test what I build until it actually holds.',
+        'More than anything, it shows I can turn my own manual grind into tools that make the team faster — and that I test what I build until it holds.',
     },
   ],
 }
@@ -312,7 +312,7 @@ export const timeline = [
     duration: '9 yrs 2 mos',
     location: 'Makati City, Philippines',
     summary:
-      'Analyze requirements to identify scenarios, risks and coverage, then design, maintain, and run functional, regression, exploratory, GUI and database test cases for complex enterprise web applications. Validate backend data and transactions across Microsoft SQL Server and Oracle, prepare SQL scripts, test data and technical/user documentation, and drive client-reported defects to closure with developers — consistently recognized as a top-performing QA professional in an Agile/Scrum team.',
+      'Analyze requirements to identify scenarios, risks and coverage, then design, maintain, and run functional, regression, exploratory, GUI and database test cases for complex enterprise web applications. Validate backend data and transactions across Microsoft SQL Server and Oracle, prepare SQL scripts, test data and technical/user documentation, and drive client-reported defects to closure with developers, working in an Agile/Scrum team.',
     tags: ['Functional & Regression', 'SQL Server', 'Oracle', 'Trac', 'TortoiseSVN', 'SharePoint', 'Agile/Scrum'],
     now: true,
   },
@@ -474,7 +474,7 @@ export const skillHighlights = [
 export const tour = {
   kicker: 'Product tour',
   title: 'Inside TestOps Hub',
-  sub: 'Ten real modules from the platform — pick one to see it. From an AI knowledge engine and an app-aware copilot to team governance, delivery, and API testing.',
+  sub: 'Sixteen real modules from the platform — pick one to see it. From an AI knowledge engine and an app-aware copilot to team governance, delivery, and API testing.',
 }
 
 // Interactive showcase — each module has a gallery of real screenshots
