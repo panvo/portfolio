@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
+import { Home, User, Wrench, FolderKanban, MonitorPlay, Briefcase, BadgeCheck, Mail } from 'lucide-react'
 
 const items = [
-  { href: '#top', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#work', label: 'Flagship' },
-  { href: '#tour', label: 'Tour' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#certifications', label: 'Certifications' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#top', label: 'Home', Icon: Home },
+  { href: '#about', label: 'About', Icon: User },
+  { href: '#skills', label: 'Skills', Icon: Wrench },
+  { href: '#work', label: 'Flagship', Icon: FolderKanban },
+  { href: '#tour', label: 'Tour', Icon: MonitorPlay },
+  { href: '#experience', label: 'Experience', Icon: Briefcase },
+  { href: '#certifications', label: 'Certifications', Icon: BadgeCheck },
+  { href: '#contact', label: 'Contact', Icon: Mail },
 ]
 
-/** Vertical section dots (desktop) — scroll-spy active state + labels on hover. */
+/** Vertical section rail (desktop) — small icons, scroll-spy active state, label on hover. */
 export function SideNav() {
   const [active, setActive] = useState('#top')
 
@@ -25,21 +26,25 @@ export function SideNav() {
   }, [])
 
   return (
-    <nav className="hidden lg:flex fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3.5" aria-label="Section navigation">
-      {items.map((it) => {
-        const on = active === it.href
+    <nav className="hidden lg:flex fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-1" aria-label="Section navigation">
+      {items.map(({ href, label, Icon }) => {
+        const on = active === href
         return (
-          <a key={it.href} href={it.href} className="group flex items-center gap-2.5 justify-end" aria-label={it.label} title={it.label}>
+          <a key={href} href={href} className="group flex items-center gap-2 justify-end" aria-label={label} title={label}>
             <span
-              className="text-[11px] font-mono opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0"
-              style={{ color: on ? 'var(--accent-text)' : 'var(--text-faint)' }}
+              className="text-[11px] font-mono px-2 py-1 rounded-md opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 whitespace-nowrap"
+              style={{ color: on ? 'var(--accent-text)' : 'var(--text)', background: 'var(--surface)', border: '1px solid var(--border)' }}
             >
-              {it.label}
+              {label}
             </span>
             <span
-              className="rounded-full transition-all duration-300"
-              style={on ? { width: 10, height: 10, background: 'var(--accent)' } : { width: 7, height: 7, background: 'var(--border-strong)' }}
-            />
+              className={`grid place-items-center h-8 w-8 rounded-lg transition-colors duration-200 ${
+                on ? '' : 'text-[color:var(--text-faint)] group-hover:text-[color:var(--text)]'
+              }`}
+              style={on ? { background: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--accent)' } : undefined}
+            >
+              <Icon size={16} />
+            </span>
           </a>
         )
       })}
