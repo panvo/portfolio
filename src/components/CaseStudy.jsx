@@ -25,14 +25,28 @@ export function CaseStudy() {
       <div className="shell">
         <SectionHeading kicker={caseStudy.kicker} title={caseStudy.title} sub={caseStudy.intro} />
 
-        {/* jump chips — teleport the skimmers */}
+        {/* TL;DR + jump chips — for skimmers */}
         <Reveal>
-          <div className="flex flex-wrap gap-2 -mt-6 mb-12 sm:mb-14">
-            {JUMPS.map((j) => (
-              <a key={j.no} href={'#cs-' + j.no} className="chip !text-[12.5px]" style={{ color: 'var(--text-muted)' }}>
-                {j.label}
-              </a>
-            ))}
+          <div className="-mt-6 mb-10 sm:mb-12">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4 max-w-2xl text-[13.5px]">
+              <span className="font-mono shrink-0" style={{ color: 'var(--accent-text)' }}>{caseStudy.readingTime}</span>
+              <span style={{ color: 'var(--text-faint)' }}>·</span>
+              <span className="leading-relaxed" style={{ color: 'var(--text-muted)' }}>{caseStudy.tldr}</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {JUMPS.map((j) => (
+                <a
+                  key={j.no}
+                  href={'#cs-' + j.no}
+                  className="chip !text-[12.5px] transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ color: 'var(--text-muted)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-text)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                >
+                  {j.label}
+                </a>
+              ))}
+            </div>
           </div>
         </Reveal>
 
@@ -266,9 +280,9 @@ function Payoff({ data }) {
       <div className="mt-8 flex flex-col gap-2.5 max-w-2xl">
         {data.beforeAfter.map((b, i) => (
           <Reveal key={b.label} delay={i * 0.06}>
-            <div className="grid grid-cols-[1fr_auto] items-center gap-3 sm:gap-5 card p-4" style={{ background: 'var(--surface-2)' }}>
+            <div className="flex flex-col sm:grid sm:grid-cols-[1fr_auto] sm:items-center gap-1.5 sm:gap-5 card p-4" style={{ background: 'var(--surface-2)' }}>
               <span className="text-[14px] font-medium" style={{ color: 'var(--text)' }}>{b.label}</span>
-              <span className="flex items-center gap-2 sm:gap-3 text-[13px] sm:text-[13.5px] font-mono justify-end text-right">
+              <span className="flex items-center gap-2 sm:gap-3 text-[13px] sm:text-[13.5px] font-mono justify-start sm:justify-end text-left sm:text-right">
                 <span style={{ color: 'var(--text-faint)', textDecoration: 'line-through', textDecorationColor: 'var(--border-strong)' }}>{b.before}</span>
                 <ArrowRight size={14} style={{ color: 'var(--accent)' }} className="shrink-0" />
                 <span style={{ color: 'var(--accent-text)' }}>{b.after}</span>

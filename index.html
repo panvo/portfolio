@@ -63,6 +63,43 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <!-- preload the hero portrait (LCP) -->
+    <link rel="preload" as="image" href="/portrait.webp" fetchpriority="high" />
+
+    <!-- Structured data — helps search engines and recruiter tools parse the profile -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jhon Rey Bañaga",
+        "jobTitle": "QA Engineer · Software Tester",
+        "url": "https://jrb-portfolio.netlify.app/",
+        "image": "https://jrb-portfolio.netlify.app/og.png",
+        "description": "Software Tester with 9+ years hardening enterprise web applications through manual, functional, regression and database testing. Creator of TestOps Hub, an AI-native QA platform.",
+        "worksFor": { "@type": "Organization", "name": "Austin Alba Consulting, Inc." },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Tarlac State University" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paniqui",
+          "addressRegion": "Central Luzon",
+          "addressCountry": "PH"
+        },
+        "knowsAbout": [
+          "Software Quality Assurance",
+          "Manual Testing",
+          "Functional Testing",
+          "Regression Testing",
+          "Database Testing",
+          "Requirements Analysis",
+          "Test Design",
+          "Microsoft SQL Server",
+          "Oracle",
+          "AI-Assisted Testing"
+        ],
+        "sameAs": ["https://www.linkedin.com/in/panvo/", "https://github.com/panvo"]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -25,11 +25,12 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
     <div className="relative min-h-screen">
+      <a href="#top" className="skip-link">Skip to content</a>
       <Background />
       <CursorGlow />
       <SideNav />
       <Nav theme={theme} toggle={toggle} />
-      <main>
+      <main id="main">
         <Hero />
         <Marquee />
         <About />

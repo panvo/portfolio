@@ -136,7 +136,16 @@ function ProfileCard() {
       {/* portrait — save your photo to /public/portrait.jpg; it loads with a natural color grade + soft vignette */}
       <div className="duotone-wrap rounded-[18px] overflow-hidden aspect-[4/5] grid place-items-center">
         {imgOk ? (
-          <img src="/portrait.jpg" alt={profile.name} className="duotone-img" onError={() => setImgOk(false)} />
+          <img
+            src="/portrait.webp"
+            alt={`${profile.name} — ${profile.role}`}
+            className="duotone-img"
+            width="820"
+            height="1172"
+            fetchpriority="high"
+            decoding="async"
+            onError={() => setImgOk(false)}
+          />
         ) : (
           <span className="font-display font-bold text-7xl" style={{ color: 'rgba(0,0,0,0.55)' }}>JR</span>
         )}

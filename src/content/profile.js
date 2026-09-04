@@ -103,6 +103,9 @@ export const caseStudy = {
   // one-line teaser surfaced on the flagship panel
   teaser:
     'Solo-built in ~3 months of mornings, nights and weekends — an AI-native platform that turns years of scattered QA work into one fast, traceable system. Here’s the whole story.',
+  readingTime: '~5 min read',
+  tldr:
+    'The short version: a solo, AI-native QA platform that turned years of scattered manual testing into one fast, traceable, measured system — 16 modules, tested like enterprise software.',
 
   chapters: [
     {
