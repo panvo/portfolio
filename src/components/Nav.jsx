@@ -60,7 +60,8 @@ export function Nav({ theme, toggle }) {
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-5 left-1/2 -translate-x-1/2 z-50"
+        className="fixed left-1/2 -translate-x-1/2 z-50"
+        style={{ top: 'calc(env(safe-area-inset-top, 0px) + 1.25rem)' }}
       >
         <div
           className="flex items-center gap-1 rounded-full p-1.5"

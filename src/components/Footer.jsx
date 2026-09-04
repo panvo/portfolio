@@ -16,7 +16,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="border-t pt-14 pb-10" style={{ borderColor: 'var(--border)' }}>
+    <footer className="border-t pt-14 pb-10" style={{ borderColor: 'var(--border)', paddingBottom: 'calc(2.5rem + env(safe-area-inset-bottom, 0px))' }}>
       <div className="shell">
         <Reveal>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">

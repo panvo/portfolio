@@ -1,0 +1,33 @@
+{
+  "name": "Jhon Rey Bañaga — QA Engineer & Software Tester",
+  "short_name": "JRB Portfolio",
+  "description": "Software Tester with 9+ years in manual, functional & database testing. Creator of TestOps Hub, an AI-native QA platform.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0a0d",
+  "theme_color": "#0a0a0d",
+  "categories": ["portfolio", "productivity", "business"],
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    { "src": "/icons/icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "The flagship — TestOps Hub",
+      "short_name": "Flagship",
+      "url": "/?source=pwa#work",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Get in touch",
+      "short_name": "Contact",
+      "url": "/?source=pwa#contact",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

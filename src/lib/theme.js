@@ -13,6 +13,9 @@ export function useTheme() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
     document.documentElement.style.colorScheme = theme
+    // keep the browser UI (address bar / PWA status bar) in sync with the theme
+    const meta = document.getElementById('theme-color-meta')
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f5f4ef' : '#0a0a0d')
     try {
       localStorage.setItem(KEY, theme)
     } catch {}
