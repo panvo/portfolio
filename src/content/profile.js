@@ -13,9 +13,9 @@ export const profile = {
   // The big hero statement. Keep it punchy.
   headline: [
     'I make complex software',
-    'impossible to break —',
+    'harder to break —',
     'and build the AI tools',
-    'that keep it that way.',
+    'that keep it reliable.',
   ],
 
   // One-liner under the headline.
