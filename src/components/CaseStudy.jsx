@@ -72,8 +72,8 @@ function Chapter({ c, last }) {
         <motion.span
           className="font-display font-semibold leading-none text-5xl sm:text-6xl"
           style={{ color: 'var(--accent-text)', opacity: 0.9 }}
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 0.9, y: 0 }}
+          initial={{ y: 14 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: EASE }}
         >

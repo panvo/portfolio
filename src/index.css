@@ -77,18 +77,9 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
-/* Viewers who ask for reduced motion get the full design, minus the movement.
-   Framer components respect the same signal via <MotionConfig reducedMotion="user">. */
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto !important;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    scroll-behavior: auto;
   }
 }
 

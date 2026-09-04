@@ -1,4 +1,3 @@
-import { MotionConfig } from 'framer-motion'
 import { useTheme } from './lib/theme'
 import { useSmoothScroll } from './lib/useSmoothScroll'
 import { Background } from './components/Background'
@@ -23,7 +22,6 @@ export default function App() {
   const { theme, toggle } = useTheme()
   useSmoothScroll()
   return (
-    <MotionConfig reducedMotion="user">
     <div className="relative min-h-screen">
       <a href="#top" className="skip-link">Skip to content</a>
       <Background />
@@ -46,6 +44,5 @@ export default function App() {
       </main>
       <Footer />
     </div>
-    </MotionConfig>
   )
 }
