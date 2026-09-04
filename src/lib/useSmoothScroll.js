@@ -3,11 +3,13 @@ import Lenis from 'lenis'
 
 /**
  * Buttery momentum scrolling via Lenis. Routes in-page anchor clicks through
- * Lenis so nav jumps ease instead of snapping. Motion-first — always on, by
- * owner's choice (previously disabled under prefers-reduced-motion).
+ * Lenis so nav jumps ease instead of snapping. Disabled when the viewer asks
+ * for reduced motion — native anchor jumps still work, instantly.
  */
 export function useSmoothScroll() {
   useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

@@ -1,8 +1,8 @@
+import { MotionConfig } from 'framer-motion'
 import { useTheme } from './lib/theme'
 import { useSmoothScroll } from './lib/useSmoothScroll'
 import { Background } from './components/Background'
 import { CursorGlow } from './components/CursorGlow'
-import { CustomCursor } from './components/CustomCursor'
 import { SideNav } from './components/SideNav'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
@@ -23,10 +23,10 @@ export default function App() {
   const { theme, toggle } = useTheme()
   useSmoothScroll()
   return (
+    <MotionConfig reducedMotion="user">
     <div className="relative min-h-screen">
       <Background />
       <CursorGlow />
-      <CustomCursor />
       <SideNav />
       <Nav theme={theme} toggle={toggle} />
       <main>
@@ -45,5 +45,6 @@ export default function App() {
       </main>
       <Footer />
     </div>
+    </MotionConfig>
   )
 }

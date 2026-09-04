@@ -77,9 +77,18 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+/* Viewers who ask for reduced motion get the full design, minus the movement.
+   Framer components respect the same signal via <MotionConfig reducedMotion="user">. */
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
 
@@ -218,52 +227,6 @@ textarea::placeholder {
 @media (hover: hover) and (pointer: fine) {
   .cursor-glow.on {
     opacity: 1;
-  }
-}
-
-/* Custom cursor — precise dot + spring-trailing ring (fine pointers only) */
-.cc-dot,
-.cc-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 120;
-  display: none;
-}
-.cc-dot {
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
-  background: var(--accent);
-}
-.cc-ring {
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
-  border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
-  transition: width 0.22s, height 0.22s, margin 0.22s, background-color 0.22s, border-color 0.22s, opacity 0.18s;
-}
-.cc-ring--active {
-  width: 54px;
-  height: 54px;
-  margin: -27px 0 0 -27px;
-  background: color-mix(in srgb, var(--accent) 9%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 70%, transparent);
-}
-.cc-ring--down {
-  opacity: 0.55;
-}
-@media (hover: hover) and (pointer: fine) {
-  *,
-  *::before,
-  *::after {
-    cursor: none !important;
-  }
-  .cc-dot,
-  .cc-ring {
-    display: block;
   }
 }
 

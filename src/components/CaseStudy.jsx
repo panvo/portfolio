@@ -10,11 +10,31 @@ import { Metric } from './ui/Metric'
 const EASE = [0.16, 1, 0.3, 1]
 const organIcons = { 'Test Studio': FlaskConical, Cortex: Library, 'Copilot Chat': Bot }
 
+// quick-jump chips for skimmers (a curated subset of the eight chapters)
+const JUMPS = [
+  { no: '01', label: 'The problem' },
+  { no: '02', label: 'The bet' },
+  { no: '04', label: 'Architecture' },
+  { no: '05', label: 'The core three' },
+  { no: '07', label: 'Results' },
+]
+
 export function CaseStudy() {
   return (
     <section id="case-study" className="py-20 sm:py-24 scroll-mt-24 border-t" style={{ borderColor: 'var(--border)' }}>
       <div className="shell">
         <SectionHeading kicker={caseStudy.kicker} title={caseStudy.title} sub={caseStudy.intro} />
+
+        {/* jump chips — teleport the skimmers */}
+        <Reveal>
+          <div className="flex flex-wrap gap-2 -mt-6 mb-12 sm:mb-14">
+            {JUMPS.map((j) => (
+              <a key={j.no} href={'#cs-' + j.no} className="chip !text-[12.5px]" style={{ color: 'var(--text-muted)' }}>
+                {j.label}
+              </a>
+            ))}
+          </div>
+        </Reveal>
 
         <div className="flex flex-col">
           {caseStudy.chapters.map((c, i) => (
@@ -29,7 +49,8 @@ export function CaseStudy() {
 function Chapter({ c, last }) {
   return (
     <div
-      className="grid lg:grid-cols-[132px_1fr] gap-5 lg:gap-12 border-t pt-10 sm:pt-12"
+      id={'cs-' + c.no}
+      className="grid lg:grid-cols-[132px_1fr] gap-5 lg:gap-12 border-t pt-10 sm:pt-12 scroll-mt-24"
       style={{ borderColor: 'var(--border)', paddingBottom: last ? 0 : '2.75rem' }}
     >
       {/* rail: number + eyebrow */}
