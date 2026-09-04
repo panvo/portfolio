@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Send, Check, Loader2, Maximize2, X } from 'lucide-react'
+import { Send, Check, Loader2, Maximize2, X, Download } from 'lucide-react'
 import { profile } from '../content/profile'
 import { sendMessage, hasSupabase } from '../lib/supabase'
 import { Reveal, MaskText } from './ui/Reveal'
@@ -77,6 +77,17 @@ export function Contact() {
                 </span>
                 Use the form — it lands straight in my inbox.
               </p>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <a
+                href={profile.resumeUrl}
+                download={profile.resumeName}
+                className="btn btn-ghost mt-6"
+                aria-label="Download résumé (PDF)"
+              >
+                <Download size={16} /> Download résumé
+              </a>
             </Reveal>
 
           </div>

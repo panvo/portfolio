@@ -27,6 +27,10 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/panvo/',
   github: 'https://github.com/panvo',
 
+  // Résumé — drop the PDF at public/resume.pdf; buttons link here.
+  resumeUrl: '/resume.pdf',
+  resumeName: 'Jhon-Rey-Banaga-QA-Resume.pdf',
+
   // Hero stats — career-level (platform-specific numbers live in the flagship panel, no overlap)
   stats: [
     { value: 9, label: 'Years in QA' },

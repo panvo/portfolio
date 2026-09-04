@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin } from 'lucide-react'
+import { Flame, Linkedin, Mail, Github, ArrowUpRight, Layers, Boxes, MapPin, Download } from 'lucide-react'
 import { profile, heroCards } from '../content/profile'
 import { useCountUp } from '../lib/hooks'
 import { Magnetic } from './ui/Magnetic'
@@ -67,6 +67,23 @@ export function Hero() {
             <motion.p variants={rise} className="mt-7 max-w-xl text-[15px] sm:text-lg leading-relaxed" style={{ color: 'var(--text-muted)' }}>
               {profile.intro}
             </motion.p>
+
+            {/* CTAs */}
+            <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-3">
+              <Magnetic strength={0.12}>
+                <a
+                  href={profile.resumeUrl}
+                  download={profile.resumeName}
+                  className="btn btn-primary"
+                  aria-label="Download résumé (PDF)"
+                >
+                  <Download size={17} /> Download résumé
+                </a>
+              </Magnetic>
+              <a href="#contact" className="btn btn-ghost">
+                Get in touch <ArrowUpRight size={16} />
+              </a>
+            </motion.div>
 
             {/* stats */}
             <motion.div variants={rise} className="mt-9 flex flex-wrap gap-x-12 gap-y-6">
