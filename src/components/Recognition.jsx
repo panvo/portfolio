@@ -20,10 +20,10 @@ export function Recognition() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <blockquote className="relative font-display text-[1.7rem] sm:text-4xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.18]">
+            <blockquote className="font-display text-[1.7rem] sm:text-4xl md:text-[2.5rem] font-semibold tracking-tight leading-[1.18]">
               <span
-                className="absolute -top-5 left-1/2 -translate-x-1/2 text-6xl leading-none select-none pointer-events-none"
-                style={{ color: 'color-mix(in srgb, var(--accent) 26%, transparent)', fontFamily: 'Georgia, "Times New Roman", serif' }}
+                className="block text-5xl sm:text-6xl leading-none mb-3 select-none pointer-events-none"
+                style={{ color: 'color-mix(in srgb, var(--accent) 28%, transparent)', fontFamily: 'Georgia, "Times New Roman", serif' }}
                 aria-hidden="true"
               >
                 &ldquo;
